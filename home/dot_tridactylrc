@@ -1,0 +1,7 @@
+set editorcmd kitty nvim
+
+# Binds
+bind gd tabdetach
+
+# Aliases
+alias e editor

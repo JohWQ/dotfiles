@@ -1,0 +1,66 @@
+{
+    "apps": [
+        {
+            "auto-detach": true,
+            "exclude-global-prep-cmd": false,
+            "exit-timeout": 5,
+            "image-path": "desktop.png",
+            "name": "Desktop",
+            "prep-cmd": [
+                {
+                    "do": "python3 -c \"import os, subprocess, time; subprocess.run(['niri', 'msg', 'output', 'HDMI-A-1', 'on']); time.sleep(0.5); scale = 3840 / int(os.environ['SUNSHINE_CLIENT_WIDTH']); subprocess.run(['niri', 'msg', 'output', 'HDMI-A-1', 'scale', str(scale)])\"",
+                    "undo": "niri msg output DP-2 on"
+                },
+                {
+                    "do": "niri msg output DP-2 off",
+                    "undo": "niri msg output DP-3 on"
+                },
+                {
+                    "do": "niri msg output DP-3 off",
+                    "undo": "niri msg output HDMI-A-1 off"
+                }
+            ],
+            "wait-all": true
+        },
+        {
+            "auto-detach": true,
+            "exclude-global-prep-cmd": false,
+            "exit-timeout": 5,
+            "image-path": "",
+            "name": "Low Res Desktop (Not work)",
+            "wait-all": true
+        },
+        {
+            "auto-detach": true,
+            "detached": [
+                "setsid steam steam://open/bigpicture"
+            ],
+            "exclude-global-prep-cmd": false,
+            "exit-timeout": 5,
+            "image-path": "steam.png",
+            "name": "Steam Big Picture",
+            "prep-cmd": [
+                {
+                    "do": "python3 -c \"import os, subprocess, time; subprocess.run(['niri', 'msg', 'output', 'HDMI-A-1', 'on']); time.sleep(0.5); scale = 3840 / int(os.environ['SUNSHINE_CLIENT_WIDTH']); subprocess.run(['niri', 'msg', 'output', 'HDMI-A-1', 'scale', str(scale)])\"",
+                    "undo": "niri msg output DP-2 on"
+                },
+                {
+                    "do": "niri msg output DP-2 off",
+                    "undo": "niri msg output DP-3 on"
+                },
+                {
+                    "do": "niri msg output DP-3 off",
+                    "undo": "niri msg output HDMI-A-1 off"
+                },
+                {
+                    "do": "",
+                    "undo": "setsid steam steam://close/bigpicture"
+                }
+            ],
+            "wait-all": true
+        }
+    ],
+    "env": {
+        "PATH": "$(PATH):$(HOME)/.local/bin"
+    }
+}

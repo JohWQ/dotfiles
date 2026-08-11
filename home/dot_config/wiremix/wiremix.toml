@@ -1,0 +1,42 @@
+fps = 60.0
+
+keybindings = [
+  # Select the next tab
+  { key = "Tab", action = "TabRight" },
+  # Select the previous tab
+  { key = "BackTab", modifiers = "SHIFT", action = "TabLeft" },
+  { key = { Char = "1"}, modifiers = "ALT", action = { SelectTab = 0 } },
+  { key = { Char = "2"}, modifiers = "ALT", action = { SelectTab = 1 } },
+  { key = { Char = "3"}, modifiers = "ALT", action = { SelectTab = 2 } },
+  { key = { Char = "4"}, modifiers = "ALT", action = { SelectTab = 3 } },
+  { key = { Char = "5"}, modifiers = "ALT", action = { SelectTab = 4 } },
+  # Volume Control
+  { key = { Char = "h"}, modifiers = "SHIFT", action = { SetRelativeVolume = -0.10 } },
+  { key = { Char = "l"}, modifiers = "SHIFT", action = { SetRelativeVolume = 0.10 } },
+  { key = { Char = "h"}, modifiers = "CONTROL", action = { SetRelativeVolume = -0.20 } },
+  { key = { Char = "l"}, modifiers = "CONTROL", action = { SetRelativeVolume = 0.20 } },
+]
+
+
+# Use pw-dump & extract details of your player:
+[[names.overrides]]
+types = [ "stream" ]
+matches = [ { "application.icon-name" = "chromium-browser", "application.process.binary" = "electron" } ]
+# # Templates to use when the property value matches
+templates = [ "Youtube-Music: {media.name}" ]
+
+[[names.overrides]]
+types = [ "stream" ]
+matches = [ { "node.name" = "mpd.PipeWire Sound Server" } ]
+templates = [ "RMPC: {media.name}" ]
+
+# The override order is important!
+#[[names.overrides]]
+#types = [ "stream" ]
+#matches = [ { "node.name" = "Chromium" } ]
+#templates = [ "{node:node.name}: Playback" ]
+
+#[[names.overrides]]
+#types = [ "stream" ]
+#matches = [ { "media.name" = "!null" } ]
+#templates = [ "{node:node.name}: {media.name}: Playing" ]

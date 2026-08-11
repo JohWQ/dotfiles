@@ -1,0 +1,8 @@
+xorg-xhost
+github-cli
+firefox-tridactyl
+lazygit
+cava
+mpd
+mpd-mpris
+rmpc

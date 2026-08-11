@@ -1,0 +1,97 @@
+[[plugin.deps]]
+use = "yazi-rs/plugins:chmod"
+rev = "0be29a9"
+hash = "5b1c276b75cae91cbbdbe7863f39a540"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:zoom"
+rev = "0be29a9"
+hash = "e8e279463ee99c940e6945a14cf4aa9e"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:toggle-pane"
+rev = "0be29a9"
+hash = "15e5b67a241172cbb86b8fbf9e63692"
+
+[[plugin.deps]]
+use = "orhnk/system-clipboard"
+rev = "75a5330"
+hash = "2eca70f99d25c661e0a92000843d001e"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:smart-filter"
+rev = "0be29a9"
+hash = "d6f7351ea25a43c9b5f4315fa1e23935"
+
+[[plugin.deps]]
+use = "boydaihungst/pref-by-location"
+rev = "e20924c"
+hash = "a3940872a9824e292faebdc286094475"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:mount"
+rev = "0be29a9"
+hash = "46cbdc05596a3ecd730b288e28c7079d"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:jump-to-char"
+rev = "0be29a9"
+hash = "7a4b4237223aaa94e589d1c01a23542a"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:full-border"
+rev = "0be29a9"
+hash = "7b625412411be411153886894d9acaf"
+
+[[plugin.deps]]
+use = "Sonico98/exifaudio"
+rev = "4506f9d"
+hash = "4761fffb60a12d37096c34a356380cdf"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:diff"
+rev = "0be29a9"
+hash = "a2b67c52fc36d4c7d3ccb8940d9a140"
+
+[[plugin.deps]]
+use = "JohWQ/sudo"
+rev = "32d923b"
+hash = "33b1595231cb14a0b9f9057d310dbf59"
+
+[[plugin.deps]]
+use = "hankertrix/augment-command"
+rev = "dd2d6cf"
+hash = "baf23d673aee3b2b58f708df324d295e"
+
+[[plugin.deps]]
+use = "JohWQ/convert"
+rev = "28b5da2"
+hash = "6a149b30e952c8b612acb2d8118ceba7"
+
+[[plugin.deps]]
+use = "boydaihungst/relative-motions"
+rev = "d720b1c"
+hash = "cb389a36241ada4893796d89dd5da7a0"
+
+[[plugin.deps]]
+use = "XYenon/yafg"
+rev = "e6ba851"
+hash = "9558dd9169cbf01eac6044583c426716"
+
+[[plugin.deps]]
+use = "AnirudhG07/custom-shell"
+rev = "9bf5954"
+hash = "2b1a883e14d6248a965d4e5961de8aa0"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:git"
+rev = "0be29a9"
+hash = "fbb53c3c04f816d737f9f4b1d29f3310"
+
+[[plugin.deps]]
+use = "WhoSowSee/whoosh"
+rev = "0abb062"
+hash = "b6591514a6ef4ae721d8807f7bf641ff"
+
+[flavor]
+deps = []

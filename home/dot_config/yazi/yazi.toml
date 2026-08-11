@@ -1,0 +1,71 @@
+[mgr]
+sort_by      = "mtime"
+sort_reverse = true
+linemode     = "mtime"
+show_hidden  = true
+mouse_events   = [ "click", "scroll", "drag" ]
+
+[preview]
+wrap       = "yes"
+# Image size
+max_width  = 700
+max_height = 1000
+
+[opener]
+edit = [
+  # Order is important!
+  { run = "kitty nvim %s", orphan=true, desc = "Open Neovim in new Kitty", for = "unix" },
+  { run = 'nvim %s', block = true, desc = "$EDITOR", for = "unix" },
+]
+play = [
+  { run = 'mpv %s', orphan = true, desc = "mpv", for = "linux" }
+]
+open = [
+  { run = "swayimg %s", orphan = true, desc = "Open", for = "linux" },
+]
+extract = [
+  { run = "ya pub augmented-extract --list %s", desc = "Extract here" },
+]
+
+# [open]
+# rules = [
+#   # Media
+#   { mime = "{audio,video}/*", use = [ "play", "reveal" ] },
+# 
+# ]
+
+[[opener.set-wallpaper]]
+run  = "noctalia msg wallpaper-set %s1"
+for  = "linux"
+desc = "Set as wallpaper"
+orphan = true
+
+[[opener.set-wallpaper1]]
+run  = "noctalia msg wallpaper-set DP-2 %s1"
+for  = "linux"
+desc = "DP-2: Set as wallpaper"
+orphan = true
+
+[[opener.set-wallpaper2]]
+run  = "noctalia msg wallpaper-set DP-3 %s1"
+for  = "linux"
+desc = "DP-3: Set as wallpaper"
+orphan = true
+
+[[open.prepend_rules]]
+mime = "image/*"
+use  = [ "open", "set-wallpaper", "set-wallpaper1", "set-wallpaper2", "reveal" ]
+
+[[plugin.prepend_previewers]]
+mime = "audio/*"
+run = "exifaudio"
+
+[[plugin.prepend_fetchers]]
+url   = "*"
+run   = "git"
+group = "git"
+
+[[plugin.prepend_fetchers]]
+url   = "*/"
+run   = "git"
+group = "git"

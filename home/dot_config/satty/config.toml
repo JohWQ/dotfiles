@@ -1,0 +1,16 @@
+[general]
+# Exit directly after copy / save action.
+early-exit = true
+
+# Ensure clipboard contents persist after satty closes.
+copy-command = "wl-copy --type image/png"
+
+# Select the tool on startup:
+#   pointer, crop, line, arrow, rectangle, text, marker, blur, brush
+initial-tool = "rectangle"
+
+# Custom colours for the colour palette
+[color-palette]
+
+# These will be shown in the toolbar for quick selection
+palette = ["#ff0000", "#000000", "#ffffff", "#ffd700", "#008000", "#0000ff"]

@@ -1,0 +1,7 @@
+// ────────────── Startup Applications ──────────────
+// https://github.com/YaLTeR/niri/wiki/Configuration:-Miscellaneous#spawn-sh-at-startup
+
+    spawn-at-startup "noctalia"
+    spawn-at-startup "/usr/local/libexec/file_manager_dbus"
+    spawn-at-startup "kdeconnectd"
+    spawn-at-startup "sh" "-c" "syncthing serve --no-browser"
