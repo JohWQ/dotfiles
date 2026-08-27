@@ -3,6 +3,7 @@ sort_by      = "mtime"
 sort_reverse = true
 linemode     = "mtime"
 show_hidden  = true
+scrolloff    = 8
 mouse_events   = [ "click", "scroll", "drag" ]
 
 [preview]
@@ -18,11 +19,12 @@ edit = [
   { run = 'nvim %s', block = true, desc = "$EDITOR", for = "unix" },
 ]
 play = [
-  { run = 'mpv %s', orphan = true, desc = "mpv", for = "linux" }
+  { run = 'mpv %s', orphan = true, desc = "mpv", for = "linux" },
+  { run = 'losslesscut %s', orphan = true, desc = "losslesscut", for = "linux" },
 ]
-open = [
-  { run = "swayimg %s", orphan = true, desc = "Open", for = "linux" },
-]
+# open = [
+#   { run = "swayimg %s", orphan = true, desc = "Open", for = "linux" },
+# ]
 extract = [
   { run = "ya pub augmented-extract --list %s", desc = "Extract here" },
 ]
@@ -33,6 +35,11 @@ extract = [
 #   { mime = "{audio,video}/*", use = [ "play", "reveal" ] },
 # 
 # ]
+
+[[opener.satty]]
+run = 'file=%s1; satty -f "$file" -o "${file%.*}.png"'
+block = false
+desc = "Open in Satty"
 
 [[opener.set-wallpaper]]
 run  = "noctalia msg wallpaper-set %s1"
@@ -54,7 +61,7 @@ orphan = true
 
 [[open.prepend_rules]]
 mime = "image/*"
-use  = [ "open", "set-wallpaper", "set-wallpaper1", "set-wallpaper2", "reveal" ]
+use  = [ "open", "satty", "set-wallpaper", "set-wallpaper1", "set-wallpaper2", "reveal" ]
 
 [[plugin.prepend_previewers]]
 mime = "audio/*"

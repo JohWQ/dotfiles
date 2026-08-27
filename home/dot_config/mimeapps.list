@@ -1,0 +1,14 @@
+[Default Applications]
+image/png=swayimg.desktop
+x-scheme-handler/discord=vesktop.desktop
+video/webm=mpv.desktop
+image/jpeg=swayimg.desktop
+video/mp4=mpv.desktop
+video/mp2t=mpv.desktop
+
+[Added Associations]
+image/png=swayimg.desktop;
+video/webm=mpv.desktop;
+image/jpeg=swayimg.desktop;
+video/mp4=mpv.desktop;
+video/mp2t=mpv.desktop;

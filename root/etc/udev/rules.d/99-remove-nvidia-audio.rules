@@ -1,0 +1,2 @@
+ACTION=="add", SUBSYSTEM=="pci", KERNEL=="0000:01:00.1", ATTR{remove}="1"
+ACTION=="add", SUBSYSTEM=="pci", KERNEL=="0000:01:00.3", ATTR{remove}="1"

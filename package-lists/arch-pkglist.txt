@@ -1,4 +1,5 @@
-xorg-xhost
+#xorg-xhost
+xdg-terminal-exec-git
 github-cli
 firefox-tridactyl
 lazygit

@@ -1,5 +1,5 @@
 // ────────────── Input Configuration ──────────────
-// https://github.com/YaLTeR/niri/wiki/Configuration:-Input
+// https://niri-wm.github.io/niri/Configuration%3A-Input
 
 input {
     keyboard {
@@ -17,11 +17,9 @@ input {
     }
 
     mouse {
-        accel-profile "flat"
-
         // If you want to disable Mouse Acceleration,
         // uncomment the lines below.
-        //accel-profile "flat"
+        accel-profile "flat"
         //accel-speed 0.0
     }
 

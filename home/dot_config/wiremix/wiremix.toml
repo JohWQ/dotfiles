@@ -27,6 +27,12 @@ templates = [ "Youtube-Music: {media.name}" ]
 
 [[names.overrides]]
 types = [ "stream" ]
+matches = [ { "application.icon-name" = "chromium-browser", "application.process.binary" = "vesktop" } ]
+# # Templates to use when the property value matches
+templates = [ "Vesktop: {media.name}" ]
+
+[[names.overrides]]
+types = [ "stream" ]
 matches = [ { "node.name" = "mpd.PipeWire Sound Server" } ]
 templates = [ "RMPC: {media.name}" ]
 

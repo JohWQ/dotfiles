@@ -90,12 +90,12 @@ return {
         folder = '2_Notes/Daily',
         date_format = 'YYYY-MM-DD',
         default_tags = { 'daily' },
-        template = 'Daglig_notat.md',
+        template = 'daily-note.md',
       },
       note = {
         enabled = true,
         -- template = vim.NIL, -- disables the default note template and just use a blank note
-        template = 'Vanlig_notat.md',
+        template = 'normal-note.md',
       },
       templates = {
         folder = '4_Templates',

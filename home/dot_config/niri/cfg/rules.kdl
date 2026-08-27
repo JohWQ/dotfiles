@@ -1,14 +1,14 @@
     window-rule {
-        geometry-corner-radius 12 // Set every window radius to 20
+        geometry-corner-radius 12 // Set every window radius to 12
         clip-to-geometry true
-}
+    }
 
     window-rule {
         background-effect {
           blur true
           xray false
+        }
     }
-}
 
     // Floating Noctalia settings window.
     window-rule {
@@ -16,62 +16,91 @@
         open-floating true
         default-column-width { fixed 1060; }
         default-window-height { fixed 920; }
-}
+    }
+
+    // if you use steam you will probably like these
+    window-rule {
+        match app-id="steam"
+        exclude title=r#"^[Ss]team$"#
+        open-floating true
+    }
+
+    window-rule {
+       match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
+       default-floating-position x=10 y=10 relative-to="bottom-right"
+       open-focused false
+    }
+
     layer-rule {
         match namespace="^noctalia-wallpaper"
         place-within-backdrop true
-}
+    }
+
     layer-rule {
         match namespace="^noctalia-(bar-[^\"]+|notification|dock|panel|attached-panel|osd)$"
         background-effect {
           xray false
           // blur false
+        }
     }
-}
 
     // Scratchpads (with niri-scratchpad-rs)
     window-rule {
-        match app-id="yazi-scratchpad"
+        match title="Yazi Scratchpad"
         open-floating true
+        default-floating-position x=0 y=20 relative-to="top"
         default-column-width { fixed 1060; }
-        default-window-height { fixed 980; }
-}
+        default-window-height { fixed 1000; }
+    }
     window-rule {
-        match app-id="alacritty-scratchpad"
+        match title="Neovim Scratchpad"
         open-floating true
+        default-floating-position x=0 y=30 relative-to="top"
         default-column-width { fixed 1060; }
-        default-window-height { fixed 920; }
-}
+        default-window-height { fixed 1000; }
+    }
     window-rule {
-        match app-id="wiremix-scratchpad"
+        match title="Alacritty Scratchpad"
         open-floating true
-        baba-is-float true
-        default-column-width { fixed 920; }
-        default-window-height { fixed 720; }
-}
+        default-floating-position x=0 y=40 relative-to="top"
+        default-column-width { fixed 1060; }
+        default-window-height { fixed 1000; }
+    }
+    window-rule {
+        match title="Wiremix Scratchpad"
+        open-floating true
+        default-column-width { fixed 870; }
+        default-window-height { fixed 540; }
+    }
+
+    // Focused floating window
+    window-rule {
+        match app-id="com.gabm.satty"
+        open-floating true
+        default-column-width { proportion 0.97; }
+        default-window-height { proportion 0.97; }
+    }
+    window-rule {
+        match title="File chooser"
+        match title="File view"
+        open-floating true
+        default-floating-position x=0 y=20 relative-to="top"
+        default-column-width { fixed 1060; }
+        default-window-height { fixed 1000; }
+    }
 
     // Limit width
     window-rule {
-        // You can assign multiple applications to the same rule:
-      //match app-id="app2"
+        // You can assign multiple applications to the same rule
         match app-id="wev"
         default-column-width { fixed 200; }
-}
+    }
 
+    // Full width
     window-rule {
         match app-id="com.github.th-ch.youtube-music"
+        match app-id="com.mojang.minecraft"
+        match app-id="^Minecraft"
+        //match app-id="org.kde.kdenlive"
         default-column-width { proportion 1.0; }
-}
-
-
-    // if you use steam you will probably like these
-    window-rule {
-        match app-id="steam"
-        exclude title=r"^[Ss]team$"
-        open-floating true
-}
-    window-rule {
-       match app-id="steam" title=r"^notificationtoasts_\d+_desktop$"
-       default-floating-position x=10 y=10 relative-to="bottom-right"
-       open-focused false
-}
+    }

@@ -83,36 +83,12 @@ export GPG_TTY=$TTY
 eval "$(zoxide init zsh)"
 source <(fzf --zsh)
 export SHELL='zsh'
+export EDITOR='nvim'
+export VISUAL='nvim'
 export BROWSER='firefox'
-export TERMINAL='kitty'
-export PATH="$HOME/.cargo/bin:$PATH"
 . "$HOME/.cargo/env"
-export PATH="$HOME/.local/bin:$PATH"
-
-# Exclude file paths from fd search in fzf.
-# Customize as you see fit:
-export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --bind 'alt-e:accept'"
-#export FZF_DEFAULT_COMMAND='fd -H -t f \
-#-E "*cache*" \
-#-E "*Cache*" \
-#-E "*cookies*" \
-#-E "*Cookies*" \
-#-E "*default*" \
-#-E "*Default*" \
-#-E ".git" \
-#-E "git-repos" \
-#-E "sessionData" \
-#-E "datareporting" \
-#-E "Service Worker" \
-#-E "Session Storage" \
-#-E "saved-telemetry-pings/" \
-#-E ".terminfo/" \
-#-E ".rustup/" \
-#-E ".cargo/registry/" \
-#-E ".cargo/git/" \
-#-E ".local/lib/" \
-#-E ".local/share/Steam/" \
-#-E ".local/share/nvim/"'
+export PATH="$HOME/.cargo/bin:$PATH"
+#export PATH="$HOME/.local/bin:$PATH"
 # ------------------------ #
 
 # Define key bindings.
@@ -224,57 +200,23 @@ alias chcd='chezmoi cd'
 # ---------------------------
 # System / Boot
 # ---------------------------
-grubupdate() {
-  if command -v dnf >/dev/null 2>&1; then
-    sudo grub2-mkconfig -o /boot/grub2/grub.cfg
-  elif command -v pacman >/dev/null 2>&1; then
-    sudo grub-mkconfig -o /boot/grub/grub.cfg
-  else
-    echo "not found"
-    return 1
-  fi
-}
+alias grubupdate='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 alias windowsreboot="sudo grub2-reboot 'Windows Boot Manager (on /dev/sdb3)'"
 alias uefireboot='systemctl reboot --firmware-setup'
 alias uefiboot='systemctl reboot --firmware-setup'
 alias uefiupdate='sudo fwupdmgr update'
 alias nogui='sudo systemctl set-default multi-user.target && systemctl reboot'
 alias yesgui='sudo systemctl set-default graphical.target && systemctl restart lightdm'
+alias restartnoctalia='pkill noctalia && sleep 2 && niri msg action spawn -- "noctalia"'
 # ---------------------------
 # Package Management
 # ---------------------------
 alias pkgs='~/.local/bin/pkgsearch.sh'
-pkgr() {
-  if command -v dnf >/dev/null 2>&1; then
-    echo "Careful!"; sudo dnf remove "$@"
-  elif command -v pacman >/dev/null 2>&1; then
-    echo "Careful!"; sudo pacman -Rs "$@"
-  else
-    echo "not found"
-    return 1
-  fi
-}
-pkgi() {
-  if command -v dnf >/dev/null 2>&1; then
-    sudo dnf install "$@"
-  elif command -v pacman >/dev/null 2>&1; then
-    sudo pacman -S "$@"
-  else
-    echo "not found"
-    return 1
-  fi
-}
-pkgu() {
-  if command -v dnf >/dev/null 2>&1; then
-    sudo dnf update
-  elif command -v pacman >/dev/null 2>&1; then
-    sudo pacman -Syu
-  else
-    echo "not found"
-    return 1
-  fi
-}
+alias pkgr='echo "Careful!"; shelly -Rs "$@"'
+alias pkgi='shelly "$@"'
+alias pkgu='shelly -Ux'
 alias update='pkgu'
+alias topgradetest='topgrade --dry-run'
 
 # ---------------------------
 # Networking / Debug
@@ -294,23 +236,8 @@ isactive() {
 alias neofetch='clear; fastfetch'
 alias songrecord='songrec listen -d "alsa_output.pci-0000_00_1f.3.analog-stereo.monitor"'
 alias showfont='fc-list : family | rg --ignore-case '
-xprop() {
-  if command -v dnf >/dev/null 2>&1; then
-    xprop
-  elif command -v pacman >/dev/null 2>&1; then
-    niri msg pick-window
-  else
-    echo "not found"
-    return 1
-  fi
-}
-alias pickwindow='xprop'
-#rmpc() {
-#    pgrep -x mpd >/dev/null || mpd
-#    pgrep -x mpd-mpris >/dev/null || \
-#        mpd-mpris -host 127.0.0.1 >/dev/null 2>&1 &
-#    ~/.cargo/bin/rmpc; pkill mpd-mpris; pkill mpd
-#}
+alias pickwindow='niri msg pick-window'
+alias xprop='niri msg pick-window'
 
 
 # ----- custom autocorrect ----- #
@@ -324,7 +251,7 @@ setopt correct
 correct_ignore="[_|.]*"
 correct_ignore="[rpm|vim]*"
 # programs missing option autocomplete:
-compdef _gnu_generic fpaste pastel picom lightdm betterlockscreen pw-cli pw-dump dnf diff eza rofi xrandr fzf i3bar i3status-rs caligula fd 7z screenkey chezmoi niri noctalia yay
+compdef _gnu_generic fpaste pastel pw-cli pw-dump diff eza fzf caligula fd 7z screenkey chezmoi niri noctalia yay shelly topgrade
 # ----------------------- #
 
 # add flags to existing aliases.

@@ -280,7 +280,7 @@ vim.keymap.set('n', '<leader>g', ':Alpha<CR>', { desc = 'Show greeter' })
 -- Obsidian.nvim actions
 vim.keymap.set('n', '<leader>od', ':Obsidian today<CR>', { desc = 'Obsidian daily note' })
 vim.keymap.set('n', '<leader>oy', ':Obsidian today -1<CR>', { desc = "Obsidian yesterday's daily note" })
-vim.keymap.set('n', '<leader>on', ':Obsidian today +1<CR>', { desc = 'Obsidian New daily note for tomorrow' })
+vim.keymap.set('n', '<leader>on', ':Obsidian new_from_template ./0_Inbox/ normal-note.md<CR>', { desc = 'Obsidian New note' })
 vim.keymap.set('n', '<leader>ot', ':Obsidian template<CR>', { desc = 'Obsidian Change current file template' })
 vim.keymap.set('n', '<leader>op', function()
   local result = vim
