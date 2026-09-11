@@ -3,9 +3,13 @@
 Work in progress.
 
 Initialize and apply dotfiles:
-
 ```sh
 chezmoi init --apply https://github.com/JohWQ/dotfiles.git
+```
+
+Update dotfiles:
+```sh
+chezmoi update
 ```
 
 `chezmoi apply` installs packages from `<chezmoi-source-directory>/package-lists`
@@ -13,7 +17,7 @@ chezmoi init --apply https://github.com/JohWQ/dotfiles.git
 The `<chezmoi-source-directory>/root` directory is not tracked by Chezmoi.
 
 ### Optional dependencies:
-```
+```sh
 # aur packages:
 yay -S xdg-desktop-portal-termfilechooser-hunkyburrito-git biri-git
 # or use shelly:
