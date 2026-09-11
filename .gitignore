@@ -1,5 +1,5 @@
 **/.env
 **/pref-by-location
-**/yazi/plugins/
-!**/*.yazi/confirm-quit.yazi.lua
+**/yazi/plugins/*
+!**/yazi/plugins/confirm-quit.yazi/
 **/yazi/flavors/
