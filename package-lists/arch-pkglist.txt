@@ -1,11 +1,28 @@
 # CachyOS packages
 # Use one package name per line
 xorg-xhost
-#xdg-terminal-exec-git
 github-cli
 firefox-tridactyl
 lazygit
+kitty
+neovim
+tree-sitter
+yay
+7zip
+yazi
+obsidian
+helium-browser-bin
 cava
+kdeconnect
+gpu-screen-recorder
+mpv
+slurp
+satty
+grim
+wiremix
+hyprpicker
+songrec
+swayimg
 mpd
 mpd-mpris
 rmpc
