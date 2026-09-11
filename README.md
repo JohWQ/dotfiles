@@ -27,6 +27,12 @@ meson setup build --reconfigure
 sudo ninja -C build install
 ```
 
+### Potential issues
+#### Noctalia settings not applying
+Compare the files: `~/.config/noctalia/config.toml` & `~/.local/state/noctalia/settings.toml`
+Example command:
+`diff ~/.config/noctalia/config.toml ~/.local/state/noctalia/settings.toml`
+
 ### References
 #### Documentation:
 https://www.chezmoi.io/

@@ -20,6 +20,7 @@ mpv
 slurp
 satty
 grim
+zoxide
 wiremix
 hyprpicker
 songrec
