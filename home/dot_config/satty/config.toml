@@ -14,3 +14,6 @@ initial-tool = "rectangle"
 
 # These will be shown in the toolbar for quick selection
 palette = ["#ff0000", "#000000", "#ffffff", "#ffd700", "#008000", "#0000ff"]
+
+# Currently unavailable [keybinds]
+# Currently unavailable "q" = "exit"

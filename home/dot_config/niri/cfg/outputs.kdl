@@ -13,10 +13,14 @@ output "DP-3" {
     mode "1920x1080@144.000" // Set resolution and refresh rate
     transform "270"
     position x=1920 y=-374
-    //scale 1 // No scaling (use 2 for HiDPI)
+    scale 1 // No scaling (use 2 for HiDPI)
 
     // Monitor specific workspace options
     layout {
         default-column-width { proportion 1.0; }
     }
+}
+
+output "HDMI-A-1" {
+    off
 }

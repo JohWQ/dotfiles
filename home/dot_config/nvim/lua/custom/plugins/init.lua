@@ -74,7 +74,7 @@ return {
   {
     'obsidian-nvim/obsidian.nvim',
     dependencies = 'folke/snacks.nvim',
-    --    version = '*', -- use latest release, remove to use latest commit
+    version = '*', -- use latest release, remove to use latest commit
     ---@module 'obsidian'
     ---@type obsidian.config
     opts = {

@@ -63,9 +63,18 @@ orphan = true
 mime = "image/*"
 use  = [ "open", "satty", "set-wallpaper", "set-wallpaper1", "set-wallpaper2", "reveal" ]
 
+[[plugin.prepend_preloaders]]
+url = "/run/user/1000/gvfs/**/*"
+run = "noop"
+
 [[plugin.prepend_previewers]]
 mime = "audio/*"
 run = "exifaudio"
+
+# gvfs.yazi
+[[plugin.prepend_previewers]]
+url = "folder/*"
+run = "folder"
 
 [[plugin.prepend_fetchers]]
 url   = "*"

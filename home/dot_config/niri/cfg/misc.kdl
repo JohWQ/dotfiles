@@ -1,4 +1,9 @@
-    workspace "stash" { }
+    // Using niri fork: https://github.com/barrulus/biri
+    // Which merges PR niri/#2997
+    // https://github.com/argosnothing/niri-scratchpad-rs (hidden-workspaces)
+    workspace "stash" {
+        hidden true
+    }
 
     prefer-no-csd
     screenshot-path null
@@ -17,9 +22,9 @@
         xcursor-size 24
     }
 
-    overview {
-        zoom 0.33
-    }
+    //overview {
+    //    zoom 0.33
+    //}
 
     blur {
         passes 2        // more passes = stronger blur (default: 3)

@@ -1,4 +1,8 @@
+**/.git
+**/.env
+
 # Ignore everything except Lua files in the Yazi plugins
+**/pref-by-location
 **/*.yazi/*
 !**/*.yazi/*.lua
 

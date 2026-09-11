@@ -2,6 +2,11 @@
 
 set -euo pipefail
 
+if ! command -v desktop-file-edit >/dev/null 2>&1; then
+  echo 'desktop-file-edit is required (install desktop-file-utils).' >&2
+  exit 1
+fi
+
 # Directories containing .desktop files
 USER_APPS="$HOME/.local/share/applications"
 SYSTEM_APPS="/usr/share/applications"
@@ -63,13 +68,9 @@ for FILE in "${SELECTED_FILES[@]}"; do
     fi
   fi
 
-  # Update existing false/missing NoDisplay key
-  if grep -q "^NoDisplay=" "$TARGET_FILE"; then
-    sed -i 's/^NoDisplay=.*/NoDisplay=true/' "$TARGET_FILE"
-  else
-    echo "NoDisplay=true" >> "$TARGET_FILE"
-  fi
+  # Update only the main [Desktop Entry] group, preserving action groups.
+  desktop-file-edit --set-key=NoDisplay --set-value=true "$TARGET_FILE"
 
-  echo "Appended line to: $TARGET_FILE"
+  echo "Hidden desktop entry: $TARGET_FILE"
   echo -e 'To show hidden desktop entries run:\n$ fd -e desktop -d 1 . /usr/share/applications ~/.local/share/applications | xargs -r grep -l "^NoDisplay=true"'
 done

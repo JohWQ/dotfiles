@@ -205,6 +205,7 @@ alias windowsreboot="sudo grub2-reboot 'Windows Boot Manager (on /dev/sdb3)'"
 alias uefireboot='systemctl reboot --firmware-setup'
 alias uefiboot='systemctl reboot --firmware-setup'
 alias uefiupdate='sudo fwupdmgr update'
+alias fstabupdate='sudo systemctl daemon-reload && sleep 2 && sudo mount -a'
 alias nogui='sudo systemctl set-default multi-user.target && systemctl reboot'
 alias yesgui='sudo systemctl set-default graphical.target && systemctl restart lightdm'
 alias restartnoctalia='pkill noctalia && sleep 2 && niri msg action spawn -- "noctalia"'

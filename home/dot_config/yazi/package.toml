@@ -93,5 +93,10 @@ use = "WhoSowSee/whoosh"
 rev = "43f3202"
 hash = "da14dfe482886e756150ae4f5c2bb23"
 
+[[plugin.deps]]
+use = "boydaihungst/gvfs"
+rev = "a85d659"
+hash = "1866f00532ba80f895544f7348e89e53"
+
 [flavor]
 deps = []

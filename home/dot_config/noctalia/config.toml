@@ -1,2 +1,257 @@
+[bar.default]
+background_opacity = 0.79999998211860657
+center = [ "media" ]
+concave_edge_corners = false
+end = [
+    "clock",
+    "tray",
+    "bar",
+    "bar_2",
+    "recorder",
+    "weather",
+    "notifications",
+    "clipboard",
+    "network",
+    "bluetooth",
+    "volume",
+    "session"
+]
+margin_edge = 2
+margin_ends = 50
+radius = 20
+start = [ "control-center", "launcher", "wallpaper", "workspaces", "active_window" ]
+thickness = 32
+
+    [bar.default.dead_zone.actions]
+    left = "panel-toggle control-center home"
+    middle = "exec noctalia msg settings-open"
+    right = "panel-toggle session"
+    [[control_center.shortcuts]]
+    type = "nightlight"
+
+    [[control_center.shortcuts]]
+    type = "notification"
+
+    [[control_center.shortcuts]]
+    type = "audio"
+
+    [[control_center.shortcuts]]
+    type = "clipboard"
+
+    [[control_center.shortcuts]]
+    type = "noctalia/screen_recorder:toggle"
+
+[desktop_widgets]
+enabled = false
+widget_order = []
+[dock]
+active_opacity = 0.84999998100101948
+active_scale = 0.85000001266598701
+background_opacity = 0.4999999888241291
+concave_edge_corners = false
+enabled = true
+inactive_opacity = 0.59999998658895493
+magnification_scale = 1.2500000037252903
+margin_edge = 2
+radius = 20
+reserve_space = false
+smart_auto_hide = true
+
+[hot_corners]
+enabled = true
+
+    [hot_corners.bottom_left]
+    action = "launcher"
+
+[idle]
+behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
+pre_action_fade_seconds = 0
+
+    [idle.behavior.lock]
+    action = "lock"
+    enabled = true
+    timeout = 600.0
+
+    [idle.behavior.screen-off]
+    action = "screen_off"
+    enabled = false
+    timeout = 660.0
+
+    [idle.behavior.lock-and-suspend]
+    action = "lock_and_suspend"
+    enabled = false
+    timeout = 900.0
+
+[keybinds]
+cancel = [ "Escape", "Ctrl+c" ]
+copy = [ "Ctrl+Shift+c" ]
+down = [ "Down", "Ctrl+j" ]
+left = [ "Left", "Ctrl+h" ]
+right = [ "Right", "Ctrl+l" ]
+up = [ "Up", "Ctrl+k" ]
+validate = [ "Return", "KP_Enter", "space", "Alt+e" ]
+
+
+[nightlight]
+enabled = true
+
+[plugin_settings."icefish/phone-connect"]
+battery_display = "percent"
+
+[plugin_settings."noctalia/screen_recorder"]
+copy_to_clipboard = true
+hide_inactive = true
+
+[plugin_settings."noctalia/wallhaven"]
+download_dir = "~/Pictures/Wallpapers/wallhaven"
+
+[plugins]
+enabled = [ "noctalia/screen_recorder", "noctalia/wallhaven", "yuuto/calculator", "icefish/phone-connect" ]
+
 [shell]
 polkit_agent = true
+avatar_path = "/home/jw/Pictures/.avatar.jpg"
+clipboard_auto_paste = "off"
+clipboard_history_max_entries = 300
+clipboard_image_action_command = "satty -f -"
+
+    [shell.launcher]
+    app_grid = true
+    auto_paste = "off"
+
+    [shell.mpris]
+    blacklist = [ "losslesscut", "firefox" ]
+
+    [shell.privacy]
+    mic_filter_regex = "wiremix"
+
+    [[shell.session.actions]]
+    action = "lock"
+    countdown_seconds = 0.0
+    enabled = true
+    shortcut = "1"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "logout"
+    countdown_seconds = 0.0
+    enabled = true
+    shortcut = "2"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "suspend"
+    command = "if systemctl --user is-active --quiet app-dev.lizardbyte.app.Sunshine.service; then systemctl --user stop app-dev.lizardbyte.app.Sunshine.service && sleep 5; fi; systemctl suspend"
+    countdown_seconds = 0.0
+    enabled = false
+    glyph = "device-desktop-pause"
+    label = "Suspend"
+    variant = "outline"
+
+    [[shell.session.actions]]
+    action = "lock_and_suspend"
+    countdown_seconds = 0.0
+    enabled = false
+    shortcut = "3"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "command"
+    command = "if systemctl --user is-active --quiet app-dev.lizardbyte.app.Sunshine.service; then systemctl --user stop app-dev.lizardbyte.app.Sunshine.service && sleep 5; fi; noctalia msg session lock-and-suspend"
+    countdown_seconds = 0.0
+    enabled = false
+    glyph = "player-pause"
+    label = "Lock & Suspend"
+    shortcut = "3"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "reboot"
+    countdown_seconds = 0.0
+    enabled = true
+    shortcut = "3"
+    variant = "destructive"
+
+    [[shell.session.actions]]
+    action = "shutdown"
+    countdown_seconds = 0.0
+    enabled = true
+    shortcut = "4"
+    variant = "destructive"
+
+    [[shell.session.actions]]
+    action = "reboot"
+    command = "systemctl reboot --firmware-setup"
+    countdown_seconds = 0.0
+    enabled = true
+    label = "Reboot to UEFI"
+    variant = "ghost"
+
+[theme]
+builtin = "Catppuccin"
+mode = "dark"
+
+    [theme.templates]
+    builtin_ids = [ "gtk3", "gtk4" ]
+
+[wallpaper]
+directory = "~/Pictures/Wallpapers"
+
+[widget.active_window2]
+type = "active_window"
+max_length = 160
+
+[widget.bar]
+type = "icefish/phone-connect:bar"
+
+[widget.bar_2]
+max_bar_length = 11
+type = "yuuto/calculator:bar"
+
+[widget.clipboard]
+enabled = false
+
+[widget.clock]
+tooltip_format = "{:%d/%m/%y}"
+
+[widget.control-center.actions]
+right = "settings-open"
+
+[widget.media]
+hide_when_no_media = true
+max_length = 440
+title_scroll = "on_hover"
+
+    [widget.media.actions]
+    scroll_down = "exec playerctl volume 0.02-"
+    scroll_up = "exec playerctl volume 0.02+"
+
+[widget.media2]
+hide_when_no_media = true
+title_scroll = "on_hover"
+type = "media"
+
+    [widget.media2.actions]
+    scroll_down = "exec playerctl volume 0.02-"
+    scroll_up = "exec playerctl volume 0.02+"
+
+[widget.network]
+enabled = false
+show_label = false
+
+[widget.recorder]
+type = "noctalia/screen_recorder:recorder"
+
+[widget.wallpaper.actions]
+right = "panel-toggle noctalia/wallhaven:browser"
+
+[widget.weather]
+show_condition = false
+
+[widget.workspaces]
+focused_output_only = true
+labels_only_when_occupied = true
+
+    [widget.workspaces.actions]
+    back = "workspace-switch prev"
+    forward = "workspace-switch next"

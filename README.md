@@ -1,8 +1,14 @@
 # Dotfiles - managed by chezmoi
 
-mkdir -p ~/.local/share/applications
-mkdir -p ~/.local/share/icons/hicolor/{256x256,scalable}/apps 
+Work in progress.
+
+`chezmoi apply` installs packages from `<chezmoi-source-directory>/package-lists`
+
+The `<chezmoi-source-directory>/root` directory is not tracked by Chezmoi.
 
 ### References
-Many aspects of this setup were inspired by:
+#### Documentation:
+https://www.chezmoi.io/
+
+##### Many aspects of this setup were inspired by:
 [hankertrix/Dotfiles](https://github.com/hankertrix/Dotfiles.git)

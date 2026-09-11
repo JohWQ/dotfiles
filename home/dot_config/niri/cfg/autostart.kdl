@@ -6,5 +6,4 @@
     // org.freedesktop.FileManager1.common:
     spawn-at-startup "/usr/local/libexec/file_manager_dbus"
 
-    spawn-at-startup "kdeconnectd"
     spawn-at-startup "sh" "-c" "syncthing serve --no-browser"
