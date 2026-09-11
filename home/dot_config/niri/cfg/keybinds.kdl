@@ -49,20 +49,21 @@ binds {
 
     // ─── Media Controls ───
     // Ducky One 3 Macros: Enter recording mode with Fn+Alt+Tab
-    // Fn+Mod+B - Fn+PgUP(Prior)
+    // <Recording keys> - Actual keymap
+    // Fn+Mod+B - Fn+PgUP
     XF86AudioRaiseVolume                allow-when-locked=true { spawn-sh "noctalia msg volume-up"; }
-    Ctrl+Shift+XF86AudioRaiseVolume     allow-when-locked=true { spawn-sh "noctalia msg volume-up 10"; }
+    // Fn+Shift+PgUp
     Shift+XF86AudioRaiseVolume          allow-when-locked=true { spawn-sh "noctalia msg volume-up 1"; }
-    // Fn+Mod+C - Fn+PgDn(Next)
+    // Fn+Mod+C - Fn+PgDn
     XF86AudioLowerVolume                allow-when-locked=true { spawn-sh "noctalia msg volume-down"; }
-    Ctrl+Shift+XF86AudioLowerVolume     allow-when-locked=true { spawn-sh "noctalia msg volume-down 10"; }
+    // Fn+Shift+PgDn
     Shift+XF86AudioLowerVolume          allow-when-locked=true { spawn-sh "noctalia msg volume-down 1"; }
     // Fn+Mod+A - Fn+End
     XF86AudioMute                       allow-when-locked=true { spawn-sh "noctalia msg volume-mute"; }
     XF86AudioMicMute                    allow-when-locked=true { spawn-sh "noctalia msg mic-mute"; }
-    // Fn+Mod+F - Fn+Ctrl+PgDn(Next)
+    // Fn+Mod+F - Fn+Ctrl+PgDn
     XF86AudioNext                       allow-when-locked=true { spawn-sh "noctalia msg media next"; }
-    // Fn+Mod+G - Fn+Ctrl+Del(Delete)
+    // Fn+Mod+G - Fn+Ctrl+Del
     XF86AudioPrev                       allow-when-locked=true { spawn-sh "noctalia msg media previous"; }
     // Fn+Mod+D - Fn+Ctrl+Home
     XF86AudioPlay                       allow-when-locked=true { spawn-sh "noctalia msg media play-pause"; }
@@ -77,22 +78,22 @@ binds {
     Mod+Shift+Q                         { close-window; }
 
     Mod+Left                            hotkey-overlay-title=null { focus-column-left; }
-    Mod+H                               { focus-column-left; }
+    Mod+H                               hotkey-overlay-title=null { focus-column-left; }
     Mod+Right                           hotkey-overlay-title=null { focus-column-right; }
-    Mod+L                               { focus-column-right; }
+    Mod+L                               hotkey-overlay-title=null { focus-column-right; }
     Mod+Up                              hotkey-overlay-title=null { focus-window-up; }
-    Mod+K                               { focus-window-up; }
+    Mod+K                               hotkey-overlay-title=null { focus-window-up; }
     Mod+Down                            hotkey-overlay-title=null { focus-window-down; }
-    Mod+J                               { focus-window-down; }
+    Mod+J                               hotkey-overlay-title=null { focus-window-down; }
 
-    Mod+Shift+Left                      { move-column-left; }
-    Mod+Shift+H                         { move-column-left; }
-    Mod+Shift+Right                     { move-column-right; }
-    Mod+Shift+L                         { move-column-right; }
-    Mod+Shift+UP                        { move-window-up; }
-    Mod+Shift+K                         { move-window-up; }
-    Mod+Shift+Down                      { move-window-down; }
-    Mod+Shift+J                         { move-window-down; }
+    Mod+Shift+Left                      hotkey-overlay-title=null { move-column-left; }
+    Mod+Shift+H                         hotkey-overlay-title=null { move-column-left; }
+    Mod+Shift+Right                     hotkey-overlay-title=null { move-column-right; }
+    Mod+Shift+L                         hotkey-overlay-title=null { move-column-right; }
+    Mod+Shift+UP                        hotkey-overlay-title=null { move-window-up; }
+    Mod+Shift+K                         hotkey-overlay-title=null { move-window-up; }
+    Mod+Shift+Down                      hotkey-overlay-title=null { move-window-down; }
+    Mod+Shift+J                         hotkey-overlay-title=null { move-window-down; }
 
     Mod+Ctrl+Shift+Left                 hotkey-overlay-title=null { spawn-sh "niri msg action move-floating-window -x -350"; }
     Mod+Ctrl+Shift+H                    hotkey-overlay-title=null { spawn-sh "niri msg action move-floating-window -x -350"; }
@@ -108,7 +109,7 @@ binds {
     Mod+Shift+Home                      { move-column-to-first; }
     Mod+Shift+End                       { move-column-to-last; }
 
-    Mod+X                               { focus-monitor-previous; }
+    Mod+X                               hotkey-overlay-title="Focus Previous Monitor" { focus-monitor-previous; }
   //Mod+Shift+Left                      { focus-monitor-left; }
   //Mod+Shift+Right                     { focus-monitor-right; }
   //Mod+Shift+UP                        { focus-monitor-up; }
@@ -139,17 +140,17 @@ binds {
 
 
     // ─── Workspace Switching ───
-    Mod+WheelScrollDown                 cooldown-ms=150 hotkey-overlay-title=null { focus-workspace-down; }
-    Mod+WheelScrollUp                   cooldown-ms=150 hotkey-overlay-title=null { focus-workspace-up; }
-    Mod+Shift+WheelScrollDown           cooldown-ms=150 { move-column-to-workspace-down; }
-    Mod+Shift+WheelScrollUp             cooldown-ms=150 { move-column-to-workspace-up; }
-    Mod+Ctrl+WheelScrollDown            cooldown-ms=150 { move-column-to-workspace-down focus=false; }
-    Mod+Ctrl+WheelScrollUp              cooldown-ms=150 { move-column-to-workspace-up focus=false; }
+    Mod+WheelScrollDown                 cooldown-ms=150 { focus-workspace-down; }
+    Mod+WheelScrollUp                   hotkey-overlay-title=null cooldown-ms=150 { focus-workspace-up; }
+    Mod+Shift+WheelScrollDown           hotkey-overlay-title=null cooldown-ms=150 { move-column-to-workspace-down; }
+    Mod+Shift+WheelScrollUp             hotkey-overlay-title=null cooldown-ms=150 { move-column-to-workspace-up; }
+    Mod+Ctrl+WheelScrollDown            hotkey-overlay-title=null cooldown-ms=150 { move-column-to-workspace-down focus=false; }
+    Mod+Ctrl+WheelScrollUp              hotkey-overlay-title=null cooldown-ms=150 { move-column-to-workspace-up focus=false; }
 
-    Mod+MouseForward                    { focus-column-right; }
-    Mod+MouseBack                       { focus-column-left; }
-    Mod+Shift+MouseForward              { move-column-right; }
-    Mod+Shift+MouseBack                 { move-column-left; }
+    Mod+MouseForward                    hotkey-overlay-title="Focus Column to the Right" { focus-column-right; }
+    Mod+MouseBack                       hotkey-overlay-title=null { focus-column-left; }
+    Mod+Shift+MouseForward              hotkey-overlay-title=null { move-column-right; }
+    Mod+Shift+MouseBack                 hotkey-overlay-title=null { move-column-left; }
 
   //Mod+Shift+WheelScrollDown           { focus-column-right; }
   //Mod+Shift+WheelScrollUp             { focus-column-left; }
@@ -179,7 +180,7 @@ binds {
     Mod+Shift+8                         { move-column-to-workspace 8; }
     Mod+Shift+9                         { move-column-to-workspace 9; }
     // Move to next available workspace
-    Mod+Shift+o                         hotkey-overlay-title="Move column to next available workspace" { move-column-to-workspace 255; }
+    Mod+Shift+O                         hotkey-overlay-title="Move column to next available workspace" { move-column-to-workspace 255; }
 
     Mod+Ctrl+1                          { move-column-to-workspace 1 focus=false; }
     Mod+Ctrl+2                          { move-column-to-workspace 2 focus=false; }
@@ -191,7 +192,7 @@ binds {
     Mod+Ctrl+8                          { move-column-to-workspace 8 focus=false; }
     Mod+Ctrl+9                          { move-column-to-workspace 9 focus=false; }
     // Move to next available workspace, don't follow
-    Mod+Ctrl+o                          { move-column-to-workspace 255 focus=false; }
+    Mod+Ctrl+O                          hotkey-overlay-title="Move column to next available workspace, don't follow" { move-column-to-workspace 255 focus=false; }
 
 
     // ─── Layout Controls ───
