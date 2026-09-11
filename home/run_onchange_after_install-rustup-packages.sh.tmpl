@@ -17,5 +17,6 @@ if ! command -v rustup >/dev/null && [[ ! -x "${CARGO_HOME:-$HOME/.cargo}/bin/ru
 fi
 
 export PATH="${CARGO_HOME:-$HOME/.cargo}/bin:$PATH"
+cargo install cargo-binstall --locked
 cargo install --git https://github.com/argosnothing/niri-scratchpad-rs.git --branch=hidden-workspaces
 {{ end -}}

@@ -12,6 +12,7 @@ yay
 7zip
 yazi
 obsidian
+syncthing
 helium-browser-bin
 pear-desktop
 cava

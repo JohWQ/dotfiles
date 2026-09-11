@@ -12,7 +12,8 @@ Update dotfiles:
 chezmoi update
 ```
 
-`chezmoi apply` installs packages from `<chezmoi-source-directory>/package-lists`
+`chezmoi apply` installs packages defined in `<chezmoi-source-directory>/run_onchange_before_install-...-packages.sh.tmpl`
+Other installed binaries are pulled from the files:
 
 The `<chezmoi-source-directory>/root` directory is not tracked by Chezmoi.
 
