@@ -15,9 +15,10 @@ The `<chezmoi-source-directory>/root` directory is not tracked by Chezmoi.
 ### Optional dependencies:
 ```
 # aur packages:
-yay -S xdg-desktop-portal-termfilechooser-hunkyburrito-git
+yay -S xdg-desktop-portal-termfilechooser-hunkyburrito-git biri-git
 # or use shelly:
-# shelly xdg-desktop-portal-termfilechooser-hunkyburrito-git 
+# shelly xdg-desktop-portal-termfilechooser-hunkyburrito-git
+# shelly biri-git
 
 # org.freedesktop.FileManager1.common (yazi file view):
 git clone https://github.com/boydaihungst/org.freedesktop.FileManager1.common

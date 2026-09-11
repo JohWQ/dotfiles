@@ -12,6 +12,7 @@ yay
 yazi
 obsidian
 helium-browser-bin
+pear-desktop
 cava
 kdeconnect
 gpu-screen-recorder

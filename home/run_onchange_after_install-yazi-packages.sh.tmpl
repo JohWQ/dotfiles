@@ -1,0 +1,18 @@
+{{- if eq .chezmoi.os "linux" -}}
+#!/bin/bash
+set -euo pipefail
+
+# Rerun when the system packages or Yazi packages change.
+# arch-package-list-sha256: {{ include "../package-lists/arch-pkglist.txt" | sha256sum }}
+# yazi-package-list-sha256: {{ include "dot_config/yazi/package.toml" | sha256sum }}
+
+[[ -r /etc/os-release ]] || exit 0
+. /etc/os-release
+case " ${ID:-} ${ID_LIKE:-} " in
+    *" arch "*|*" cachyos "*) ;;
+    *) exit 0 ;;
+esac
+
+command -v yazi >/dev/null || exit 0
+ya pkg install
+{{ end -}}
