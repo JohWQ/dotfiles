@@ -8,7 +8,7 @@
 ### * If unset, it reads PRETTY_NAME or NAME from /etc/os-release, with a fallback to /etc/lsb-release.
 ###
 #TARGET_OS_NAME="Arch Linux"
-KERNEL_CMDLINE[default]="root=UUID=6149db3b-dd10-4a71-987f-f6a1faf8888d rootflags=subvol=@ splash nowatchdog rw sysctl.kernel.sysrq=1 usbhid.quirks=0x19f7:0x0003:0x0004"
+KERNEL_CMDLINE[default]="root=UUID=6149db3b-dd10-4a71-987f-f6a1faf8888d rootflags=subvol=@ splash nowatchdog rw sysctl.kernel.sysrq=1 usbhid.quirks=0x19f7:0x0003:0x0004 module_blacklist=snd_hda_codec_nvhdmi,snd_hda_codec_hdmi,iwlwifi,iwlmvm,iwldvm"
 
 
 ### Boot Partition Path
