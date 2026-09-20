@@ -91,7 +91,7 @@ local bookmarks = {
 	{ tag = "Documents", path = "~/Documents", key = "D" },
 	{ tag = "Pictures", path = "~/Pictures", key = "p" },
 	{ tag = "Pictures", path = "~/Videos", key = "v" },
-	{ tag = "Documents", path = "~/Music", key = { "M", "M" } },
+	{ tag = "Music", path = "~/Music", key = { "M", "M" } },
 	{ tag = "Config", path = "~/.config", key = "c" },
 	{ tag = "Yazi config", path = "~/.config/yazi", key = "y" },
 	{ tag = "Neovim config", path = "~/.config/nvim", key = "n" },

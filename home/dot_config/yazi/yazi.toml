@@ -9,7 +9,7 @@ mouse_events   = [ "click", "scroll", "drag" ]
 [preview]
 wrap       = "yes"
 # Image size
-max_width  = 700
+max_width  = 1000
 max_height = 1000
 
 [opener]

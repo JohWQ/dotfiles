@@ -270,6 +270,13 @@ vim.keymap.set('n', '<C-M-k>', ':resize +3<CR>', { silent = true, desc = 'Increa
 vim.keymap.set('n', '<C-M-h>', ':vertical resize -3<CR>', { silent = true, desc = 'Decrease width' })
 vim.keymap.set('n', '<C-M-l>', ':vertical resize +3<CR>', { silent = true, desc = 'Increase width' })
 
+vim.opt.mousemodel = 'popup_setpos'
+
+vim.cmd [[
+  anoremenu PopUp.-CloseSeparator- <Nop>
+  anoremenu PopUp.Close\ Neovim <Cmd>qa<CR>
+]]
+
 -- Plugin/LSP keybinds
 vim.keymap.set('n', '<leader>pl', ':Lazy<CR>', { desc = 'Open Lazy menu' })
 vim.keymap.set('n', '<leader>pm', ':Mason<CR>', { desc = 'Open Mason menu' })

@@ -1,3 +1,10 @@
+//Alt+TAB                           https://niri-wm.github.io/niri/Configuration%3A-Recent-Windows
+recent-windows {
+    binds {
+        Alt+Tab                     { next-window     scope="workspace"; }
+    }
+}
+
 binds {
 
     // ────────────── Keybindings ──────────────
@@ -110,26 +117,18 @@ binds {
     Mod+Shift+End                       { move-column-to-last; }
 
     Mod+X                               hotkey-overlay-title="Focus Previous Monitor" { focus-monitor-previous; }
-  //Mod+Shift+Left                      { focus-monitor-left; }
-  //Mod+Shift+Right                     { focus-monitor-right; }
-  //Mod+Shift+UP                        { focus-monitor-up; }
-  //Mod+Shift+Down                      { focus-monitor-down; }
 
     Mod+Shift+X                         hotkey-overlay-title=null { spawn "sh" "-c" "niri msg action move-column-to-monitor-previous && niri msg action center-column"; }
-  //Mod+Shift+Ctrl+Left                 { move-column-to-monitor-left; }
-  //Mod+Shift+Ctrl+Right                { move-column-to-monitor-right; }
-  //Mod+Shift+Ctrl+UP                   { move-column-to-monitor-up; }
-  //Mod+Shift+Ctrl+Down                 { move-column-to-monitor-down; }
     Mod+Space                           { switch-focus-between-floating-and-tiling; }
 
     Mod+Ctrl+X                          hotkey-overlay-title=null { spawn "sh" "-c" "niri msg action move-column-to-monitor-previous && niri msg action center-column && niri msg action focus-monitor-previous"; }
 
-    // Merge tiling
-    Mod+Comma                           { consume-window-into-column; }
-    Mod+Period                          { expel-window-from-column; }
     // Respect tiling, move window
-    Mod+Shift+Comma                     { consume-or-expel-window-right; }
-    Mod+Shift+Period                    { consume-or-expel-window-left; }
+    Mod+Comma                           { consume-or-expel-window-right; }
+    Mod+Period                          { consume-or-expel-window-left; }
+    // Merge tiling
+    Mod+Shift+Comma                     { consume-window-into-column; }
+    Mod+Shift+Period                    { expel-window-from-column; }
 
     Mod+R                               { switch-preset-column-width; }
     Mod+Shift+R                         { switch-preset-column-width-back; }
@@ -152,8 +151,6 @@ binds {
     Mod+Shift+MouseForward              hotkey-overlay-title=null { move-column-right; }
     Mod+Shift+MouseBack                 hotkey-overlay-title=null { move-column-left; }
 
-  //Mod+Shift+WheelScrollDown           { focus-column-right; }
-  //Mod+Shift+WheelScrollUp             { focus-column-left; }
     Mod+Ctrl+Shift+WheelScrollDown      { move-column-right; }
     Mod+Ctrl+Shift+WheelScrollUp        { move-column-left; }
 
@@ -168,7 +165,6 @@ binds {
     Mod+9                               { focus-workspace 9; }
 
     Mod+P                               { focus-workspace-previous; }
-    //Alt+TAB                           https://niri-wm.github.io/niri/Configuration%3A-Recent-Windows
 
     Mod+Shift+1                         { move-column-to-workspace 1; }
     Mod+Shift+2                         { move-column-to-workspace 2; }

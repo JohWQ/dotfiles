@@ -1,3 +1,5 @@
+config_version = 14
+
 [bar.default]
 background_opacity = 0.79999998211860657
 center = [ "media" ]
@@ -19,7 +21,15 @@ end = [
 margin_edge = 2
 margin_ends = 50
 radius = 20
-start = [ "control-center", "launcher", "wallpaper", "workspaces", "active_window" ]
+start = [
+    "control-center",
+    "launcher",
+    "wallpaper",
+    "workspaces",
+    "focus-column-left",
+    "focus-column-right",
+    "active_window"
+]
 thickness = 32
 
     [bar.default.dead_zone.actions]
@@ -43,6 +53,7 @@ thickness = 32
 
 [desktop_widgets]
 enabled = false
+schema_version = 2
 widget_order = []
 [dock]
 active_opacity = 0.84999998100101948
@@ -60,7 +71,7 @@ smart_auto_hide = true
 [hot_corners]
 enabled = true
 
-    [hot_corners.bottom_left]
+    [hot_corners.top_left]
     action = "launcher"
 
 [idle]
@@ -72,15 +83,15 @@ pre_action_fade_seconds = 0
     enabled = true
     timeout = 600.0
 
-    [idle.behavior.screen-off]
-    action = "screen_off"
-    enabled = false
-    timeout = 660.0
-
     [idle.behavior.lock-and-suspend]
     action = "lock_and_suspend"
     enabled = false
     timeout = 900.0
+
+    [idle.behavior.screen-off]
+    action = "screen_off"
+    enabled = false
+    timeout = 660.0
 
 [keybinds]
 cancel = [ "Escape", "Ctrl+c" ]
@@ -91,6 +102,10 @@ right = [ "Right", "Ctrl+l" ]
 up = [ "Up", "Ctrl+k" ]
 validate = [ "Return", "KP_Enter", "space", "Alt+e" ]
 
+[lockscreen]
+blur_intensity = 0.59999998658895493
+fingerprint = false
+tint_intensity = 0.69999998435378075
 
 [nightlight]
 enabled = true
@@ -196,10 +211,12 @@ mode = "dark"
 
 [wallpaper]
 directory = "~/Pictures/Wallpapers"
+[widget.active_window]
+max_length = 310
 
 [widget.active_window2]
-type = "active_window"
 max_length = 160
+type = "active_window"
 
 [widget.bar]
 type = "icefish/phone-connect:bar"
@@ -214,8 +231,32 @@ enabled = false
 [widget.clock]
 tooltip_format = "{:%d/%m/%y}"
 
-[widget.control-center.actions]
-right = "settings-open"
+[widget.control-center]
+enabled = false
+
+    [widget.control-center.actions]
+    right = "settings-open"
+
+[widget.focus-column-left]
+glyph = "arrow-big-left"
+tooltip = "Focus Column to the Left"
+type = "custom_button"
+
+    [widget.focus-column-left.actions]
+    back = "exec niri msg action focus-column-left"
+    left = "exec niri msg action focus-column-left"
+
+[widget.focus-column-right]
+glyph = "arrow-big-right"
+tooltip = "Focus Column to the Right"
+type = "custom_button"
+
+    [widget.focus-column-right.actions]
+    forward = "exec niri msg action focus-column-right"
+    left = "exec niri msg action focus-column-right"
+
+[widget.launcher]
+enabled = false
 
 [widget.media]
 hide_when_no_media = true
@@ -228,6 +269,7 @@ title_scroll = "on_hover"
 
 [widget.media2]
 hide_when_no_media = true
+max_length = 233
 title_scroll = "on_hover"
 type = "media"
 
@@ -249,9 +291,10 @@ right = "panel-toggle noctalia/wallhaven:browser"
 show_condition = false
 
 [widget.workspaces]
-focused_output_only = true
+active_pill_size = 2.8000000000000003
 labels_only_when_occupied = true
 
     [widget.workspaces.actions]
     back = "workspace-switch prev"
     forward = "workspace-switch next"
+    right = "exec niri msg action toggle-overview"
