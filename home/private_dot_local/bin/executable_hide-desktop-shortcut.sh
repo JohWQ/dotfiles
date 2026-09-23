@@ -11,15 +11,41 @@ fi
 USER_APPS="$HOME/.local/share/applications"
 SYSTEM_APPS="/usr/share/applications"
 
+show_hidden_hint() {
+  printf '%s\n' 'To show hidden desktop entries run:' \
+    '$ fd -e desktop -d 1 . /usr/share/applications ~/.local/share/applications | xargs -r grep -l "^NoDisplay=true"'
+}
+
+# List effective entries: a user file overrides the matching system file,
+# including when the user file hides that entry.
+list_visible_entries() {
+  local directory file
+  for directory in "$USER_APPS" "$SYSTEM_APPS"; do
+    [ -d "$directory" ] || continue
+    while IFS= read -r -d '' file; do
+      if [[ "$directory" == "$SYSTEM_APPS" ]] && \
+          [ -f "$USER_APPS/${file##*/}" ]; then
+        continue
+      fi
+      if awk '
+        /^\[/ { main = ($0 ~ /^\[Desktop Entry\]\r?$/) }
+        main && /^(NoDisplay|Hidden)[[:space:]]*=[[:space:]]*true[[:space:]]*$/ { hidden = 1 }
+        END { exit !hidden }
+      ' "$file"; then
+        continue
+      fi
+      printf '%s\0' "$file"
+    done < <(fd -0 -e desktop -d 1 . "$directory")
+  done
+}
+
 # Check if arguments were passed
 if [ "$#" -gt 0 ]; then
   SELECTED_FILES=("$@")
 else
-  # Collect .desktop files, excluding those that already contain NoDisplay=true
-  mapfile -t SELECTED_FILES < <(
-    fd -e desktop -d 1 . "$USER_APPS" "$SYSTEM_APPS" | \
-    xargs -r grep -L "^NoDisplay=true" | \
-    fzf -m \
+  mapfile -d '' -t SELECTED_FILES < <(
+    list_visible_entries | \
+    fzf -m --read0 --print0 \
         --prompt="Select .desktop files > " \
         --header="Tab: select multiple | Enter: confirm" \
         --preview='cat {}' \
@@ -30,7 +56,7 @@ fi
 # Exit if no files were selected
 if [ ${#SELECTED_FILES[@]} -eq 0 ]; then
   echo "No files selected."
-  echo -e 'To show hidden desktop entries run:\n$ fd -e desktop -d 1 . /usr/share/applications ~/.local/share/applications | xargs -r grep -l "^NoDisplay=true"'
+  show_hidden_hint
   exit 0
 fi
 
@@ -40,7 +66,7 @@ for FILE in "${SELECTED_FILES[@]}"; do
   # Exit immediately if an invalid file path is passed
   if [ ! -f "$FILE" ]; then
     echo -e "Error: File not found: $FILE\nProvide filename argument, or none at all." >&2
-    echo -e 'To show hidden desktop entries run:\n$ fd -e desktop -d 1 . /usr/share/applications ~/.local/share/applications | xargs -r grep -l "^NoDisplay=true"'
+    show_hidden_hint
     exit 1
   fi
 
@@ -49,7 +75,6 @@ for FILE in "${SELECTED_FILES[@]}"; do
     read -rp "Warning: '$FILE' does not end with \".desktop\". Continue anyway? [y/N] " CONFIRM
     if [[ ! "$CONFIRM" =~ ^[Yy]$ ]]; then
       echo "Skipping $FILE."
-      echo -e 'To show hidden desktop entries run:\n$ fd -e desktop -d 1 . /usr/share/applications ~/.local/share/applications | xargs -r grep -l "^NoDisplay=true"'
       continue
     fi
   fi
@@ -57,14 +82,13 @@ for FILE in "${SELECTED_FILES[@]}"; do
   TARGET_FILE="$FILE"
 
   # Copy system files to user directory if not writable
-  if [[ "$FILE" == "$SYSTEM_APPS"* ]] && [ ! -w "$FILE" ]; then
+  if [[ "$FILE" == "$SYSTEM_APPS/"* ]] && [ ! -w "$FILE" ]; then
     BASENAME=$(basename "$FILE")
     TARGET_FILE="$USER_APPS/$BASENAME"
     
     if [ ! -f "$TARGET_FILE" ]; then
       cp "$FILE" "$TARGET_FILE"
       echo "Copied $(basename "$FILE") to ~/.local/share/applications/"
-      echo -e 'To show hidden desktop entries run:\n$ fd -e desktop -d 1 . /usr/share/applications ~/.local/share/applications | xargs -r grep -l "^NoDisplay=true"'
     fi
   fi
 
@@ -72,5 +96,6 @@ for FILE in "${SELECTED_FILES[@]}"; do
   desktop-file-edit --set-key=NoDisplay --set-value=true "$TARGET_FILE"
 
   echo "Hidden desktop entry: $TARGET_FILE"
-  echo -e 'To show hidden desktop entries run:\n$ fd -e desktop -d 1 . /usr/share/applications ~/.local/share/applications | xargs -r grep -l "^NoDisplay=true"'
 done
+
+show_hidden_hint
