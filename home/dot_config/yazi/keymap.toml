@@ -15,6 +15,10 @@ on = [ "g", "d" ]
 run = "noop"
 
 [[mgr.prepend_keymap]]
+on = [ "g", "t" ]
+run = "noop"
+
+[[mgr.prepend_keymap]]
 on = [ "g", "<Space>" ]
 run = "noop"
 

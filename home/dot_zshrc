@@ -196,6 +196,22 @@ alias lg='lazygit'
 alias cha='chezmoi add'
 alias chr='chezmoi re-add'
 alias chcd='chezmoi cd'
+y() {
+  if [ -n "$KITTY_WINDOW_ID" ] || [ "$TERM" = "xterm-kitty" ]; then
+    yazi "$@"
+  else
+    (nohup kitty -- yazi "$@" >/dev/null 2>&1 &)
+    exit
+  fi
+}
+nv() {
+  if [ -n "$KITTY_WINDOW_ID" ] || [ "$TERM" = "xterm-kitty" ]; then
+    nvim "$@"
+  else
+    (nohup kitty -- nvim "$@" >/dev/null 2>&1 &)
+    exit
+  fi
+}
 
 # ---------------------------
 # System / Boot
@@ -238,6 +254,7 @@ alias neofetch='clear; fastfetch'
 alias songrecord='songrec listen -d "alsa_output.pci-0000_00_1f.3.analog-stereo.monitor"'
 alias showfont='fc-list : family | rg --ignore-case '
 alias pickwindow='niri msg pick-window'
+alias pickcolor='pastel --color-picker hyprpicker pick'
 alias xprop='niri msg pick-window'
 
 
