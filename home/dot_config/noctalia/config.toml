@@ -11,6 +11,7 @@ end = [
     "bar_2",
     "recorder",
     "weather",
+    "launcher",
     "notifications",
     "clipboard",
     "network",
@@ -21,15 +22,7 @@ end = [
 margin_edge = 2
 margin_ends = 50
 radius = 20
-start = [
-    "control-center",
-    "launcher",
-    "wallpaper",
-    "workspaces",
-    "focus-column-left",
-    "focus-column-right",
-    "active_window"
-]
+start = [ "control-center", "wallpaper", "workspaces", "focus-column-left", "focus-column-right", "active_window" ]
 thickness = 32
 
     [bar.default.dead_zone.actions]
@@ -124,11 +117,11 @@ download_dir = "~/Pictures/Wallpapers/wallhaven"
 enabled = [ "noctalia/screen_recorder", "noctalia/wallhaven", "yuuto/calculator", "icefish/phone-connect" ]
 
 [shell]
-polkit_agent = true
 avatar_path = "/home/jw/Pictures/.avatar.jpg"
 clipboard_auto_paste = "off"
 clipboard_history_max_entries = 300
 clipboard_image_action_command = "satty -f -"
+polkit_agent = true
 
     [shell.launcher]
     app_grid = true
@@ -256,7 +249,7 @@ type = "custom_button"
     left = "exec niri msg action focus-column-right"
 
 [widget.launcher]
-enabled = false
+enabled = true
 
 [widget.media]
 hide_when_no_media = true
