@@ -31,6 +31,7 @@ return {
         dashboard.button('d', '  Daily Note', ':Obsidian today<CR>'),
         dashboard.button('t', '  Notes', function() require('yazi').yazi({}, vim.fn.expand '~/ServerSync/Documents/notes') end),
         dashboard.button('r', '󱑂  Recent', ':lua Snacks.picker.recent()<CR>'),
+        dashboard.button('.', '  Open Scratch buffer', ':lua Snacks.scratch()<CR>'),
         dashboard.button('-', '  Open Yazi at current file', ':Yazi<CR>'),
         dashboard.button('q', '󰗼  Quit', ':qa<CR>'),
       }

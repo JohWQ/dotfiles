@@ -44,6 +44,21 @@
         }
     }
 
+    // Open on 2nd display
+    window-rule {
+        match app-id="steam"
+        match app-id="com.github.th-ch.youtube-music"
+        open-on-output "DP-3"
+    }
+
+
+    window-rule {
+        match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+        open-floating true
+        default-column-width { proportion 0.5; }
+        default-window-height { proportion 0.518; }
+    }
+
     // Scratchpads (with niri-scratchpad-rs)
     window-rule {
         match title="Yazi Scratchpad"
@@ -99,8 +114,7 @@
     // Full width
     window-rule {
         match app-id="com.github.th-ch.youtube-music"
-        match app-id="com.mojang.minecraft"
         match app-id="^Minecraft"
-        //match app-id="org.kde.kdenlive"
+        match app-id="org.kde.kdenlive"
         default-column-width { proportion 1.0; }
     }
