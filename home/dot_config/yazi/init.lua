@@ -27,6 +27,10 @@ function Linemode:size_and_mtime()
 end
 
 ------------------------------------------------------------------
+-- Share tab paths with other Yazi instances:
+require("open-paths"):setup()
+
+------------------------------------------------------------------
 -- Folder saving preferences:
 local pref_by_location = require("pref-by-location")
 pref_by_location:setup({

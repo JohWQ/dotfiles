@@ -591,3 +591,14 @@ desc = "Remove a GVFS mount URI"
 on = [ "g", "m" ]
 run = "plugin gvfs -- jump-to-device --automount"
 desc = "Automount then select device to jump to its mount point"
+
+# open-paths
+[[mgr.prepend_keymap]]
+on = [ "g", "o" ]
+run = "plugin open-paths"
+desc = "Jump to a path open in another Yazi"
+
+[[mgr.prepend_keymap]]
+on = [ "g", "p" ]
+run = "plugin open-paths -- copy"
+desc = "Copy a path open in another Yazi"

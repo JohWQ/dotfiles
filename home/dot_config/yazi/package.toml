@@ -98,5 +98,10 @@ use = "boydaihungst/gvfs"
 rev = "a85d659"
 hash = "1866f00532ba80f895544f7348e89e53"
 
+[[plugin.deps]]
+use = "JohWQ/open-paths"
+rev = "0ec0747"
+hash = "a3aaae0928d768c087bf796c7f930672"
+
 [flavor]
 deps = []
