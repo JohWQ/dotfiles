@@ -23,7 +23,7 @@ binds {
     Mod+Alt+2                           hotkey-overlay-title="Open Scratchpad 2: Neovim" { spawn "sh" "-c" "niri-scratchpad target --spawn 'kitty -T \"Neovim Scratchpad\" -e nvim' title \"Neovim Scratchpad\" && niri msg action focus-floating" ; }
     Mod+Alt+3                           hotkey-overlay-title="Open Scratchpad 3: Alacritty" { spawn "sh" "-c" "niri-scratchpad target --spawn 'alacritty -t \"Alacritty Scratchpad\" --' title \"Alacritty Scratchpad\" && niri msg action focus-floating" ; }
     Mod+Alt+4                           hotkey-overlay-title="Open Scratchpad 4: Wiremix" { spawn "sh" "-c" "niri-scratchpad target --spawn 'alacritty -t \"Wiremix Scratchpad\" -e wiremix' title \"Wiremix Scratchpad\" && niri msg action focus-floating" ; }
-    Mod+Q                               hotkey-overlay-title="Assign as scratchpad" { spawn "sh" "-c" "niri-scratchpad create 1 --as-float && notify-send -t 1100 'Scratchpad assigned/toggled'" ; }
+    Mod+Q                               hotkey-overlay-title="Assign as scratchpad" { spawn "sh" "-c" "niri-scratchpad create 1 --as-float && notify-send -t 1100 'Toggle' 'Scratchpad assign/show'" ; }
     Mod+Ctrl+Q                          hotkey-overlay-title="Remove scratchpad space" { spawn "sh" "-c" "niri-scratchpad delete 1 && notify-send -t 1500 'Window unassigned as scratchpad'" ; }
 
     Mod+Return                          hotkey-overlay-title="Open Terminal: Alacritty" { spawn "alacritty"; }
@@ -40,7 +40,7 @@ binds {
     Mod+A                               hotkey-overlay-title="Open Audio panel: noctalia audio controlCenter" { spawn-sh "noctalia msg panel-toggle control-center audio"; }
     Mod+N                               hotkey-overlay-title="Open Settings: noctalia settings" { spawn-sh "noctalia msg settings-toggle"; }
     Mod+B                               hotkey-overlay-title="Toggle Bar: noctalia bar" { spawn-sh "noctalia msg bar-toggle"; }
-    Mod+Shift+B                         hotkey-overlay-title="Toggle Dock: noctalia dock" { spawn-sh "noctalia msg dock-toggle"; }
+    Mod+Shift+B                         hotkey-overlay-title="Toggle Dock: noctalia dock" { spawn-sh "noctalia msg dock-toggle && notify-send -t 1100 'Toggle' 'Noctalia Dock'"; }
     Mod+TAB                             hotkey-overlay-title="Open App Launcher: noctalia launcher" { spawn-sh "noctalia msg panel-toggle launcher"; }
     Mod+E                               hotkey-overlay-title="Open Emoji launcher: noctalia launcher" { spawn-sh "noctalia msg panel-open launcher /emo"; }
   //Mod+Alt+L                           hotkey-overlay-title="Lock Screen: noctalia lock" { spawn-sh "noctalia msg session lock"; }
