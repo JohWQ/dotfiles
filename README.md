@@ -37,6 +37,9 @@ sudo ninja -C build install
 Compare the files: `~/.config/noctalia/config.toml` & `~/.local/state/noctalia/settings.toml`
 Example command:
 `diff ~/.config/noctalia/config.toml ~/.local/state/noctalia/settings.toml`
+#### Certain windows spawn too small/large
+Take a look at the relevant niri config file: `~/.config/niri/cfg/rules.kdl`
+Change the settings that set the window size by pixels.
 
 ### References
 #### Documentation:

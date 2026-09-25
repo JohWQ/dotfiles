@@ -113,8 +113,7 @@ local bookmarks = {
 	{ tag = "usr", path = "/usr", key = "u" },
 	{ tag = "opt", path = "/opt", key = "o" },
 	{ tag = "etc", path = "/etc", key = "e" },
-	{ tag = "Drives", path = "/media", key = "m" },
-	{ tag = "Drives", path = "/mnt", key = { "M", "m" } },
+	{ tag = "Drives", path = "/mnt", key = "m" },
 	{ tag = "Server", path = "/mnt/4TB", key = "s" },
 }
 
