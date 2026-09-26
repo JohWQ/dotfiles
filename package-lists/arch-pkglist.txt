@@ -4,6 +4,8 @@ xorg-xhost
 github-cli
 firefox-tridactyl
 lazygit
+eza
+bat
 kitty
 neovim
 tree-sitter
