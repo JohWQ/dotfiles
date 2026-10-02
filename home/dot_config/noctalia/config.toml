@@ -11,6 +11,7 @@ end = [
     "bar",
     "bar_2",
     "recorder",
+    "bar_3",
     "weather",
     "launcher",
     "notifications",
@@ -21,7 +22,7 @@ end = [
     "session"
 ]
 margin_edge = 2
-margin_ends = 50
+margin_ends = 20
 radius = 20
 start = [ "control-center", "wallpaper", "workspaces", "focus-column-left", "focus-column-right", "active_window" ]
 thickness = 32
@@ -30,6 +31,7 @@ thickness = 32
     left = "panel-toggle control-center home"
     middle = "exec noctalia msg settings-open"
     right = "panel-toggle session"
+
     [[control_center.shortcuts]]
     type = "nightlight"
 
@@ -45,10 +47,6 @@ thickness = 32
     [[control_center.shortcuts]]
     type = "noctalia/screen_recorder:toggle"
 
-[desktop_widgets]
-enabled = false
-schema_version = 2
-widget_order = []
 [dock]
 active_opacity = 0.84999998100101948
 active_scale = 0.85000001266598701
@@ -56,8 +54,10 @@ background_opacity = 0.4999999888241291
 concave_edge_corners = false
 enabled = true
 inactive_opacity = 0.59999998658895493
+launcher_position = "start"
 magnification_scale = 1.2500000037252903
 margin_edge = 2
+pinned = [ "firefox" ]
 radius = 20
 reserve_space = false
 smart_auto_hide = true
@@ -100,12 +100,20 @@ validate = [ "Return", "KP_Enter", "space", "Alt+e" ]
 blur_intensity = 0.59999998658895493
 fingerprint = false
 tint_intensity = 0.69999998435378075
+transition_duration = 1300
 
 [nightlight]
 enabled = true
 
+[notification]
+scale = 0.95000000670552254
+
 [plugin_settings."icefish/phone-connect"]
 battery_display = "percent"
+
+[plugin_settings."noctalia/bitwarden"]
+gen_length = 16
+gen_special = true
 
 [plugin_settings."noctalia/screen_recorder"]
 copy_to_clipboard = true
@@ -115,7 +123,15 @@ hide_inactive = true
 download_dir = "~/Pictures/Wallpapers/wallhaven"
 
 [plugins]
-enabled = [ "noctalia/screen_recorder", "noctalia/wallhaven", "yuuto/calculator", "icefish/phone-connect" ]
+enabled = [
+    "noctalia/screen_recorder",
+    "noctalia/wallhaven",
+    "yuuto/calculator",
+    "icefish/phone-connect",
+    "thepunkoff/pomodoro",
+    "rylos/syncthing",
+    "noctalia/bitwarden"
+]
 
 [shell]
 avatar_path = "/home/jw/Pictures/.avatar.jpg"
@@ -126,7 +142,7 @@ polkit_agent = true
 
     [shell.launcher]
     app_grid = true
-    auto_paste = "off"
+    auto_paste = "auto"
 
     [shell.mpris]
     blacklist = [ "losslesscut", "firefox" ]
@@ -155,23 +171,12 @@ polkit_agent = true
     enabled = false
     glyph = "device-desktop-pause"
     label = "Suspend"
-    variant = "outline"
+    variant = "default"
 
     [[shell.session.actions]]
     action = "lock_and_suspend"
     countdown_seconds = 0.0
     enabled = false
-    shortcut = "3"
-    variant = "default"
-
-    [[shell.session.actions]]
-    action = "command"
-    command = "if systemctl --user is-active --quiet app-dev.lizardbyte.app.Sunshine.service; then systemctl --user stop app-dev.lizardbyte.app.Sunshine.service && sleep 5; fi; noctalia msg session lock-and-suspend"
-    countdown_seconds = 0.0
-    enabled = false
-    glyph = "player-pause"
-    label = "Lock & Suspend"
-    shortcut = "3"
     variant = "default"
 
     [[shell.session.actions]]
@@ -208,9 +213,17 @@ directory = "~/Pictures/Wallpapers"
 [widget.active_window]
 max_length = 310
 
+    [widget.active_window.actions]
+    left = "exec niri msg action toggle-window-floating"
+    right = "exec appid=$(niri msg -j focused-window | jq -r '.app_id // \"window\"'); [ \"$(printf \"Cancel\\nYes\\n\" | noctalia dmenu -p \"Do you want to close $appid?\")\" = \"Yes\" ] && niri msg action close-window"
+
 [widget.active_window2]
 max_length = 160
 type = "active_window"
+
+    [widget.active_window2.actions]
+    left = "exec niri msg action toggle-window-floating"
+    right = "exec appid=$(niri msg -j focused-window | jq -r '.app_id // \"window\"'); [ \"$(printf \"Cancel\\nYes\\n\" | noctalia dmenu -p \"Do you want to close $appid?\")\" = \"Yes\" ] && niri msg action close-window"
 
 [widget.bar]
 type = "icefish/phone-connect:bar"
@@ -219,11 +232,18 @@ type = "icefish/phone-connect:bar"
 max_bar_length = 11
 type = "yuuto/calculator:bar"
 
+[widget.bar_3]
+type = "rylos/syncthing:bar"
+
 [widget.clipboard]
 enabled = false
 
 [widget.clock]
-tooltip_format = "{:%d/%m/%y}"
+format = "{:%H:%M| %d}"
+tooltip_format = "{:%I:%M %p}| {:%d.%m.%y}"
+
+    [widget.clock.actions]
+    right = "panel-toggle thepunkoff/pomodoro:panel"
 
 [widget.control-center]
 enabled = false
@@ -263,7 +283,7 @@ title_scroll = "on_hover"
 
 [widget.media2]
 hide_when_no_media = true
-max_length = 233
+max_length = 200
 title_scroll = "on_hover"
 type = "media"
 
@@ -286,6 +306,7 @@ show_condition = false
 
 [widget.workspaces]
 active_pill_size = 2.8000000000000003
+focused_output_only = true
 labels_only_when_occupied = true
 
     [widget.workspaces.actions]
