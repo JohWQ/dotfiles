@@ -1,9 +1,6 @@
     window-rule {
         geometry-corner-radius 12 // Set every window radius to 12
         clip-to-geometry true
-    }
-
-    window-rule {
         background-effect {
           blur true
           xray false
@@ -44,10 +41,19 @@
         }
     }
 
+    // Open on main display
+    window-rule {
+    match app-id=r#"^steam_app_.*$"#
+    open-on-output "DP-2"
+    open-fullscreen true
+    open-floating false
+    }
+
     // Open on 2nd display
     window-rule {
-        match app-id="steam"
+        match app-id=r#"^steam$"#
         match app-id="com.github.th-ch.youtube-music"
+        match app-id="vesktop"
         open-on-output "DP-3"
     }
 

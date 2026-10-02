@@ -1,4 +1,4 @@
-//Alt+TAB                           https://niri-wm.github.io/niri/Configuration%3A-Recent-Windows
+// Alt+TAB                          https://niri-wm.github.io/niri/Configuration%3A-Recent-Windows
 recent-windows {
     binds {
         Alt+Tab                     { next-window     scope="workspace"; }
@@ -7,21 +7,23 @@ recent-windows {
 
 binds {
 
+
     // ────────────── Keybindings ──────────────
     // https://niri-wm.github.io/niri/Configuration%3A-Key-Bindings
 
-    // ─── noctalia keybinds ───
+    // noctalia keybinds
     // https://docs.noctalia.dev/noctalia/ipc/
 
     Mod+Shift+Escape                    { show-hotkey-overlay; }
     Mod+Shift+Plus                      hotkey-overlay-title="Show Important Hotkeys" { show-hotkey-overlay; }
 
+
     // ─── Applications ───
     // Scratchpads
     // Implementation for similar scratchpad functionality as i3WM:
-    Mod+Alt+1                           hotkey-overlay-title="Open Scratchpad 1: Yazi" { spawn "sh" "-c" "niri-scratchpad target --spawn 'kitty -T \"Yazi Scratchpad\" -e yazi' title \"Yazi Scratchpad\" && niri msg action focus-floating" ; }
-    Mod+Alt+2                           hotkey-overlay-title="Open Scratchpad 2: Neovim" { spawn "sh" "-c" "niri-scratchpad target --spawn 'kitty -T \"Neovim Scratchpad\" -e nvim' title \"Neovim Scratchpad\" && niri msg action focus-floating" ; }
-    Mod+Alt+3                           hotkey-overlay-title="Open Scratchpad 3: Alacritty" { spawn "sh" "-c" "niri-scratchpad target --spawn 'alacritty -t \"Alacritty Scratchpad\" --' title \"Alacritty Scratchpad\" && niri msg action focus-floating" ; }
+    Mod+Alt+1                           hotkey-overlay-title=null { spawn "sh" "-c" "niri-scratchpad target --spawn 'kitty -T \"Yazi Scratchpad\" -e yazi' title \"Yazi Scratchpad\" && niri msg action focus-floating" ; }
+    Mod+Alt+2                           hotkey-overlay-title=null { spawn "sh" "-c" "niri-scratchpad target --spawn 'kitty -T \"Neovim Scratchpad\" -e nvim' title \"Neovim Scratchpad\" && niri msg action focus-floating" ; }
+    Mod+Alt+3                           hotkey-overlay-title=null { spawn "sh" "-c" "niri-scratchpad target --spawn 'alacritty -t \"Alacritty Scratchpad\" --' title \"Alacritty Scratchpad\" && niri msg action focus-floating" ; }
     Mod+Alt+4                           hotkey-overlay-title="Open Scratchpad 4: Wiremix" { spawn "sh" "-c" "niri-scratchpad target --spawn 'alacritty -t \"Wiremix Scratchpad\" -e wiremix' title \"Wiremix Scratchpad\" && niri msg action focus-floating" ; }
     Mod+Q                               hotkey-overlay-title="Assign as scratchpad" { spawn "sh" "-c" "niri-scratchpad create 1 --as-float && notify-send -t 1100 'Toggle' 'Scratchpad assign/show'" ; }
     Mod+Ctrl+Q                          hotkey-overlay-title="Remove scratchpad space" { spawn "sh" "-c" "niri-scratchpad delete 1 && notify-send -t 1500 'Window unassigned as scratchpad'" ; }
@@ -33,7 +35,7 @@ binds {
     Mod+Alt+O                           hotkey-overlay-title="Open Note taking app: Obsidian" { spawn "obsidian"; }
     Mod+Ctrl+Alt+Y                      hotkey-overlay-title="Open Music Player: Youtube Music" { spawn "pear-desktop"; }
 
-    // --- Noctalia ---
+    // Noctalia
     Mod+Shift+W                         hotkey-overlay-title="Open Wallpaper Selector: noctalia wallpaper toggle" { spawn-sh "noctalia msg panel-toggle wallpaper"; }
     Mod+Ctrl+Shift+W                    hotkey-overlay-title="Open Wallpaper Selector: noctalia wallhaven toggle" { spawn-sh "noctalia msg panel-toggle noctalia/wallhaven:browser"; }
     Mod+S                               hotkey-overlay-title="Open Control Center: noctalia controlCenter" { spawn-sh "noctalia msg panel-toggle control-center"; }
@@ -54,52 +56,69 @@ binds {
     Mod+Alt+Y                           hotkey-overlay-title="File Manager: Yazi" { spawn-sh "kitty yazi"; }
     Mod+Ctrl+Alt+N                      hotkey-overlay-title="GUI File Manager: Nautilus" { spawn "nautilus"; }
 
+
     // ─── Media Controls ───
     // Ducky One 3 Macros: Enter recording mode with Fn+Alt+Tab
     // <Recording keys> - Actual keymap
-    // Fn+Mod+B - Fn+PgUP
-    XF86AudioRaiseVolume                allow-when-locked=true { spawn-sh "noctalia msg volume-up"; }
+    // Fn+Super+B - Fn+PgUP
+    XF86AudioRaiseVolume                allow-when-locked=true { spawn-sh "playerctl volume 0.02+"; }
     // Fn+Shift+PgUp
     Shift+XF86AudioRaiseVolume          allow-when-locked=true { spawn-sh "noctalia msg volume-up 1"; }
-    // Fn+Mod+C - Fn+PgDn
-    XF86AudioLowerVolume                allow-when-locked=true { spawn-sh "noctalia msg volume-down"; }
+    // Fn+Mod+PgUp
+    Mod+XF86AudioRaiseVolume            hotkey-overlay-title=null allow-when-locked=true { spawn-sh "noctalia msg volume-up 10"; }
+    // Fn+Super+C - Fn+PgDn
+    XF86AudioLowerVolume                allow-when-locked=true { spawn-sh "playerctl volume 0.02-"; }
     // Fn+Shift+PgDn
     Shift+XF86AudioLowerVolume          allow-when-locked=true { spawn-sh "noctalia msg volume-down 1"; }
-    // Fn+Mod+A - Fn+End
+    // Fn+Mod+PgDn
+    Mod+XF86AudioLowerVolume            hotkey-overlay-title=null allow-when-locked=true { spawn-sh "noctalia msg volume-down 10"; }
+    // Fn+Super+A - Fn+End
     XF86AudioMute                       allow-when-locked=true { spawn-sh "noctalia msg volume-mute"; }
     XF86AudioMicMute                    allow-when-locked=true { spawn-sh "noctalia msg mic-mute"; }
-    // Fn+Mod+F - Fn+Ctrl+PgDn
+    // Fn+Super+F - Fn+Ctrl+PgDn
     XF86AudioNext                       allow-when-locked=true { spawn-sh "noctalia msg media next"; }
-    // Fn+Mod+G - Fn+Ctrl+Del
+    // Fn+Super+G - Fn+Ctrl+Del
     XF86AudioPrev                       allow-when-locked=true { spawn-sh "noctalia msg media previous"; }
-    // Fn+Mod+D - Fn+Ctrl+Home
+    // Fn+Super+D - Fn+Ctrl+Home
     XF86AudioPlay                       allow-when-locked=true { spawn-sh "noctalia msg media play-pause"; }
-    // Fn+Mod+E - Fn+Ctrl+End
+    // Fn+Super+E - Fn+Ctrl+End
     XF86AudioPause                      allow-when-locked=true { spawn-sh "noctalia msg media stop"; }
+
 
     // ─── Brightness Controls ───
     XF86MonBrightnessUp                 allow-when-locked=true { spawn-sh "noctalia msg brightness-up"; }
     XF86MonBrightnessDown               allow-when-locked=true { spawn-sh "noctalia msg brightness-down"; }
 
+
     // ─── Window Movement and Focus ───
     Mod+Shift+Q                         { close-window; }
 
     Mod+Left                            hotkey-overlay-title=null { focus-column-left; }
+    Mod+MouseBack                       hotkey-overlay-title=null { focus-column-left; }
     Mod+H                               hotkey-overlay-title=null { focus-column-left; }
     Mod+Right                           hotkey-overlay-title=null { focus-column-right; }
+    Mod+MouseForward                    hotkey-overlay-title="Focus Column to the Right" { focus-column-right; }
     Mod+L                               hotkey-overlay-title=null { focus-column-right; }
     Mod+Up                              hotkey-overlay-title=null { focus-window-up; }
+    Mod+Prior                           hotkey-overlay-title=null { focus-window-up; }
     Mod+K                               hotkey-overlay-title=null { focus-window-up; }
     Mod+Down                            hotkey-overlay-title=null { focus-window-down; }
+    Mod+Next                            hotkey-overlay-title=null { focus-window-down; }
     Mod+J                               hotkey-overlay-title=null { focus-window-down; }
 
     Mod+Shift+Left                      hotkey-overlay-title=null { move-column-left; }
+    Mod+Shift+MouseBack                 hotkey-overlay-title=null { move-column-left; }
+    Mod+Ctrl+Shift+WheelScrollUp        hotkey-overlay-title=null { move-column-left; }
     Mod+Shift+H                         hotkey-overlay-title=null { move-column-left; }
     Mod+Shift+Right                     hotkey-overlay-title=null { move-column-right; }
+    Mod+Shift+MouseForward              hotkey-overlay-title=null { move-column-right; }
+    Mod+Ctrl+Shift+WheelScrollDown      hotkey-overlay-title=null { move-column-right; }
     Mod+Shift+L                         hotkey-overlay-title=null { move-column-right; }
     Mod+Shift+UP                        hotkey-overlay-title=null { move-window-up; }
+    Mod+Shift+Prior                     hotkey-overlay-title=null { move-window-up; }
     Mod+Shift+K                         hotkey-overlay-title=null { move-window-up; }
     Mod+Shift+Down                      hotkey-overlay-title=null { move-window-down; }
+    Mod+Shift+Next                      hotkey-overlay-title=null { move-window-down; }
     Mod+Shift+J                         hotkey-overlay-title=null { move-window-down; }
 
     Mod+Ctrl+Shift+Left                 hotkey-overlay-title=null { spawn-sh "niri msg action move-floating-window -x -350"; }
@@ -146,14 +165,6 @@ binds {
     Mod+Ctrl+WheelScrollDown            hotkey-overlay-title=null cooldown-ms=150 { move-column-to-workspace-down focus=false; }
     Mod+Ctrl+WheelScrollUp              hotkey-overlay-title=null cooldown-ms=150 { move-column-to-workspace-up focus=false; }
 
-    Mod+MouseForward                    hotkey-overlay-title="Focus Column to the Right" { focus-column-right; }
-    Mod+MouseBack                       hotkey-overlay-title=null { focus-column-left; }
-    Mod+Shift+MouseForward              hotkey-overlay-title=null { move-column-right; }
-    Mod+Shift+MouseBack                 hotkey-overlay-title=null { move-column-left; }
-
-    Mod+Ctrl+Shift+WheelScrollDown      { move-column-right; }
-    Mod+Ctrl+Shift+WheelScrollUp        { move-column-left; }
-
     Mod+1                               { focus-workspace 1; }
     Mod+2                               { focus-workspace 2; }
     Mod+3                               { focus-workspace 3; }
@@ -194,8 +205,8 @@ binds {
 
     // ─── Layout Controls ───
     Mod+Ctrl+F                          { expand-column-to-available-width; }
-    Mod+C                               { center-column; }
     Mod+Shift+MouseMiddle               { center-column; }
+    Mod+C                               { center-column; }
     Mod+Ctrl+C                          { center-visible-columns; }
     Mod+Minus                           { set-column-width "-10%"; }
     Mod+Ctrl+H                          { set-column-width "-10%"; }
@@ -208,15 +219,16 @@ binds {
 
 
     // ─── Modes ───
-    Mod+Shift+Space                     { toggle-window-floating; }
     Mod+Shift+MouseLeft                 { toggle-window-floating; }
-    Mod+F                               { maximize-column; }
-    Mod+Shift+F                         { fullscreen-window; }
+    Mod+Shift+Space                     { toggle-window-floating; }
     Mod+Shift+MouseRight                { fullscreen-window; }
+    Mod+Shift+F                         { fullscreen-window; }
+    Mod+F                               { maximize-column; }
     Mod+W                               { toggle-column-tabbed-display; }
     Mod+M                               { maximize-window-to-edges; }
     // biri
     Mod+T                               { toggle-window-sticky; }
+
 
     // ─── Screenshots ───
     Mod+Shift+S                         hotkey-overlay-title="Screenshot the selected region" { spawn "~/.local/bin/niri-screenshot.sh" "region"; }
@@ -224,19 +236,21 @@ binds {
     Mod+Ctrl+Shift+S                    hotkey-overlay-title="Screenshot the focused screen" { spawn "~/.local/bin/niri-screenshot.sh" "monitor-focused"; }
     Print                               hotkey-overlay-title="Screenshot all screens" { spawn "~/.local/bin/niri-screenshot.sh" "monitor-all"; }
 
+
     // ─── Tools ───
     Mod+Shift+C                         hotkey-overlay-title="Color picker" { spawn-sh "COLOR=$(hyprpicker) && [ -n \"$COLOR\" ] && echo -n \"$COLOR\" | wl-copy && notify-send \"Color Picker\" \"Copied $COLOR to clipboard\""; }
     Mod+Shift+T                         hotkey-overlay-title="Select text and copy to clipboard" { spawn-sh "TEXT=$(grim -g \"$(slurp)\" - | tesseract - stdout -l eng+nor 2>/dev/null) && [ -n \"$TEXT\" ] && echo -n \"$TEXT\" | wl-copy && notify-send \"Text Copied:\" \"$TEXT\""; }
-    
+
 
     // ─── Emergency Escape Key ───
     // Use this when a fullscreen app blocks your keybinds.
     // It disables any active keyboard shortcut inhibitor, restoring control.
     Mod+Escape                          allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
+
     // ─── Exit / Power ───
     Ctrl+Alt+Delete                     hotkey-overlay-title=null { quit; } // Also quits Niri
     //Mod+Shift+P                         { power-off-monitors; } // Turn off screens (useful for OLED or privacy)
-    Mod+O                               repeat=false { toggle-overview; }
     Mod+Ctrl+MouseMiddle                repeat=false { toggle-overview; }
+    Mod+O                               repeat=false { toggle-overview; }
 }
