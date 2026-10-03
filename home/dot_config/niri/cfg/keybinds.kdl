@@ -240,6 +240,7 @@ binds {
     // ─── Tools ───
     Mod+Shift+C                         hotkey-overlay-title="Color picker" { spawn-sh "COLOR=$(hyprpicker) && [ -n \"$COLOR\" ] && echo -n \"$COLOR\" | wl-copy && notify-send \"Color Picker\" \"Copied $COLOR to clipboard\""; }
     Mod+Shift+T                         hotkey-overlay-title="Select text and copy to clipboard" { spawn-sh "TEXT=$(grim -g \"$(slurp)\" - | tesseract - stdout -l eng+nor 2>/dev/null) && [ -n \"$TEXT\" ] && echo -n \"$TEXT\" | wl-copy && notify-send \"Text Copied:\" \"$TEXT\""; }
+    Mod+Shift+A                         hotkey-overlay-title="Live annotatation" { spawn-sh "wayscriber --daemon-toggle"; }
 
 
     // ─── Emergency Escape Key ───
