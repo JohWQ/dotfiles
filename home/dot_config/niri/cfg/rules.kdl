@@ -101,6 +101,7 @@
         default-column-width { proportion 0.97; }
         default-window-height { proportion 0.97; }
     }
+
     window-rule {
         match title="File chooser"
         match title="File view"
