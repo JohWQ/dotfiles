@@ -47,6 +47,16 @@ thickness = 32
     [[control_center.shortcuts]]
     type = "noctalia/screen_recorder:toggle"
 
+[desktop_widgets]
+enabled = false
+schema_version = 2
+widget_order = []
+
+    [desktop_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
 [dock]
 active_opacity = 0.84999998100101948
 active_scale = 0.85000001266598701
@@ -60,6 +70,8 @@ margin_edge = 2
 pinned = [ "firefox" ]
 radius = 20
 reserve_space = false
+show_dots = true
+show_instance_count = false
 smart_auto_hide = true
 
 [hot_corners]
@@ -102,6 +114,14 @@ fingerprint = false
 tint_intensity = 0.69999998435378075
 transition_duration = 1300
 
+[lockscreen_widgets]
+enabled = false
+schema_version = 2
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
 [nightlight]
 enabled = true
 
@@ -206,7 +226,7 @@ builtin = "Catppuccin"
 mode = "dark"
 
     [theme.templates]
-    builtin_ids = [ "gtk3", "gtk4" ]
+    builtin_ids = [ "alacritty", "gtk3", "gtk4", "kitty" ]
 
 [wallpaper]
 directory = "~/Pictures/Wallpapers"
@@ -214,16 +234,24 @@ directory = "~/Pictures/Wallpapers"
 max_length = 310
 
     [widget.active_window.actions]
+    back = "exec niri msg action set-window-height -10%"
+    forward = "exec niri msg action set-window-height +10%"
     left = "exec niri msg action toggle-window-floating"
     right = "exec appid=$(niri msg -j focused-window | jq -r '.app_id // \"window\"'); [ \"$(printf \"Cancel\\nYes\\n\" | noctalia dmenu -p \"Do you want to close $appid?\")\" = \"Yes\" ] && niri msg action close-window"
+    scroll_down = "exec niri msg action set-column-width -10%"
+    scroll_up = "exec niri msg action set-column-width +10%"
 
 [widget.active_window2]
 max_length = 160
 type = "active_window"
 
     [widget.active_window2.actions]
+    back = "exec niri msg action set-window-height -10%"
+    forward = "exec niri msg action set-window-height +10%"
     left = "exec niri msg action toggle-window-floating"
     right = "exec appid=$(niri msg -j focused-window | jq -r '.app_id // \"window\"'); [ \"$(printf \"Cancel\\nYes\\n\" | noctalia dmenu -p \"Do you want to close $appid?\")\" = \"Yes\" ] && niri msg action close-window"
+    scroll_down = "exec niri msg action set-column-width -10%"
+    scroll_up = "exec niri msg action set-column-width +10%"
 
 [widget.bar]
 type = "icefish/phone-connect:bar"
