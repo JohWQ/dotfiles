@@ -32,3 +32,6 @@ swayimg
 mpd
 mpd-mpris
 rmpc
+age
+tesseract-data-nor
+tesseract-data-eng

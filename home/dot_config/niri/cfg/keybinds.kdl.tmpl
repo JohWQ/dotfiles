@@ -135,14 +135,14 @@ binds {
     Mod+Shift+Home                      { move-column-to-first; }
     Mod+Shift+End                       { move-column-to-last; }
 
-    Mod+X                               hotkey-overlay-title="Focus Previous Monitor" { focus-monitor-previous; }
+{{ if eq .chezmoi.hostname "cachyos-laptop" }}{{ else }}    Mod+X                               hotkey-overlay-title="Focus Previous Monitor" { focus-monitor-previous; }
 
     Mod+Shift+X                         hotkey-overlay-title=null { spawn "sh" "-c" "niri msg action move-column-to-monitor-previous && niri msg action center-column"; }
     Mod+Space                           { switch-focus-between-floating-and-tiling; }
 
     Mod+Ctrl+X                          hotkey-overlay-title=null { spawn "sh" "-c" "niri msg action move-column-to-monitor-previous && niri msg action center-column && niri msg action focus-monitor-previous"; }
 
-    // Respect tiling, move window
+{{ end }}    // Respect tiling, move window
     Mod+Comma                           { consume-or-expel-window-right; }
     Mod+Period                          { consume-or-expel-window-left; }
     // Merge tiling

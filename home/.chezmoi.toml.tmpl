@@ -2,7 +2,11 @@ encryption = "age"
 
 [age]
 identity = {{ joinPath .chezmoi.homeDir ".config/chezmoi/age.key" | quote }}
+{{ if eq .chezmoi.hostname "cachyos-laptop" -}}
+recipient = "age1z8dshvzm7twx92fah4xyj3zd79ke93jdqgmxele6uz07z2uel5pszywgf0"
+{{ else -}}
 recipient = "age152qextpem7r4tcxv2d4nfacuv4apuaarh3e5dv29q3w2ulup2spqheje0z"
+{{ end -}}
 
 {{ if or (hasKey . "email") (hasKey . "name") -}}
 [data]

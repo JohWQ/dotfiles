@@ -1,4 +1,105 @@
-# Overrides for cachyos-laptop.
-# No laptop-specific settings have been captured yet; shared defaults apply.
-# Add only non-sensitive differences here. Store private values in
-# cachyos-laptop.age, encrypted with the repository's age recipient.
+# Overrides for cachyos-laptop, captured from local Noctalia settings.
+# Private location settings are stored in cachyos-laptop.age.
+[bar]
+  [bar.default]
+    end = ["clock", "tray", "bar", "bar_2", "recorder", "bar_3", "weather", "notifications", "clipboard", "network", "bluetooth", "volume", "battery", "session"]
+
+[lockscreen_widgets]
+  widget_order = ["lockscreen-login-box@eDP-1"]
+  [lockscreen_widgets.widget]
+    [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
+      box_height = 196.0
+      box_width = 810.0
+      cx = 768.0
+      cy = 682.0
+      output = "eDP-1"
+      placement_height = 864.0
+      placement_width = 1536.0
+      rotation = 0.0
+      type = "login_box"
+      [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+[shell]
+  [shell.session]
+
+    [[shell.session.actions]]
+      action = "lock"
+      countdown_seconds = 0.0
+      enabled = true
+      shortcut = "1"
+      variant = "default"
+
+    [[shell.session.actions]]
+      action = "logout"
+      countdown_seconds = 0.0
+      enabled = true
+      shortcut = "2"
+      variant = "default"
+
+    [[shell.session.actions]]
+      action = "suspend"
+      command = "if systemctl --user is-active --quiet app-dev.lizardbyte.app.Sunshine.service; then systemctl --user stop app-dev.lizardbyte.app.Sunshine.service && sleep 5; fi; systemctl suspend"
+      countdown_seconds = 0.0
+      enabled = false
+      glyph = "device-desktop-pause"
+      label = "Suspend"
+      variant = "outline"
+
+    [[shell.session.actions]]
+      action = "lock_and_suspend"
+      countdown_seconds = 0.0
+      enabled = true
+      shortcut = "3"
+      variant = "default"
+
+    [[shell.session.actions]]
+      action = "command"
+      command = "if systemctl --user is-active --quiet app-dev.lizardbyte.app.Sunshine.service; then systemctl --user stop app-dev.lizardbyte.app.Sunshine.service && sleep 5; fi; noctalia msg session lock-and-suspend"
+      countdown_seconds = 0.0
+      enabled = false
+      glyph = "player-pause"
+      label = "Lock & Suspend"
+      shortcut = "3"
+      variant = "default"
+
+    [[shell.session.actions]]
+      action = "reboot"
+      countdown_seconds = 0.0
+      enabled = true
+      shortcut = "4"
+      variant = "destructive"
+
+    [[shell.session.actions]]
+      action = "shutdown"
+      countdown_seconds = 0.0
+      enabled = true
+      shortcut = "5"
+      variant = "destructive"
+
+    [[shell.session.actions]]
+      action = "reboot"
+      command = "systemctl reboot --firmware-setup"
+      countdown_seconds = 0.0
+      enabled = true
+      label = "Reboot to UEFI"
+      variant = "ghost"
+
+[wallpaper]
+  [wallpaper.default]
+    path = "/usr/share/noctalia/assets/noctalia-wallpaper.png"
+  [wallpaper.last]
+    path = "/usr/share/noctalia/assets/noctalia-wallpaper.png"

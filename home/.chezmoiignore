@@ -2,9 +2,34 @@
 # Windows is opt-in. Add explicit exceptions only for reviewed Windows targets.
 # Also covers WSL when it reports the windows-desktop hostname.
 **
+{{ if and (eq .chezmoi.os "windows") (eq (lower .chezmoi.hostname) "windows-desktop") -}}
+# Native windows-desktop uses separate application configs, added when captured.
+!AppData/
+!AppData/Local/
+!AppData/Local/nvim/
+!AppData/Local/nvim/**
+!AppData/Roaming/
+!AppData/Roaming/yazi/
+!AppData/Roaming/yazi/config/
+!AppData/Roaming/yazi/config/**
+!Documents/
+!Documents/PowerShell/
+!Documents/PowerShell/**
+!Documents/WindowsPowerShell/
+!Documents/WindowsPowerShell/**
+{{ end -}}
 {{ else -}}
 **/.git
 **/.env
+# Windows application configs are independent of shared Linux configs.
+AppData
+Documents/PowerShell
+Documents/WindowsPowerShell
+
+# Keep laptop output settings separate from other hosts.
+{{ if ne .chezmoi.hostname "cachyos-laptop" -}}
+.config/niri/cfg/outputs.kdl
+{{ end -}}
 
 # Ignore everything except Lua files in the Yazi plugins
 **/pref-by-location

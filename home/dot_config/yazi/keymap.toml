@@ -380,7 +380,7 @@ run = "plugin augment-command.arrow -- -15"
 desc = "Move cursor up"
 [[mgr.prepend_keymap]]
 on = "o"
-run = "plugin augment-command.shell -- '$EDITOR %s' --block --exit-if-dir"
+run = "plugin augment-command.shell -- '${EDITOR:-nvim} %s' --block --exit-if-dir"
 desc = "Open files with the default editor"
 [[mgr.prepend_keymap]]
 on = "r"

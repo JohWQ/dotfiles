@@ -13,8 +13,9 @@ input {
 
     touchpad {
         tap // Enable tap-to-click
-        natural-scroll // Enable natural (macOS-style) scrolling
-    }
+{{ if eq .chezmoi.hostname "cachyos-laptop" }}        // natural-scroll // Enable natural (macOS-style) scrolling
+{{ else }}        natural-scroll // Enable natural (macOS-style) scrolling
+{{ end }}    }
 
     mouse {
         // If you want to disable Mouse Acceleration,
@@ -23,13 +24,13 @@ input {
         //accel-speed 0.0
     }
 
-    tablet {
+{{ if eq .chezmoi.hostname "cachyos-laptop" }}{{ else }}    tablet {
         // off
         map-to-output "DP-2"
         // Rotation:
         //calibration-matrix 1.0 0.0 0.0 0.0 1.0 0.0
     }
 
-    focus-follows-mouse // Automatically focus windows under the mouse pointer
+{{ end }}    focus-follows-mouse // Automatically focus windows under the mouse pointer
     workspace-auto-back-and-forth // Enable workspace back & forth switching
 }
