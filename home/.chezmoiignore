@@ -1,3 +1,8 @@
+{{ if or (eq .chezmoi.os "windows") (eq (lower .chezmoi.hostname) "windows-desktop") -}}
+# Windows is opt-in. Add explicit exceptions only for reviewed Windows targets.
+# Also covers WSL when it reports the windows-desktop hostname.
+**
+{{ else -}}
 **/.git
 **/.env
 
@@ -9,3 +14,4 @@
 # Don't ignore the flavour files either
 !**/*.yazi/flavor.toml
 !**/*.yazi/tmtheme.xml
+{{ end -}}

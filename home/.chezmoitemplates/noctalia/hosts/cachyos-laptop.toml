@@ -1,0 +1,4 @@
+# Overrides for cachyos-laptop.
+# No laptop-specific settings have been captured yet; shared defaults apply.
+# Add only non-sensitive differences here. Store private values in
+# cachyos-laptop.age, encrypted with the repository's age recipient.
