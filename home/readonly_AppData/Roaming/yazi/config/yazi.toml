@@ -1,0 +1,87 @@
+[mgr]
+sort_by      = "mtime"
+sort_reverse = true
+linemode     = "mtime"
+show_hidden  = true
+scrolloff    = 8
+mouse_events   = [ "click", "scroll", "drag" ]
+
+[preview]
+wrap       = "yes"
+# Image size
+max_width  = 700
+max_height = 1000
+
+[opener]
+edit = [
+  # Order is important!
+	{ run = 'start "" nvim.exe %s', orphan = true, desc = "Open Neovim in new instance", for = "windows" },
+  #{ run = '\"C:\\Program Files\\Neovim\\bin\\nvim.exe\" %s', block = true, desc = "Editor", for = "windows" },
+]
+#play = [
+#  { run = 'mpv %s', orphan = true, desc = "mpv", for = "linux" },
+#  { run = 'losslesscut %s', orphan = true, desc = "losslesscut", for = "linux" },
+#]
+# open = [
+#   { run = "swayimg %s", orphan = true, desc = "Open", for = "linux" },
+# ]
+extract = [
+  { run = "ya pub augmented-extract --list %s", desc = "Extract here" },
+]
+
+# [open]
+# rules = [
+#   # Media
+#   { mime = "{audio,video}/*", use = [ "play", "reveal" ] },
+# 
+# ]
+
+#[[opener.satty]]
+#run = 'file=%s1; satty -f "$file" -o "${file%.*}.png"'
+#block = false
+#desc = "Open in Satty"
+
+#[[opener.set-wallpaper]]
+#run  = "noctalia msg wallpaper-set %s1"
+#for  = "linux"
+#desc = "Set as wallpaper"
+#orphan = true
+
+#[[opener.set-wallpaper1]]
+#run  = "noctalia msg wallpaper-set DP-2 %s1"
+#for  = "linux"
+#desc = "DP-2: Set as wallpaper"
+#orphan = true
+
+#[[opener.set-wallpaper2]]
+#run  = "noctalia msg wallpaper-set DP-3 %s1"
+#for  = "linux"
+#desc = "DP-3: Set as wallpaper"
+#orphan = true
+
+#[[open.prepend_rules]]
+#mime = "image/*"
+#use  = [ "open", "satty", "set-wallpaper", "set-wallpaper1", "set-wallpaper2", "reveal" ]
+
+#[[plugin.prepend_preloaders]]
+#url = "/run/user/1000/gvfs/**/*"
+#run = "noop"
+
+[[plugin.prepend_previewers]]
+mime = "audio/*"
+run = "exifaudio"
+
+# gvfs.yazi
+#[[plugin.prepend_previewers]]
+#url = "folder/*"
+#run = "folder"
+
+#[[plugin.prepend_fetchers]]
+#url   = "*"
+#run   = "git"
+#group = "git"
+
+#[[plugin.prepend_fetchers]]
+#url   = "*/"
+#run   = "git"
+#group = "git"

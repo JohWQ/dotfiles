@@ -253,10 +253,10 @@ vim.keymap.set('n', '<C-w>g', '<:vs<CR>', { desc = 'Split window vertically' })
 vim.keymap.set('n', '<C-w>v', '<:sp<CR>', { desc = 'Split window' })
 vim.keymap.set('n', '<C-W>D', ':windo diffthis<CR>', { desc = 'Diff splits' })
 
-vim.keymap.set('n', '<M-h>', '<C-w><M-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<M-l>', '<C-w><M-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<M-j>', '<C-w><M-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<M-k>', '<C-w><M-k>', { desc = 'Move focus to the upper window' })
+vim.keymap.set('n', '<M-h>', '<C-w>h', { desc = 'Move focus to the left window' })
+vim.keymap.set('n', '<M-l>', '<C-w>l', { desc = 'Move focus to the right window' })
+vim.keymap.set('n', '<M-j>', '<C-w>j', { desc = 'Move focus to the lower window' })
+vim.keymap.set('n', '<M-k>', '<C-w>k', { desc = 'Move focus to the upper window' })
 
 -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
 vim.keymap.set('n', '<M-S-h>', '<C-w>H', { desc = 'Move window to the left' })
@@ -290,18 +290,7 @@ vim.keymap.set('n', '<leader>oy', ':Obsidian today -1<CR>', { desc = "Obsidian y
 vim.keymap.set('n', '<leader>on', ':Obsidian new_from_template ./0_Inbox/ normal-note.md<CR>', { desc = 'Obsidian New note' })
 vim.keymap.set('n', '<leader>ot', ':Obsidian template<CR>', { desc = 'Obsidian Change current file template' })
 vim.keymap.set('n', '<leader>op', function()
-  local result = vim
-    .system({
-      'sh',
-      '-c',
-      'wl-paste --list-types 2>/dev/null | grep -q "^image/"',
-    })
-    :wait()
-  if result.code == 0 then
-    vim.cmd 'Obsidian paste_img'
-  else
-    require('obsidian.actions').add_attachment('.', { insert = true })
-  end
+  require('custom.clipboard').paste_or_attach()
 end, { desc = 'Obsidian paste image or select image' })
 
 -- [[ Basic Autocommands ]]
@@ -351,16 +340,6 @@ rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   -- NOTE: Plugins can be added via a link or github org/name. To run setup automatically, use `opts = {}`
-  performance = {
-    rtp = {
-      disabled_plugins = {
-        'netrw',
-        'netrwPlugin',
-        'netrwSettings',
-        'netrwFileHandlers',
-      },
-    },
-  },
   { 'NMAC427/guess-indent.nvim', opts = {} },
 
   -- Alternatively, use `config = function() ... end` for full control over the configuration.
@@ -380,6 +359,7 @@ require('lazy').setup({
   -- See `:help gitsigns` to understand what the configuration keys do
   { -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
+    event = 'VeryLazy',
     opts = {
       signs = {
         add = { text = '+' },
@@ -407,7 +387,7 @@ require('lazy').setup({
 
   { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
-    event = 'VimEnter',
+    event = 'VeryLazy',
     opts = {
       -- delay between pressing a key and opening which-key (milliseconds)
       delay = 0,
@@ -469,6 +449,7 @@ require('lazy').setup({
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
+    event = 'VeryLazy', -- Attach to existing buffers after the first screen is drawn.
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
       -- Mason must be loaded before its dependents so we need to set it up here.
@@ -692,7 +673,7 @@ require('lazy').setup({
 
   { -- Autocompletion
     'saghen/blink.cmp',
-    event = 'VimEnter',
+    event = 'InsertEnter',
     version = '1.*',
     dependencies = {
       -- Snippet Engine
@@ -828,7 +809,7 @@ require('lazy').setup({
   },
 
   -- Highlight todo, notes, etc in comments
-  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+  { 'folke/todo-comments.nvim', event = 'VeryLazy', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
   { -- Collection of various small independent plugins/modules
     'nvim-mini/mini.nvim',
@@ -898,6 +879,11 @@ require('lazy').setup({
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
 }, {
+  performance = {
+    rtp = {
+      disabled_plugins = { 'netrw', 'netrwPlugin', 'netrwSettings', 'netrwFileHandlers' },
+    },
+  },
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
     -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
