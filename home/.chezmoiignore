@@ -3,7 +3,7 @@
 # Also covers WSL when it reports the windows-desktop hostname.
 **
 {{ if and (eq .chezmoi.os "windows") (eq (lower .chezmoi.hostname) "windows-desktop") -}}
-# Native windows-desktop uses separate application configs, added when captured.
+# Native windows-desktop uses separate application configs.
 !AppData/
 !AppData/Local/
 !AppData/Local/nvim/
@@ -17,14 +17,30 @@
 !Documents/PowerShell/**
 !Documents/WindowsPowerShell/
 !Documents/WindowsPowerShell/**
+!install-windows-yazi-packages.ps1
 {{ end -}}
+{{ if eq .chezmoi.os "windows" -}}
+# Downloaded plugins are restored from package.toml; keep only our local plugin.
+AppData/Roaming/yazi/config/plugins/**
+!AppData/Roaming/yazi/config/plugins/confirm-quit.yazi/
+!AppData/Roaming/yazi/config/plugins/confirm-quit.yazi/*.lua
+AppData/Roaming/yazi/config/flavors/**
+Documents/PowerShell/Modules/**
+Documents/PowerShell/dot_zshrc
+{{ end -}}
+
+# Never capture nested repositories, credentials, or plugin runtime data.
+**/.git
+**/.env
+**/pref-by-location
+**/whoosh.yazi/bookmarks
 {{ else -}}
 **/.git
 **/.env
 # Windows application configs are independent of shared Linux configs.
 AppData
-Documents/PowerShell
-Documents/WindowsPowerShell
+Documents
+install-windows-yazi-packages.ps1
 
 # Keep laptop output settings separate from other hosts.
 {{ if ne .chezmoi.hostname "cachyos-laptop" -}}

@@ -6,6 +6,7 @@
 return {
   {
     'MeanderingProgrammer/render-markdown.nvim',
+    ft = 'markdown',
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' }, -- if you use the mini.nvim suite
     -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.icons' },        -- if you use standalone mini plugins
     -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
@@ -15,6 +16,9 @@ return {
   },
   {
     'goolord/alpha-nvim',
+    -- Keep the dashboard available without loading it when opening a file.
+    event = vim.fn.argc() == 0 and 'VimEnter' or nil,
+    cmd = 'Alpha',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       local alpha = require 'alpha'
@@ -55,25 +59,23 @@ return {
       'inkarkat/vim-ingo-library',
     },
 
-    config = function()
-      vim.keymap.set('n', '<leader>ss', function()
-        vim.cmd 'SpellCheck'
-        vim.cmd 'copen'
-      end, { desc = 'Spell check' })
-
-      vim.keymap.set('n', '<leader>us', function()
-        if vim.opt.spell:get() then
-          vim.opt.spell = false
-          vim.notify 'Spell checker disabled'
-        else
-          vim.opt.spell = true
-          vim.notify 'Spell checker enabled'
-        end
-      end, { desc = 'Toggle spell checker' })
-    end,
+    cmd = 'SpellCheck',
+    keys = {
+      { '<leader>ss', '<cmd>SpellCheck<cr><cmd>copen<cr>', desc = 'Spell check' },
+      {
+        '<leader>us',
+        function()
+          vim.opt.spell = not vim.opt.spell:get()
+          vim.notify(vim.opt.spell:get() and 'Spell checker enabled' or 'Spell checker disabled')
+        end,
+        desc = 'Toggle spell checker',
+      },
+    },
   },
   {
     'obsidian-nvim/obsidian.nvim',
+    ft = 'markdown',
+    cmd = 'Obsidian',
     dependencies = 'folke/snacks.nvim',
     version = '*', -- use latest release, remove to use latest commit
     ---@module 'obsidian'
@@ -130,7 +132,7 @@ return {
       explorer = { enabled = false },
       indent = { enabled = false },
       input = { enabled = false },
-      quickfile = { enabled = false },
+      quickfile = { enabled = true },
       scope = { enabled = false },
       scroll = { enabled = false },
       statuscolumn = { enabled = false },
@@ -156,7 +158,6 @@ return {
       },
       image = {
         formats = { 'svg' },
-        backend = 'kitty',
         inline = false,
         doc = {
           enabled = false,
@@ -208,9 +209,9 @@ return {
 
         if new ~= line then
           vim.api.nvim_set_current_line(new)
-          vim.defer_fn(function() Snacks.image.hover() end, 200)
+          vim.defer_fn(function() require('custom.images').hover() end, 200)
         else
-          Snacks.image.hover()
+          require('custom.images').hover()
         end
       end, {
         desc = 'Show image under cursor',
@@ -219,6 +220,7 @@ return {
   },
   {
     'akinsho/bufferline.nvim',
+    event = 'VeryLazy',
     dependencies = 'nvim-tree/nvim-web-devicons',
     opts = {},
   },
@@ -239,9 +241,11 @@ return {
   },
   {
     'ThePrimeagen/vim-be-good',
+    cmd = 'VimBeGood',
   },
   {
     'aserowy/tmux.nvim',
+    cond = function() return vim.env.TMUX ~= nil and vim.fn.executable 'tmux' == 1 end,
 
     opts = {
       navigation = {

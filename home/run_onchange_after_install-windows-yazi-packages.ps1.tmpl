@@ -1,0 +1,16 @@
+{{- if and (eq .chezmoi.os "windows") (eq (lower .chezmoi.hostname) "windows-desktop") -}}
+# Rerun when the Windows Yazi package list changes.
+# UniGetUI manages the Yazi application; chezmoi restores its plugins.
+# yazi-package-list-sha256: {{ include "readonly_AppData/Roaming/yazi/config/package.toml" | sha256sum }}
+$ErrorActionPreference = 'Stop'
+
+if (-not (Get-Command ya -ErrorAction SilentlyContinue)) {
+    throw 'Install Yazi through UniGetUI, open a new PowerShell session, then run chezmoi apply again.'
+}
+
+$env:YAZI_CONFIG_HOME = Join-Path $env:APPDATA 'yazi/config'
+& ya pkg install
+if ($LASTEXITCODE -ne 0) {
+    throw "Yazi package installation failed with exit code $LASTEXITCODE."
+}
+{{ end -}}

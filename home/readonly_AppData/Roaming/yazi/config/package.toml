@@ -1,0 +1,72 @@
+[[plugin.deps]]
+use = "yazi-rs/plugins:zoom"
+rev = "58c4f4e"
+hash = "83bb4de74060a850749189645413fcae"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:toggle-pane"
+rev = "58c4f4e"
+hash = "5b2fbef7d1513ce38ff72623a071a5e"
+
+[[plugin.deps]]
+use = "orhnk/system-clipboard"
+rev = "ed946c3"
+hash = "43fff18b85896a499105f621de458ea1"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:smart-filter"
+rev = "58c4f4e"
+hash = "d6f7351ea25a43c9b5f4315fa1e23935"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:jump-to-char"
+rev = "58c4f4e"
+hash = "7a4b4237223aaa94e589d1c01a23542a"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:full-border"
+rev = "58c4f4e"
+hash = "f281261ff04ad7ec867c3f802a50835f"
+
+[[plugin.deps]]
+use = "Sonico98/exifaudio"
+rev = "4506f9d"
+hash = "4761fffb60a12d37096c34a356380cdf"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:diff"
+rev = "58c4f4e"
+hash = "14558d2829c0aa05e99c57de8f74d199"
+
+[[plugin.deps]]
+use = "hankertrix/augment-command"
+rev = "561f6ec"
+hash = "38b093d444efe1386e0e959aa5be11f8"
+
+[[plugin.deps]]
+use = "JohWQ/convert"
+rev = "28b5da2"
+hash = "6a149b30e952c8b612acb2d8118ceba7"
+
+[[plugin.deps]]
+use = "boydaihungst/relative-motions"
+rev = "8f69d78"
+hash = "10b77b13edb2357f023193233e9afe81"
+
+[[plugin.deps]]
+use = "XYenon/yafg"
+rev = "bd03a32"
+hash = "e3b3da408c4bf4adf2f16edc1ec05d45"
+
+[[plugin.deps]]
+use = "WhoSowSee/whoosh"
+rev = "43f3202"
+hash = "da14dfe482886e756150ae4f5c2bb23"
+
+[[plugin.deps]]
+use = "JohWQ/open-paths"
+rev = "41e5327"
+hash = "f875778ef234a511ceec59de0604c928"
+
+[flavor]
+deps = []

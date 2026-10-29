@@ -3,3 +3,9 @@
 **/yazi/plugins/*
 !**/yazi/plugins/confirm-quit.yazi/
 **/yazi/flavors/
+
+# Native Windows Yazi keeps its configuration one level below yazi/.
+**/yazi/config/plugins/*
+!**/yazi/config/plugins/confirm-quit.yazi/
+**/yazi/config/flavors/
+**/whoosh.yazi/bookmarks

@@ -2,6 +2,9 @@
 
 Work in progress.
 
+For contribution, validation, and configuration-capture instructions, see
+[AGENTS.md](AGENTS.md).
+
 Initialize and apply dotfiles on Linux (review the host policy below first):
 ```sh
 chezmoi init --apply https://github.com/JohWQ/dotfiles.git
@@ -19,8 +22,10 @@ After intentionally upgrading packages with `ya pkg upgrade`, review and save
 the new pins with `chezmoi re-add ~/.config/yazi/package.toml`.
 Avoid re-adding downloaded plugin files themselves.
 
-`chezmoi apply` installs packages defined in `<chezmoi-source-directory>/run_onchange_before_install-...-packages.sh.tmpl`
-Other installed binaries are pulled from the files:
+On Linux, `chezmoi apply` installs packages defined in
+`<chezmoi-source-directory>/run_onchange_before_install-...-packages.sh.tmpl`.
+On `windows-desktop`, UniGetUI manages system packages and their cloud backup;
+chezmoi restores application configs and pinned Yazi plugins.
 
 The `<chezmoi-source-directory>/root` directory is not tracked by Chezmoi.
 
@@ -30,37 +35,88 @@ The `<chezmoi-source-directory>/root` directory is not tracked by Chezmoi.
 | --- | --- |
 | `cachyos-desktop` on Linux | Shared Linux dotfiles plus desktop Noctalia overrides and encrypted secrets. |
 | `cachyos-laptop` on Linux | Shared Linux dotfiles plus laptop Noctalia overrides and encrypted location settings. |
-| Native Windows host `windows-desktop` | Separate Windows Neovim, Yazi, and PowerShell configs, once captured; Linux dotfiles and installation scripts are excluded. |
+| Native Windows host `windows-desktop` | UniGetUI manages system packages. Chezmoi restores Windows Neovim, Yazi, and PowerShell 7 configs, plus pinned Yazi plugins. Linux dotfiles and installation scripts are excluded. |
 | Other native Windows hosts, or WSL named `windows-desktop` | No dotfiles or installation scripts are applied by default. |
 
 Windows uses independent application configs rather than the Linux Neovim and
 Yazi files. On native `windows-desktop`, `home/.chezmoiignore` allows only these
-future source locations:
+source locations (the `readonly_` prefix preserves the existing Windows directory attribute):
 
 | Application | Separate chezmoi source location |
 | --- | --- |
-| Neovim | `home/AppData/Local/nvim/` |
-| Yazi | `home/AppData/Roaming/yazi/config/` |
-| PowerShell 7 | `home/Documents/PowerShell/` |
-| Windows PowerShell 5.1 | `home/Documents/WindowsPowerShell/` |
+| Neovim | `home/readonly_AppData/Local/nvim/` |
+| Yazi | `home/readonly_AppData/Roaming/yazi/config/` |
+| PowerShell 7 | `home/readonly_Documents/PowerShell/` |
+| Windows PowerShell 5.1 | `home/Documents/WindowsPowerShell/` (allowed, no profile captured) |
 
-These Windows configs have not been captured yet. Add the actual Windows files
-on that host with `chezmoi add`, checking Neovim's `:echo stdpath('config')`,
-Yazi's `%APPDATA%\yazi\config`, and PowerShell's `$PROFILE` for their real paths.
-Redirected AppData or Documents paths (for example, OneDrive Documents) need
-matching source paths and ignore exceptions. The default paths are documented by
-[Neovim](https://neovim.io/doc/user/starting/),
-[Yazi](https://yazi-rs.github.io/docs/configuration/overview/), and
-[PowerShell](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles).
+The Windows configs preserve this host's Neovim settings and plugin lockfiles,
+Yazi openers, keymaps and bookmarks configured in `init.lua`, and PowerShell 7
+aliases, Starship, zoxide, and the Yazi directory-changing wrapper. The separate
+Neovim checkout's `.git` directory is excluded.
+
+PowerShell caches Starship's generated initialization script under
+`%LOCALAPPDATA%\PowerShell\Cache\starship-init`; the first launch builds the cache,
+and executable changes refresh it automatically. Yazi opens Neovim in a new
+instance directly through Windows, avoiding an extra PowerShell startup.
+
+Neovim's `<leader>op` uses native Windows PowerShell for clipboard images;
+Linux uses Obsidian's Wayland/X11 clipboard provider. `<leader>ui` opens images
+in the system viewer when the terminal cannot render them. Windows uses native
+split navigation; Linux enables tmux integration only inside a tmux session.
+
+UniGetUI's GitHub cloud backup is the package inventory for `windows-desktop`.
+Keep package installation, updates, and removal in UniGetUI. Chezmoi does not
+maintain a second Windows package list or manage UniGetUI's login, settings,
+cache, or backup files.
+
+To restore native `windows-desktop`:
+
+1. Install [UniGetUI](https://github.com/Devolutions/UniGetUI#installation),
+   using its installer or this bootstrap command:
+
+   ```powershell
+   winget install --exact --id Devolutions.UniGetUI --source winget
+   ```
+
+2. Sign in to UniGetUI with the same GitHub account. In **Package backup
+   settings**, choose **Select backup** and open the `WINDOWS-DESKTOP\<username>`
+   backup. Restore it before enabling automatic cloud backups on a fresh
+   installation with the same hostname and username, to preserve the old list.
+3. On the **Package Bundles** page, review the packages and choose **Install
+   selection**. Set up required package managers and sources first; packages
+   marked Unknown may require manual installation. Ensure chezmoi, Git,
+   PowerShell 7, Neovim, Yazi, Starship, and zoxide are installed through UniGetUI.
+4. Open a new PowerShell 7 session so installed tools are on `PATH`, then restore
+   the dotfiles:
+
+   ```powershell
+   chezmoi init https://github.com/JohWQ/dotfiles.git
+   chezmoi diff --exclude=scripts
+   chezmoi apply
+   . $PROFILE
+   ```
+
+Cloud backup stores the package list and install options; application configs
+are restored separately by chezmoi. See the
+[cloud backup guide](https://www.marticliment.com/unigetui/help/cloud-backup-overview/).
+
+Install the additional tools used by individual shortcuts through UniGetUI as
+needed (`fd`, `ripgrep`, `fastfetch`, and `fzf`); enable Windows OpenSSH if needed.
+Windows initialization selects Neovim as the editor and PowerShell 7 for
+`chezmoi cd`; it does not require Linux age
+keys. The Windows Yazi script installs the versions pinned in its own
+`package.toml` after configuration files are applied, and reruns when that list
+changes. It fails visibly if Yazi is missing or installation fails; rerun
+`chezmoi apply` after resolving the issue.
+
+Downloaded Yazi plugins and flavors are excluded from Git. Only the local
+`confirm-quit.yazi/main.lua` is captured alongside `package.toml`. Runtime
+bookmarks, Yazi state, PowerShell modules, and the copied `dot_zshrc` reference
+are not managed. Neovim's plugin manager restores its plugins on first launch.
 
 Other Windows hosts and WSL named `windows-desktop` remain excluded. Windows
 application paths are also excluded on Linux. Chezmoi's initialization config
 can still be generated.
-
-Use `~/...` for user-home paths in application configs that support it, including
-Noctalia avatar and wallpaper settings. When an application requires an absolute
-path, generate it in a `.tmpl` file with `.chezmoi.homeDir` and `joinPath`; avoid
-hardcoded `/home/<username>` paths. Desktop launchers use generated absolute paths.
 
 The laptop's Noctalia customizations have been collected. Before applying on
 either machine, compare `chezmoi diff --exclude=scripts` with the local files.
@@ -133,16 +189,6 @@ Noctalia loads `~/.local/state/noctalia/settings.toml` after the generated confi
 If an old UI setting masks a repository change, remove only the corresponding
 override (for example, `[theme]` or `[[shell.session.actions]]`) from that file,
 then reload Noctalia. Other runtime settings can be kept.
-
-For another PC, add its own `<hostname>.toml` and, if needed, `<hostname>.age`.
-Encrypt a private TOML file with `chezmoi encrypt --output <hostname>.age
-/path/to/private-secrets.toml`, and put only the encrypted output in the host
-folder. Register a new machine's public recipient in `home/.chezmoi.toml.tmpl`
-before encrypting with its key. Devices using encrypted host files need the
-matching backed-up private key.
-Edit the shared template or host files directly; do not re-add the generated
-Noctalia config, which contains decrypted secrets. Runtime settings changes
-are not automatically saved back to the repository.
 
 ### Potential issues
 #### Noctalia settings not applying
