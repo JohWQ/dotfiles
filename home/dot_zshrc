@@ -196,6 +196,7 @@ alias lg='lazygit'
 alias cha='chezmoi add'
 alias chr='chezmoi re-add'
 alias chcd='chezmoi cd'
+alias cheznav='LESS="-iRXMx4" cheznav'
 y() {
   if [ -n "$KITTY_WINDOW_ID" ] || [ "$TERM" = "xterm-kitty" ]; then
     yazi "$@"

@@ -12,6 +12,13 @@ Update dotfiles:
 chezmoi update
 ```
 
+Yazi configuration and `package.toml` are tracked, along with the custom
+`confirm-quit.yazi` plugin. Downloaded plugins and flavors are excluded from both
+Git and chezmoi; `ya pkg install` restores the versions pinned in `package.toml`.
+After intentionally upgrading packages with `ya pkg upgrade`, review and save
+the new pins with `chezmoi re-add ~/.config/yazi/package.toml`.
+Avoid re-adding downloaded plugin files themselves.
+
 `chezmoi apply` installs packages defined in `<chezmoi-source-directory>/run_onchange_before_install-...-packages.sh.tmpl`
 Other installed binaries are pulled from the files:
 

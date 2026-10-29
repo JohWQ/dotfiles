@@ -31,12 +31,12 @@ Documents/WindowsPowerShell
 .config/niri/cfg/outputs.kdl
 {{ end -}}
 
-# Ignore everything except Lua files in the Yazi plugins
+# Downloaded Yazi packages belong to `ya pkg`, not chezmoi.
+# Git ignores them too, but old ignored source files can still exist locally.
 **/pref-by-location
-**/*.yazi/*
-!**/*.yazi/*.lua
-
-# Don't ignore the flavour files either
-!**/*.yazi/flavor.toml
-!**/*.yazi/tmtheme.xml
+.config/yazi/plugins/**
+!.config/yazi/plugins/
+!.config/yazi/plugins/confirm-quit.yazi/
+!.config/yazi/plugins/confirm-quit.yazi/**
+.config/yazi/flavors/**
 {{ end -}}

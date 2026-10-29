@@ -355,6 +355,14 @@ return {
       open_for_directories = true,
       open_for_multiple_tabs = true,
       change_neovim_cwd_on_close = true,
+      open_file_function = function(chosen_file)
+        -- The swap prompt can raise E325 even after the user handles it.
+        -- Keep the prompt and its choices, but don't turn it into a callback error.
+        local ok, err = pcall(vim.cmd, 'edit ' .. vim.fn.fnameescape(chosen_file))
+        if not ok and not tostring(err):match('Vim%(edit%):E325:') then
+          error(err, 0)
+        end
+      end,
       keymaps = {
         show_help = '<f1>',
         open_file_in_vertical_split = '<c-g>',

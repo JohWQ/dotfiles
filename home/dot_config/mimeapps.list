@@ -8,6 +8,8 @@ video/mp2t=mpv.desktop
 video/mpeg=mpv.desktop
 application/xml=nvim.desktop
 video/x-ms-wmv=mpv.desktop
+text/plain=nvim.desktop
+inode/directory=yazi.desktop
 
 [Added Associations]
 image/png=swayimg.desktop;

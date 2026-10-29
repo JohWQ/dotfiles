@@ -1,0 +1,18 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- /* Only custom preferences, compared with LosslessCut 3.70.2 defaults.
+     Keybindings currently match the defaults. Preserve app-managed state and
+     local settings; add future custom preferences here instead of re-adding
+     the complete config.json. */ -}}
+{{- $config := .chezmoi.stdin | default "{}" | mustFromJson -}}
+{{- $before := $config | toJson -}}
+{{- $config = $config
+    | setValueAtPath "enableCustomOutDir" true
+    | setValueAtPath "hideNotifications" "all"
+    | setValueAtPath "cleanupChoices.cleanupAfterExport" true
+    | setValueAtPath "cleanupChoices.trashSourceFile" true
+    | setValueAtPath "cleanupChoices.trashProjectFile" true -}}
+{{- if eq $before ($config | toJson) -}}
+{{- .chezmoi.stdin -}}
+{{- else -}}
+{{- $config | toPrettyJson }}{{ "\n" -}}
+{{- end -}}

@@ -1,47 +1,47 @@
 [[plugin.deps]]
 use = "yazi-rs/plugins:chmod"
-rev = "c591a36"
+rev = "896fa5a"
 hash = "87472b05a8c420100f6a2b9cde1e7746"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:zoom"
-rev = "c591a36"
-hash = "e8e279463ee99c940e6945a14cf4aa9e"
+rev = "896fa5a"
+hash = "558bbb58e3dd36d488280a8f10e7b904"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:toggle-pane"
-rev = "c591a36"
+rev = "896fa5a"
 hash = "5b2fbef7d1513ce38ff72623a071a5e"
 
 [[plugin.deps]]
 use = "orhnk/system-clipboard"
-rev = "75a5330"
-hash = "2eca70f99d25c661e0a92000843d001e"
+rev = "ed946c3"
+hash = "43fff18b85896a499105f621de458ea1"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:smart-filter"
-rev = "c591a36"
+rev = "896fa5a"
 hash = "d6f7351ea25a43c9b5f4315fa1e23935"
 
 [[plugin.deps]]
 use = "boydaihungst/pref-by-location"
-rev = "0248cfe"
-hash = "348b3fc3b313acfb21814ffd5f49b434"
+rev = "919b2d0"
+hash = "80468b4806ba5218236f0d95c10f98f5"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:mount"
-rev = "c591a36"
-hash = "b95f898e6dc60b52edbc415952e14395"
+rev = "896fa5a"
+hash = "ba1a606728adb75b091b6eaf3fd60372"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:jump-to-char"
-rev = "c591a36"
+rev = "896fa5a"
 hash = "7a4b4237223aaa94e589d1c01a23542a"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:full-border"
-rev = "c591a36"
-hash = "f281261ff04ad7ec867c3f802a50835f"
+rev = "896fa5a"
+hash = "17ebde15c4349f90aedbc45984b98db2"
 
 [[plugin.deps]]
 use = "Sonico98/exifaudio"
@@ -50,7 +50,7 @@ hash = "4761fffb60a12d37096c34a356380cdf"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:diff"
-rev = "c591a36"
+rev = "896fa5a"
 hash = "14558d2829c0aa05e99c57de8f74d199"
 
 [[plugin.deps]]
@@ -60,8 +60,8 @@ hash = "33b1595231cb14a0b9f9057d310dbf59"
 
 [[plugin.deps]]
 use = "hankertrix/augment-command"
-rev = "352dc37"
-hash = "e06f77d6a0abab153740331c96962dd7"
+rev = "561f6ec"
+hash = "7247d19973ad65c4a2f77df54908990b"
 
 [[plugin.deps]]
 use = "JohWQ/convert"
@@ -70,13 +70,13 @@ hash = "6a149b30e952c8b612acb2d8118ceba7"
 
 [[plugin.deps]]
 use = "boydaihungst/relative-motions"
-rev = "d720b1c"
-hash = "cb389a36241ada4893796d89dd5da7a0"
+rev = "8f69d78"
+hash = "10b77b13edb2357f023193233e9afe81"
 
 [[plugin.deps]]
 use = "XYenon/yafg"
-rev = "e6ba851"
-hash = "9558dd9169cbf01eac6044583c426716"
+rev = "1202b2c"
+hash = "b0046637f995df7323366f26973edeb3"
 
 [[plugin.deps]]
 use = "AnirudhG07/custom-shell"
@@ -85,23 +85,23 @@ hash = "32558ab53db6009fb2b0c131c437a139"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:git"
-rev = "c591a36"
-hash = "5bb0bfab901d3601c370eafdd66edd31"
+rev = "896fa5a"
+hash = "347cc6b190eb0c2fd60513cc7ae37412"
 
 [[plugin.deps]]
 use = "WhoSowSee/whoosh"
-rev = "43f3202"
-hash = "da14dfe482886e756150ae4f5c2bb23"
+rev = "d6ede98"
+hash = "f6c11dc58d674764a4dd20e644138534"
 
 [[plugin.deps]]
 use = "boydaihungst/gvfs"
-rev = "a85d659"
-hash = "1866f00532ba80f895544f7348e89e53"
+rev = "c92953c"
+hash = "d1e8d33ed36d339d5588f036dc3a9204"
 
 [[plugin.deps]]
 use = "JohWQ/open-paths"
-rev = "0ec0747"
-hash = "a3aaae0928d768c087bf796c7f930672"
+rev = "41e5327"
+hash = "f875778ef234a511ceec59de0604c928"
 
 [flavor]
 deps = []

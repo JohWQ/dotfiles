@@ -59,29 +59,30 @@ binds {
 
     // ─── Media Controls ───
     // Ducky One 3 Macros: Enter recording mode with Fn+Alt+Tab
-    // <Recording keys> - Actual keymap
-    // Fn+Super+B - Fn+PgUP
+    // Select which key to bind first - change level with a modifier key
+    // <Multimedia keybind> - Actual keymap
+    // Fn+PgUP - Fn+Super+B
     XF86AudioRaiseVolume                allow-when-locked=true { spawn-sh "playerctl volume 0.02+"; }
     // Fn+Shift+PgUp
     Shift+XF86AudioRaiseVolume          allow-when-locked=true { spawn-sh "noctalia msg volume-up 1"; }
     // Fn+Mod+PgUp
     Mod+XF86AudioRaiseVolume            hotkey-overlay-title=null allow-when-locked=true { spawn-sh "noctalia msg volume-up 10"; }
-    // Fn+Super+C - Fn+PgDn
+    // Fn+PgDn - Fn+Super+C
     XF86AudioLowerVolume                allow-when-locked=true { spawn-sh "playerctl volume 0.02-"; }
     // Fn+Shift+PgDn
     Shift+XF86AudioLowerVolume          allow-when-locked=true { spawn-sh "noctalia msg volume-down 1"; }
     // Fn+Mod+PgDn
     Mod+XF86AudioLowerVolume            hotkey-overlay-title=null allow-when-locked=true { spawn-sh "noctalia msg volume-down 10"; }
-    // Fn+Super+A - Fn+End
+    // Fn+End - Fn+Super+A
     XF86AudioMute                       allow-when-locked=true { spawn-sh "noctalia msg volume-mute"; }
     XF86AudioMicMute                    allow-when-locked=true { spawn-sh "noctalia msg mic-mute"; }
-    // Fn+Super+F - Fn+Ctrl+PgDn
+    // Fn+Ctrl+PgDn - Fn+Super+F
     XF86AudioNext                       allow-when-locked=true { spawn-sh "noctalia msg media next"; }
-    // Fn+Super+G - Fn+Ctrl+Del
+    // Fn+Ctrl+Del - Fn+Super+G
     XF86AudioPrev                       allow-when-locked=true { spawn-sh "noctalia msg media previous"; }
-    // Fn+Super+D - Fn+Ctrl+Home
+    // Fn+Ctrl+Home - Fn+Super+D
     XF86AudioPlay                       allow-when-locked=true { spawn-sh "noctalia msg media play-pause"; }
-    // Fn+Super+E - Fn+Ctrl+End
+    // Fn+Ctrl+End - Fn+Super+E
     XF86AudioPause                      allow-when-locked=true { spawn-sh "noctalia msg media stop"; }
 
 
