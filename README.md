@@ -160,6 +160,25 @@ Unknown hosts receive shared defaults only. Noctalia's
 runtime `settings.toml` is not needed for restoration. The generated
 `~/.config/noctalia/config.toml` is owner-readable/writable only.
 
+The shared config enables the installed plugins on Linux hosts:
+
+- Official: Screen Recorder, Wallhaven, and Bitwarden.
+- Community: Calculator, Phone Connect, Pomodoro, Syncthing, Default Apps,
+  and Shelly.
+
+Their IDs, settings, and official/community Git sources are declared in the
+shared template. Noctalia fetches enabled plugins from those sources and keeps
+them updated (`auto_update = "all"`); Git and network access are required for
+downloads. No separate chezmoi installation script is needed. Downloaded plugin
+code and runtime state are excluded from chezmoi and Git. Windows installs
+exclude the Noctalia config along with the other Linux dotfiles.
+
+After applying the config, start Noctalia or run `noctalia msg config-reload`
+in an existing session. Check activation with `noctalia msg plugins list`.
+An existing `[plugins].enabled` override in
+`~/.local/state/noctalia/settings.toml` takes precedence over the shared list;
+remove that override if the machine should follow the shared selection.
+
 **Back up `~/.config/chezmoi/age.key` securely outside this repository.** The
 private key is required to restore encrypted settings; the public recipients in
 `home/.chezmoi.toml.tmpl` cannot decrypt them. The laptop and desktop use separate

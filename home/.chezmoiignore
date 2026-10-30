@@ -55,4 +55,8 @@ install-windows-yazi-packages.ps1
 !.config/yazi/plugins/confirm-quit.yazi/
 !.config/yazi/plugins/confirm-quit.yazi/**
 .config/yazi/flavors/**
+
+# Noctalia restores enabled plugins from the shared config's git sources.
+.local/share/noctalia/plugins/**
+.local/state/noctalia/**
 {{ end -}}

@@ -159,6 +159,7 @@ download_dir = "~/Pictures/Wallpapers/wallhaven"
 notify_events = false
 
 [plugins]
+auto_update = "all"
 enabled = [
     "noctalia/screen_recorder",
     "noctalia/wallhaven",
@@ -170,6 +171,18 @@ enabled = [
     "thaer99ob/default-apps",
     "joshuaslate/shelly"
 ]
+
+[[plugins.source]]
+name = "official"
+kind = "git"
+location = "https://github.com/noctalia-dev/official-plugins"
+enabled = true
+
+[[plugins.source]]
+name = "community"
+kind = "git"
+location = "https://github.com/noctalia-dev/community-plugins"
+enabled = true
 
 [shell]
 avatar_path = "~/Pictures/.avatar.jpg"

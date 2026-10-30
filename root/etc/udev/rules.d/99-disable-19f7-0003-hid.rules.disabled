@@ -1,0 +1,1 @@
+ACTION=="add", SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_interface", ATTRS{idVendor}=="19f7", ATTRS{idProduct}=="0003", ATTR{bInterfaceNumber}=="03", ATTR{bInterfaceClass}=="03", ATTR{authorized}="0"

@@ -10,3 +10,7 @@
 **/yazi/config/flavors/
 **/whoosh.yazi/bookmarks
 nvim.log
+
+# Noctalia downloads plugins and maintains runtime state outside the config.
+home/dot_local/share/noctalia/plugins/
+home/dot_local/state/noctalia/
