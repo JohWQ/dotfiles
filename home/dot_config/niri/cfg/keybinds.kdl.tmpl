@@ -208,7 +208,8 @@ binds {
     Mod+Ctrl+F                          { expand-column-to-available-width; }
     Mod+Shift+MouseMiddle               { center-column; }
     Mod+C                               { center-column; }
-    Mod+Ctrl+C                          { center-visible-columns; }
+    Mod+Ctrl+C                          repeat=false hotkey-overlay-title="Toggle Auto-centering" { spawn-sh "sed -i -E '/^[[:space:]]*center-focused-column[[:space:]]/ { s/\"never\"/\"always\"/; t; s/\"always\"/\"never\"/; }' \"$HOME/.config/niri/cfg/layout.kdl\" && notify-send -t 1100 'Toggle' 'Window centering'"; }
+    Mod+Ctrl+Shift+C                    { center-visible-columns; }
     Mod+Minus                           { set-column-width "-10%"; }
     Mod+Ctrl+H                          { set-column-width "-10%"; }
     Mod+Plus                            { set-column-width "+10%"; }

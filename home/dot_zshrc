@@ -176,7 +176,6 @@ alias tm='tmux -q has-session && tmux attach-session -d || exec tmux new-session
 alias cls='clear'
 alias clr='clear'
 alias :q='exit'
-alias zsh='clear; zsh; reset'
 alias bash='clear; bash'
 alias sudo='sudo '
 alias trash='gio trash'
