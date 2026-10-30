@@ -23,13 +23,13 @@ input {
         //accel-speed 0.0
     }
 
-{{ if eq .chezmoi.hostname "cachyos-laptop" }}{{ else }}    tablet {
+    tablet {
         // off
-        map-to-output "DP-2"
+        map-to-focused-output // Automatically follow the focused monitor
         // Rotation:
         //calibration-matrix 1.0 0.0 0.0 0.0 1.0 0.0
     }
 
-{{ end }}    focus-follows-mouse // Automatically focus windows under the mouse pointer
+    focus-follows-mouse // Automatically focus windows under the mouse pointer
     workspace-auto-back-and-forth // Enable workspace back & forth switching
 }

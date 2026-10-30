@@ -8,9 +8,6 @@ start = [
     "active_window2"
 ]
 
-[calendar]
-enabled = true
-
     [calendar.account.personal_google]
     color = "primary"
     name = "Personlig kalender"
@@ -54,7 +51,6 @@ widget_order = [
         show_caps_lock = true
         show_keyboard_layout = true
         show_login_button = true
-        show_media = false
         show_session_buttons = true
         show_unlock_hint = true
         show_weather = true
@@ -81,7 +77,6 @@ widget_order = [
         show_caps_lock = true
         show_keyboard_layout = true
         show_login_button = true
-        show_media = false
         show_session_buttons = true
         show_unlock_hint = true
         show_weather = true
@@ -108,24 +103,9 @@ widget_order = [
         show_caps_lock = true
         show_keyboard_layout = true
         show_login_button = true
-        show_media = false
         show_session_buttons = true
         show_unlock_hint = true
         show_weather = true
-
-[notification]
-filter_order = [ "filter" ]
-
-    [notification.filter.filter]
-    allow_permanent = true
-    allowed_urgencies = [ "critical" ]
-    bypass_dnd = false
-    enabled = true
-    match = "helium"
-    match_content = "^teams[.]cloud[.]microsoft(?:\\s|$)"
-    play_sound = false
-    save_history = false
-    show_toast = false
 
 # Host action lists replace the shared list; keep every action here.
 [[shell.session.actions]]
@@ -176,6 +156,3 @@ action = "reboot_uefi"
 countdown_seconds = 0.0
 enabled = true
 variant = "ghost"
-
-[widget.bluetooth]
-enabled = true

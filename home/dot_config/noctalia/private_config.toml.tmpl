@@ -30,6 +30,9 @@ thickness = 32
     middle = "exec noctalia msg settings-open"
     right = "panel-toggle session"
 
+[calendar]
+enabled = true
+
     [[control_center.shortcuts]]
     type = "nightlight"
 
@@ -125,6 +128,18 @@ enabled = true
 
 [notification]
 scale = 0.95000000670552254
+filter_order = [ "filter" ]
+
+    [notification.filter.filter]
+    allow_permanent = true
+    allowed_urgencies = [ "critical" ]
+    bypass_dnd = false
+    enabled = true
+    match = "helium"
+    match_content = "^teams[.]cloud[.]microsoft(?:\\s|$)"
+    play_sound = false
+    save_history = false
+    show_toast = false
 
 [plugin_settings."icefish/phone-connect"]
 battery_display = "percent"
@@ -243,6 +258,9 @@ source = "builtin"
 
 [wallpaper]
 directory = "~/Pictures/Wallpapers"
+[widget.bluetooth]
+enabled = false
+
 [widget.active_window]
 max_length = 310
 
@@ -376,4 +394,11 @@ labels_only_when_occupied = true
 {{- if stat (printf "%s.age" $hostPath) -}}
 {{- $secrets = include (printf "%s.age" $hostPath) | decrypt | fromToml -}}
 {{- end -}}
-{{ mergeOverwrite $shared $machine $secrets | toToml }}
+{{- $config := mergeOverwrite $shared $machine $secrets -}}
+{{- /* Shared login-box defaults apply to every host's monitor-specific widgets. */ -}}
+{{- range $widget := (get $config.lockscreen_widgets "widget" | default dict) -}}
+{{- if eq $widget.type "login_box" -}}
+{{- $_ := set $widget "settings" (mergeOverwrite (dict "show_media" false) ($widget.settings | default dict)) -}}
+{{- end -}}
+{{- end -}}
+{{ $config | toToml }}
