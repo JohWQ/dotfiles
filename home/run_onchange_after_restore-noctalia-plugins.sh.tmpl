@@ -1,0 +1,46 @@
+{{- if eq .chezmoi.os "linux" -}}
+{{- $config := includeTemplate "dot_config/noctalia/private_config.toml.tmpl" . -}}
+#!/bin/bash
+set -euo pipefail
+
+# Rerun when the rendered shared/host configuration changes.
+# noctalia-config-sha256: {{ $config | sha256sum }}
+
+# Noctalia loads settings.toml after config.toml. Clear overrides for the
+# managed plugins, bar layout, and shared session/suspend settings.
+settings="${XDG_STATE_HOME:-$HOME/.local/state}/noctalia/settings.toml"
+if [[ -f "$settings" ]]; then
+    cleaned=$(chezmoi execute-template --with-stdin '{{ `
+{{- $settings := fromToml .chezmoi.stdin -}}
+{{- if hasKey $settings "plugins" -}}
+{{- $_ := unset $settings.plugins "enabled" -}}
+{{- end -}}
+{{- $bar := get $settings "bar" | default dict -}}
+{{- if hasKey $bar "default" -}}
+{{- $_ := unset $bar.default "end" -}}
+{{- end -}}
+{{- $shell := get $settings "shell" | default dict -}}
+{{- if hasKey $shell "session" -}}
+{{- $_ := unset $shell.session "actions" -}}
+{{- end -}}
+{{- if hasKey $settings "lockscreen" -}}
+{{- $_ := unset $settings.lockscreen "lock_before_suspend" -}}
+{{- end -}}
+{{ $settings | toToml }}
+` }}' < "$settings")
+    temporary=$(mktemp "${settings}.XXXXXX")
+    trap 'rm -f "$temporary"' EXIT
+    printf '%s\n' "$cleaned" > "$temporary"
+    chmod 600 "$temporary"
+    mv "$temporary" "$settings"
+fi
+
+# Offline restores take effect on the next Noctalia startup.
+if command -v noctalia >/dev/null && noctalia msg plugins list >/dev/null 2>&1; then
+    noctalia msg config-reload
+    # Reload updates intent; explicitly enable each plugin to fetch missing code.
+{{ range ($config | fromToml).plugins.enabled }}
+    noctalia msg plugins enable {{ . | quote }}
+{{ end -}}
+fi
+{{ end -}}

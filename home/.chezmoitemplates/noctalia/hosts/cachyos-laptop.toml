@@ -2,7 +2,7 @@
 # Private location settings are stored in cachyos-laptop.age.
 [bar]
   [bar.default]
-    end = ["clock", "tray", "bar", "bar_2", "recorder", "bar_3", "weather", "notifications", "clipboard", "network", "volume", "battery", "session"]
+    end = ["clock", "tray", "bar", "bar_2", "recorder", "bar_3", "weather", "notifications", "clipboard", "network", "volume", "battery", "session", "shelly"]
 
 [lockscreen_widgets]
   widget_order = ["lockscreen-login-box@eDP-1"]
@@ -31,69 +31,6 @@
         show_session_buttons = true
         show_unlock_hint = true
         show_weather = true
-
-[shell]
-  [shell.session]
-
-    [[shell.session.actions]]
-      action = "lock"
-      countdown_seconds = 0.0
-      enabled = true
-      shortcut = "1"
-      variant = "default"
-
-    [[shell.session.actions]]
-      action = "logout"
-      countdown_seconds = 0.0
-      enabled = true
-      shortcut = "2"
-      variant = "default"
-
-    [[shell.session.actions]]
-      action = "suspend"
-      command = "if systemctl --user is-active --quiet app-dev.lizardbyte.app.Sunshine.service; then systemctl --user stop app-dev.lizardbyte.app.Sunshine.service && sleep 5; fi; systemctl suspend"
-      countdown_seconds = 0.0
-      enabled = false
-      glyph = "device-desktop-pause"
-      label = "Suspend"
-      variant = "outline"
-
-    [[shell.session.actions]]
-      action = "lock_and_suspend"
-      countdown_seconds = 0.0
-      enabled = true
-      shortcut = "3"
-      variant = "default"
-
-    [[shell.session.actions]]
-      action = "command"
-      command = "if systemctl --user is-active --quiet app-dev.lizardbyte.app.Sunshine.service; then systemctl --user stop app-dev.lizardbyte.app.Sunshine.service && sleep 5; fi; noctalia msg session lock-and-suspend"
-      countdown_seconds = 0.0
-      enabled = false
-      glyph = "player-pause"
-      label = "Lock & Suspend"
-      shortcut = "3"
-      variant = "default"
-
-    [[shell.session.actions]]
-      action = "reboot"
-      countdown_seconds = 0.0
-      enabled = true
-      shortcut = "4"
-      variant = "destructive"
-
-    [[shell.session.actions]]
-      action = "shutdown"
-      countdown_seconds = 0.0
-      enabled = true
-      shortcut = "5"
-      variant = "destructive"
-
-    [[shell.session.actions]]
-      action = "reboot_uefi"
-      countdown_seconds = 0.0
-      enabled = true
-      variant = "ghost"
 
 [wallpaper]
   [wallpaper.default]

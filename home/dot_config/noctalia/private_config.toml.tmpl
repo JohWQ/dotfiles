@@ -110,6 +110,7 @@ up = [ "Up", "Ctrl+k" ]
 validate = [ "Return", "KP_Enter", "space", "Alt+e" ]
 
 [lockscreen]
+lock_before_suspend = true
 blur_intensity = 0.59999998658895493
 fingerprint = false
 tint_intensity = 0.69999998435378075
@@ -228,26 +229,37 @@ settings_expand_all_groups = true
     enabled = false
     glyph = "device-desktop-pause"
     label = "Suspend"
-    variant = "default"
+    variant = "outline"
 
     [[shell.session.actions]]
     action = "lock_and_suspend"
     countdown_seconds = 0.0
+    enabled = true
+    shortcut = "3"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "command"
+    command = "if systemctl --user is-active --quiet app-dev.lizardbyte.app.Sunshine.service; then systemctl --user stop app-dev.lizardbyte.app.Sunshine.service && sleep 5; fi; noctalia msg session lock-and-suspend"
+    countdown_seconds = 0.0
     enabled = false
+    glyph = "player-pause"
+    label = "Lock & Suspend"
+    shortcut = "3"
     variant = "default"
 
     [[shell.session.actions]]
     action = "reboot"
     countdown_seconds = 0.0
     enabled = true
-    shortcut = "3"
+    shortcut = "4"
     variant = "destructive"
 
     [[shell.session.actions]]
     action = "shutdown"
     countdown_seconds = 0.0
     enabled = true
-    shortcut = "4"
+    shortcut = "5"
     variant = "destructive"
 
     [[shell.session.actions]]

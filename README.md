@@ -154,8 +154,11 @@ It selects files in `home/.chezmoitemplates/noctalia/hosts/` using
 
 Host overrides take precedence over shared defaults; decrypted secrets take
 precedence over both. Theme preferences are shared between the laptop and desktop.
-Desktop session shortcuts use `4` for reboot and `5` for shutdown. Host session
-action arrays replace the complete shared list, so retain every action when editing them.
+Session actions are shared across Linux hosts: Lock & Suspend uses shortcut `3`,
+Reboot uses `4`, Shutdown uses `5`, and Reboot to UEFI is enabled. Plain Suspend
+and the custom Sunshine suspend action are disabled, matching the GUI selection.
+Locking before suspend is enabled on every host. Edit these settings in the
+shared template rather than adding host action arrays.
 Unknown hosts receive shared defaults only. Noctalia's
 runtime `settings.toml` is not needed for restoration. The generated
 `~/.config/noctalia/config.toml` is owner-readable/writable only.
@@ -169,15 +172,20 @@ The shared config enables the installed plugins on Linux hosts:
 Their IDs, settings, and official/community Git sources are declared in the
 shared template. Noctalia fetches enabled plugins from those sources and keeps
 them updated (`auto_update = "all"`); Git and network access are required for
-downloads. No separate chezmoi installation script is needed. Downloaded plugin
+downloads. Downloaded plugin
 code and runtime state are excluded from chezmoi and Git. Windows installs
 exclude the Noctalia config along with the other Linux dotfiles.
 
-After applying the config, start Noctalia or run `noctalia msg config-reload`
-in an existing session. Check activation with `noctalia msg plugins list`.
-An existing `[plugins].enabled` override in
-`~/.local/state/noctalia/settings.toml` takes precedence over the shared list;
-remove that override if the machine should follow the shared selection.
+The `restore-noctalia-plugins` apply script reruns when the generated Noctalia
+config changes. It removes stale `[plugins].enabled`, `[bar.default].end`,
+`[shell.session].actions`, and `[lockscreen].lock_before_suspend` overrides
+from `~/.local/state/noctalia/settings.toml`, keeping other runtime
+settings, then reloads Noctalia and enables the configured plugins when running.
+This lets the shared plugin list
+and host bar layout take effect, including Shelly on the laptop. When Noctalia
+is stopped, plugins are restored on its next startup. Check activation with
+`noctalia msg plugins list`. Shelly also requires the `shelly` application on PATH
+and hides its widget when there are no updates with the shared settings.
 
 **Back up `~/.config/chezmoi/age.key` securely outside this repository.** The
 private key is required to restore encrypted settings; the public recipients in
@@ -195,18 +203,17 @@ To restore a configured machine:
 To refresh only Noctalia on an initialized machine:
 
 ```sh
-chezmoi apply ~/.config/noctalia/config.toml
-noctalia msg config-reload
+chezmoi apply ~/.config/noctalia/config.toml ~/restore-noctalia-plugins.sh
 ```
 
 On the desktop, after these repository changes have been committed and pushed,
-run `chezmoi update` to pull and apply them, then `noctalia msg config-reload`
-if Noctalia is running. The desktop automatically selects its host overrides
+run `chezmoi update` to pull and apply them. The restore script reloads Noctalia
+if it is running. The desktop automatically selects its host overrides
 and decrypts its secrets using its own age key.
 
 Noctalia loads `~/.local/state/noctalia/settings.toml` after the generated config.
 If an old UI setting masks a repository change, remove only the corresponding
-override (for example, `[theme]` or `[[shell.session.actions]]`) from that file,
+override (for example, `[theme]`) from that file,
 then reload Noctalia. Other runtime settings can be kept.
 
 ### Potential issues
