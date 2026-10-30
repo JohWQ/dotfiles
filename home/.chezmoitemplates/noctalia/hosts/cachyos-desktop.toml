@@ -1,7 +1,6 @@
 [bar.default.monitor.DP-3]
 center = [ "media2" ]
 start = [
-    "control-center",
     "wallpaper",
     "workspaces",
     "focus-column-left",
@@ -18,7 +17,7 @@ enabled = true
     type = "google"
 
 [control_center]
-hidden_tabs = [ "monitor", "power", "network" ]
+hidden_tabs = [ "monitor", "power" ]
 
     [control_center.calendar]
     show_week_numbers = true
@@ -45,7 +44,7 @@ widget_order = [
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@DP-2".settings]
-        background_color = "surface_variant"
+        background_color = "surface_container"
         background_opacity = 0.88
         background_radius = 12.0
         center_password_text = false
@@ -72,7 +71,7 @@ widget_order = [
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@DP-3".settings]
-        background_color = "surface_variant"
+        background_color = "surface_container"
         background_opacity = 0.88
         background_radius = 12.0
         center_password_text = false
@@ -99,7 +98,7 @@ widget_order = [
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1".settings]
-        background_color = "surface_variant"
+        background_color = "surface_container"
         background_opacity = 0.88
         background_radius = 12.0
         center_password_text = false
@@ -113,6 +112,20 @@ widget_order = [
         show_session_buttons = true
         show_unlock_hint = true
         show_weather = true
+
+[notification]
+filter_order = [ "filter" ]
+
+    [notification.filter.filter]
+    allow_permanent = true
+    allowed_urgencies = [ "critical" ]
+    bypass_dnd = false
+    enabled = true
+    match = "helium"
+    match_content = "^teams[.]cloud[.]microsoft(?:\\s|$)"
+    play_sound = false
+    save_history = false
+    show_toast = false
 
 # Host action lists replace the shared list; keep every action here.
 [[shell.session.actions]]
@@ -159,24 +172,10 @@ shortcut = "5"
 variant = "destructive"
 
 [[shell.session.actions]]
-action = "reboot"
-command = "systemctl reboot --firmware-setup"
+action = "reboot_uefi"
 countdown_seconds = 0.0
 enabled = true
-label = "Reboot to UEFI"
 variant = "ghost"
 
-[wallpaper.default]
-path = "~/Pictures/Wallpapers/wallhaven/wallhaven-4ywjjk.jpg"
-
-[wallpaper.last]
-path = "~/Pictures/Wallpapers/wallhaven/wallhaven-4ywjjk.jpg"
-
-[wallpaper.monitors.DP-2]
-path = "~/Pictures/Wallpapers/wallhaven/wallhaven-4ywjjk.jpg"
-
-[wallpaper.monitors.DP-3]
-path = "~/Pictures/Wallpapers/wallhaven/wallhaven-6lyg5q.jpg"
-
 [widget.bluetooth]
-enabled = false
+enabled = true

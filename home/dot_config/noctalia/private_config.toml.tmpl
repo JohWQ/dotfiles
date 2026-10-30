@@ -1,5 +1,5 @@
 {{- /* Repository-backed settings selected by hostname. No runtime state dependency. */ -}}
-{{- $shared := `config_version = 14
+{{- $shared := `config_version = 16
 
 [bar.default]
 background_opacity = 0.79999998211860657
@@ -16,16 +16,13 @@ end = [
     "weather",
     "launcher",
     "notifications",
-    "clipboard",
-    "network",
-    "bluetooth",
     "volume",
-    "session"
+    "shelly"
 ]
 margin_edge = 2
 margin_ends = 20
 radius = 20
-start = [ "control-center", "wallpaper", "workspaces", "focus-column-left", "focus-column-right", "active_window" ]
+start = [ "wallpaper", "workspaces", "focus-column-left", "focus-column-right", "active_window" ]
 thickness = 32
 
     [bar.default.dead_zone.actions]
@@ -143,6 +140,9 @@ hide_inactive = true
 [plugin_settings."noctalia/wallhaven"]
 download_dir = "~/Pictures/Wallpapers/wallhaven"
 
+[plugin_settings."rylos/syncthing"]
+notify_events = false
+
 [plugins]
 enabled = [
     "noctalia/screen_recorder",
@@ -151,7 +151,9 @@ enabled = [
     "icefish/phone-connect",
     "thepunkoff/pomodoro",
     "rylos/syncthing",
-    "noctalia/bitwarden"
+    "noctalia/bitwarden",
+    "thaer99ob/default-apps",
+    "joshuaslate/shelly"
 ]
 
 [shell]
@@ -160,10 +162,16 @@ clipboard_auto_paste = "off"
 clipboard_history_max_entries = 300
 clipboard_image_action_command = "satty -f -"
 polkit_agent = true
+settings_expand_all_groups = true
 
     [shell.launcher]
     app_grid = true
     auto_paste = "auto"
+    category_icons_only = true
+    show_app_actions = true
+    show_navigation_labels = false
+    show_session_button = false
+    show_settings_button = false
 
     [shell.mpris]
     blacklist = [ "losslesscut", "firefox" ]
@@ -215,12 +223,15 @@ polkit_agent = true
     variant = "destructive"
 
     [[shell.session.actions]]
-    action = "reboot"
-    command = "systemctl reboot --firmware-setup"
+    action = "reboot_uefi"
     countdown_seconds = 0.0
     enabled = true
-    label = "Reboot to UEFI"
     variant = "ghost"
+
+    [shell.window_switcher]
+    current_workspace_only = true
+    show_all_outputs = false
+    show_count = false
 
 [theme]
 builtin = "Catppuccin"
@@ -327,6 +338,18 @@ show_label = false
 
 [widget.recorder]
 type = "noctalia/screen_recorder:recorder"
+
+[widget.session]
+enabled = false
+
+[widget.shelly]
+bar_label = "count_only"
+click_action = "open_updater"
+hide_when_up_to_date = true
+type = "joshuaslate/shelly:shelly"
+
+[widget.tray]
+drawer = true
 
 [widget.wallpaper.actions]
 right = "panel-toggle noctalia/wallhaven:browser"
