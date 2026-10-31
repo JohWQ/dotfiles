@@ -178,7 +178,8 @@ exclude the Noctalia config along with the other Linux dotfiles.
 
 The `restore-noctalia-plugins` apply script reruns when the generated Noctalia
 config changes. It removes stale `[plugins].enabled`, `[bar.default].end`,
-`[shell.session].actions`, and `[lockscreen].lock_before_suspend` overrides
+`[shell.session].actions`, `[lockscreen].lock_before_suspend`, and login-box
+`show_media` overrides
 from `~/.local/state/noctalia/settings.toml`, keeping other runtime
 settings, then reloads Noctalia and enables the configured plugins when running.
 This lets the shared plugin list
