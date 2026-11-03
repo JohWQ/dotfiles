@@ -2,8 +2,8 @@
 {{- $shared := `config_version = 16
 
 [bar.default]
-background_opacity = 0.79999998211860657
-capsule_thickness = 0.79999998584389687
+    background_opacity = 0.7999999821186066
+    capsule_thickness = 0.7999999858438969
 center = [ "media" ]
 concave_edge_corners = false
 end = [
@@ -208,6 +208,11 @@ settings_expand_all_groups = true
     [shell.privacy]
     mic_filter_regex = "wiremix"
 
+    [shell.screenshot]
+    annotate = true
+    close_on_copy = false
+    copy_on_close = true
+
     [[shell.session.actions]]
     action = "lock"
     countdown_seconds = 0.0
@@ -271,7 +276,7 @@ settings_expand_all_groups = true
     [shell.window_switcher]
     current_workspace_only = true
     show_all_outputs = false
-    show_count = false
+    show_count = true
 
 [theme]
 builtin = "Catppuccin"
@@ -283,8 +288,6 @@ source = "builtin"
 
 [wallpaper]
 directory = "~/Pictures/Wallpapers"
-[widget.bluetooth]
-enabled = false
 
 [widget.active_window]
 max_length = 310

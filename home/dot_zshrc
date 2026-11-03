@@ -160,7 +160,7 @@ alias la='eza --icons --color=always --group --group-directories-first -all -s m
 alias l.='ls -ld .?*'
 alias dir='ls'
 alias catt='head -n 1 '
-alias lsblk='lsblk -o NAME,UUID,FSUSE%,SIZE,MOUNTPOINT,MODEL'
+alias lsblk='lsblk -o NAME,UUID,FSTYPE,FSUSE%,SIZE,MOUNTPOINT,MODEL'
 alias fdfind='fd -H'
 
 # ---------------------------

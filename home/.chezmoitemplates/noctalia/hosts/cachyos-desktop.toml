@@ -23,21 +23,21 @@ hidden_tabs = [ "monitor", "power" ]
 widget_order = [
     "lockscreen-login-box@HDMI-A-1",
     "lockscreen-login-box@DP-3",
-    "lockscreen-login-box@DP-2"
+    "lockscreen-login-box@DP-1"
 ]
 
-    [lockscreen_widgets.widget."lockscreen-login-box@DP-2"]
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-1"]
     box_height = 196.0
     box_width = 810.0
     cx = 960.0
     cy = 898.0
-    output = "DP-2"
+    output = "DP-1"
     placement_height = 1080.0
     placement_width = 1920.0
     rotation = 0.0
     type = "login_box"
 
-        [lockscreen_widgets.widget."lockscreen-login-box@DP-2".settings]
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-1".settings]
         background_color = "surface_container"
         background_opacity = 0.88
         background_radius = 12.0
@@ -103,3 +103,14 @@ widget_order = [
         show_session_buttons = true
         show_unlock_hint = true
         show_weather = true
+
+[shell]
+clipboard_image_action_command = "noctalia msg annotate {path}"
+
+    [shell.screenshot]
+    annotate = true
+    close_on_copy = false
+    copy_on_close = true
+
+    [shell.window_switcher]
+    show_count = true
