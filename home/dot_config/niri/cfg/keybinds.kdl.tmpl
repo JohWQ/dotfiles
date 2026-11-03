@@ -45,9 +45,13 @@ binds {
     Mod+Shift+B                         hotkey-overlay-title="Toggle Dock: noctalia dock" { spawn-sh "noctalia msg dock-toggle && notify-send -t 1100 'Toggle' 'Noctalia Dock'"; }
     Mod+TAB                             hotkey-overlay-title="Open App Launcher: noctalia launcher" { spawn-sh "noctalia msg panel-toggle launcher"; }
     Mod+E                               hotkey-overlay-title="Open Emoji launcher: noctalia launcher" { spawn-sh "noctalia msg panel-open launcher /emo"; }
-  //Mod+Alt+L                           hotkey-overlay-title="Lock Screen: noctalia lock" { spawn-sh "noctalia msg session lock"; }
     Mod+bar                             hotkey-overlay-title="Session Menu: noctalia sessionMenu" { spawn-sh "noctalia msg panel-toggle session"; }
     Mod+V                               hotkey-overlay-title="Open Clipboard: Noctalia clipboard" { spawn-sh "noctalia msg panel-toggle clipboard"; }
+    Mod+Shift+S                         hotkey-overlay-title="Screenshot region: noctalia screenshot-region" { spawn-sh "noctalia msg screenshot-region"; }
+    Mod+Ctrl+S                          hotkey-overlay-title="Screenshot the focused window" { spawn "~/.local/bin/niri-screenshot.sh" "window"; }
+    Mod+Ctrl+Shift+S                    hotkey-overlay-title="Screenshot fullscreen: noctalia screenshot-fullscreen" { spawn-sh "noctalia msg screenshot-fullscreen"; }
+    Print                               hotkey-overlay-title="Screenshot all screens: noctalia screenshot-fullscreen all" { spawn-sh "noctalia msg screenshot-fullscreen all"; }
+
 
     // Please set the text editor of your choice.
     Mod+Alt+N                           hotkey-overlay-title="Editor: Neovim" { spawn-sh "kitty nvim"; }
@@ -231,13 +235,6 @@ binds {
     Mod+M                               { maximize-window-to-edges; }
     // biri
     Mod+T                               { toggle-window-sticky; }
-
-
-    // ─── Screenshots ───
-    Mod+Shift+S                         hotkey-overlay-title="Screenshot the selected region" { spawn "~/.local/bin/niri-screenshot.sh" "region"; }
-    Mod+Ctrl+S                          hotkey-overlay-title="Screenshot the focused window" { spawn "~/.local/bin/niri-screenshot.sh" "window"; }
-    Mod+Ctrl+Shift+S                    hotkey-overlay-title="Screenshot the focused screen" { spawn "~/.local/bin/niri-screenshot.sh" "monitor-focused"; }
-    Print                               hotkey-overlay-title="Screenshot all screens" { spawn "~/.local/bin/niri-screenshot.sh" "monitor-all"; }
 
 
     // ─── Tools ───

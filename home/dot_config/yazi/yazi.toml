@@ -48,9 +48,9 @@ desc = "Set as wallpaper"
 orphan = true
 
 [[opener.set-wallpaper1]]
-run  = "noctalia msg wallpaper-set DP-2 %s1"
+run  = "noctalia msg wallpaper-set DP-1 %s1"
 for  = "linux"
-desc = "DP-2: Set as wallpaper"
+desc = "DP-1: Set as wallpaper"
 orphan = true
 
 [[opener.set-wallpaper2]]

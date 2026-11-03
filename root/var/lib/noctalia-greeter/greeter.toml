@@ -11,10 +11,7 @@
 # [auth] allow_empty_password (bool), request_timeout (0-3600 seconds; default 60, 0 disables)
 
 [output]
-name = "DP-2"
+name = "DP-1"
 
 [session]
 default = "niri"
-
-[user]
-default = "jw"

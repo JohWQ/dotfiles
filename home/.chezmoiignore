@@ -42,8 +42,8 @@ AppData
 Documents
 install-windows-yazi-packages.ps1
 
-# Keep laptop output settings separate from other hosts.
-{{ if ne .chezmoi.hostname "cachyos-laptop" -}}
+# Manage output settings only for hosts with a saved configuration.
+{{ if not (has .chezmoi.hostname (list "cachyos-laptop" "desktop-cachyos" "cachyos-desktop")) -}}
 .config/niri/cfg/outputs.kdl
 {{ end -}}
 

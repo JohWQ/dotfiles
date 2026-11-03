@@ -46,7 +46,7 @@
     // Open on main display
     window-rule {
     match app-id=r#"^steam_app_.*$"#
-    open-on-output "DP-2"
+    open-on-output "DP-1"
     open-fullscreen true
     open-floating false
     }
@@ -100,14 +100,6 @@
         open-floating true
         default-column-width { fixed 870; }
         default-window-height { fixed 540; }
-    }
-
-    // Focused floating window
-    window-rule {
-        match app-id="com.gabm.satty"
-        open-floating true
-        default-column-width { proportion 0.97; }
-        default-window-height { proportion 0.97; }
     }
 
     window-rule {

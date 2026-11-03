@@ -9,10 +9,10 @@
             "prep-cmd": [
                 {
                     "do": "python3 -c \"import os, subprocess, time; subprocess.run(['niri', 'msg', 'output', 'HDMI-A-1', 'on']); time.sleep(0.5); scale = 3840 / int(os.environ['SUNSHINE_CLIENT_WIDTH']); subprocess.run(['niri', 'msg', 'output', 'HDMI-A-1', 'scale', str(scale)])\"",
-                    "undo": "niri msg output DP-2 on"
+                    "undo": "niri msg output DP-1 on"
                 },
                 {
-                    "do": "niri msg output DP-2 off",
+                    "do": "niri msg output DP-1 off",
                     "undo": "niri msg output DP-3 on"
                 },
                 {
@@ -42,10 +42,10 @@
             "prep-cmd": [
                 {
                     "do": "python3 -c \"import os, subprocess, time; subprocess.run(['niri', 'msg', 'output', 'HDMI-A-1', 'on']); time.sleep(0.5); scale = 3840 / int(os.environ['SUNSHINE_CLIENT_WIDTH']); subprocess.run(['niri', 'msg', 'output', 'HDMI-A-1', 'scale', str(scale)])\"",
-                    "undo": "niri msg output DP-2 on"
+                    "undo": "niri msg output DP-1 on"
                 },
                 {
-                    "do": "niri msg output DP-2 off",
+                    "do": "niri msg output DP-1 off",
                     "undo": "niri msg output DP-3 on"
                 },
                 {
