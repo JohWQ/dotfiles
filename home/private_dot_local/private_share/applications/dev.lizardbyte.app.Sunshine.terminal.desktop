@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Sunshine
+Exec=sh -c "noctalia msg caffeine-disable; exec sunshine"
+Terminal=true
+Type=Application
+NoDisplay=true

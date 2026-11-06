@@ -1,0 +1,4 @@
+# AUR packages
+# Use one package name per line
+wayscriber-bin
+wayscriber-configurator

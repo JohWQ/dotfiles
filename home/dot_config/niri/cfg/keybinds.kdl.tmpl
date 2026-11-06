@@ -21,6 +21,8 @@ binds {
     // ─── Applications ───
     // Scratchpads
     // Implementation for similar scratchpad functionality as i3WM:
+    // biri-git (niri fork) feature(s):
+    // These bindings use niri-scratchpad-rs's hidden-workspaces branch.
     Mod+Alt+1                           hotkey-overlay-title=null { spawn "sh" "-c" "niri-scratchpad target --spawn 'kitty -T \"Yazi Scratchpad\" -e yazi' title \"Yazi Scratchpad\" && niri msg action focus-floating" ; }
     Mod+Alt+2                           hotkey-overlay-title=null { spawn "sh" "-c" "niri-scratchpad target --spawn 'kitty -T \"Neovim Scratchpad\" -e nvim' title \"Neovim Scratchpad\" && niri msg action focus-floating" ; }
     Mod+Alt+3                           hotkey-overlay-title=null { spawn "sh" "-c" "niri-scratchpad target --spawn 'alacritty -t \"Alacritty Scratchpad\" --' title \"Alacritty Scratchpad\" && niri msg action focus-floating" ; }
@@ -233,7 +235,8 @@ binds {
     Mod+F                               { maximize-column; }
     Mod+W                               { toggle-column-tabbed-display; }
     Mod+M                               { maximize-window-to-edges; }
-    // biri
+    // biri-git (niri fork) feature(s):
+    // Sticky floating windows follow workspace switches on their output.
     Mod+T                               { toggle-window-sticky; }
 
 

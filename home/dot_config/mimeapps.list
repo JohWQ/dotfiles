@@ -10,6 +10,7 @@ application/xml=nvim.desktop
 video/x-ms-wmv=mpv.desktop
 text/plain=nvim.desktop
 inode/directory=yazi.desktop
+image/gif=swayimg.desktop
 
 [Added Associations]
 image/png=swayimg.desktop;
@@ -20,3 +21,4 @@ video/mp2t=mpv.desktop;
 video/mpeg=mpv.desktop;
 application/xml=nvim.desktop;
 video/x-ms-wmv=mpv.desktop;
+image/gif=swayimg.desktop;

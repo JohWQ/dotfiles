@@ -42,6 +42,14 @@ AppData
 Documents
 install-windows-yazi-packages.ps1
 
+# Umbriel and its shortcut scripts are captured from the desktop only.
+{{ if ne .chezmoi.hostname "cachyos-desktop" -}}
+.config/umbriel
+.local/bin/screen-ocr.sh
+.local/bin/wayscriber-toggle
+.local/share/applications/dev.lizardbyte.app.Sunshine*.desktop
+{{ end -}}
+
 # Manage output settings only for hosts with a saved configuration.
 {{ if not (has .chezmoi.hostname (list "cachyos-laptop" "desktop-cachyos" "cachyos-desktop")) -}}
 .config/niri/cfg/outputs.kdl

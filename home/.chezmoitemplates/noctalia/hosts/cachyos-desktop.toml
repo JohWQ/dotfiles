@@ -1,4 +1,13 @@
+# Desktop-specific displays, wallpapers, plugins, and window controls.
+# Private values remain in cachyos-desktop.age.
 [bar.default.monitor.DP-3]
+margin_edge = 2
+margin_ends = 20
+radius = 20
+radius_bottom_left = 20
+radius_bottom_right = 20
+radius_top_left = 20
+radius_top_right = 20
 center = [ "media2" ]
 start = [
     "wallpaper",
@@ -15,6 +24,7 @@ start = [
 
 [control_center]
 hidden_tabs = [ "monitor", "power" ]
+shortcuts = [ { "type" = "nightlight" }, { "type" = "notification" }, { "type" = "caffeine" }, { "type" = "clipboard" }, { "type" = "noctalia/screen_recorder:toggle" } ]
 
     [control_center.calendar]
     show_week_numbers = true
@@ -23,7 +33,8 @@ hidden_tabs = [ "monitor", "power" ]
 widget_order = [
     "lockscreen-login-box@HDMI-A-1",
     "lockscreen-login-box@DP-3",
-    "lockscreen-login-box@DP-1"
+    "lockscreen-login-box@DP-1",
+    "lockscreen-login-box@WL-1"
 ]
 
     [lockscreen_widgets.widget."lockscreen-login-box@DP-1"]
@@ -114,3 +125,127 @@ clipboard_image_action_command = "noctalia msg annotate {path}"
 
     [shell.window_switcher]
     show_count = true
+
+["bar"."default"."monitor"."DP-1"]
+margin_edge = 2
+margin_ends = 20
+radius = 20
+radius_bottom_left = 20
+radius_bottom_right = 20
+radius_top_left = 20
+radius_top_right = 20
+
+["lockscreen_widgets"."widget"."lockscreen-login-box@WL-1"]
+box_height = 196.0
+box_width = 810.0
+cx = 472.0
+cy = 849.8377685546875
+output = "WL-1"
+placement_height = 1026.0
+placement_width = 944.0
+rotation = 0.0
+type = "login_box"
+
+["lockscreen_widgets"."widget"."lockscreen-login-box@WL-1"."settings"]
+background_color = "surface_container"
+background_opacity = 0.88
+background_radius = 12.0
+center_password_text = false
+input_opacity = 1.0
+input_radius = 6.0
+layout = "regular"
+show_caps_lock = true
+show_keyboard_layout = true
+show_login_button = true
+show_media = true
+show_password_reveal = true
+show_session_buttons = true
+show_unlock_hint = true
+show_weather = true
+
+["plugins"]
+enabled = [ "rylos/syncthing", "joshuaslate/shelly", "yuuto/calculator", "thaer99ob/default-apps", "h-jangra/keyviz", "icefish/phone-connect", "thepunkoff/pomodoro", "noctalia/screen_recorder", "noctalia/timer", "noctalia/wallhaven", "noctalia/world_clock" ]
+
+["wallpaper"."default"]
+path = "~/Pictures/Wallpapers/wallhaven/wallhaven-4ywjjk.jpg"
+
+["wallpaper"."last"]
+path = "~/Pictures/Wallpapers/wallhaven/wallhaven-6lyg5q.jpg"
+
+["wallpaper"."monitors"."DP-1"]
+path = "~/Pictures/Wallpapers/wallhaven/wallhaven-4ywjjk.jpg"
+
+["wallpaper"."monitors"."DP-3"]
+path = "~/Pictures/Wallpapers/wallhaven/wallhaven-6lyg5q.jpg"
+
+["widget"."focus-column-left"."actions"]
+back = "exec umbriel msg window-focus-left"
+forward = "exec umbriel msg window-focus-right"
+left = "exec umbriel msg window-focus-left"
+scroll_down = "none"
+scroll_up = "none"
+
+["widget"."focus-column-right"."actions"]
+back = "exec umbriel msg window-focus-left"
+forward = "exec umbriel msg window-focus-right"
+left = "exec umbriel msg window-focus-right"
+scroll_down = "none"
+scroll_up = "none"
+
+["widget"."workspaces"."actions"]
+right = "exec umbriel msg overview-toggle"
+
+["bar"."default"]
+capsule_thickness = 0.9999999813735485
+end = [ "clock", "tray", "bar", "bar_2", "recorder", "weather", "launcher", "notifications", "volume", "shelly", "group:g1" ]
+start = [ "workspaces", "focus-column-left", "focus-column-right", "active_window" ]
+capsule_group = [ { "accordion" = true, "accordion_delay_ms" = 500, "accordion_direction" = "start", "border_width" = 1.0, "enabled" = true, "fill" = "surface_container", "id" = "g1", "members" = [ "screenshot", "current", "widget", "wallpaper", "bar_3" ], "opacity" = 1.0, "padding" = 6.0 } ]
+
+["bar"."default"."monitor"."HDMI-A-1"]
+margin_edge = 2
+margin_ends = 20
+radius = 20
+radius_top_left = 20
+radius_top_right = 20
+radius_bottom_left = 20
+radius_bottom_right = 20
+
+["plugin_settings"."h-jangra/keyviz"]
+enabled_by_default = false
+
+["plugin_settings"."noctalia/timer"]
+alarm = true
+panel_open_near_click = false
+panel_position = "top_right"
+
+["shell"."launcher"]
+layout = "simple"
+
+["widget"."active_window"."actions"]
+back = "exec umbriel msg window-modify-primary-extent -0.1"
+forward = "exec umbriel msg window-modify-primary-extent +0.1"
+left = "exec umbriel msg window-toggle-floating"
+right = "exec appid=$(umbriel focused-window --json | jq -r '.app_id // \"window\"'); [ \"$(printf \"Cancel\\nYes\\n\" | noctalia dmenu -p \"Do you want to close $appid?\")\" = \"Yes\" ] && umbriel msg window-close"
+scroll_down = "exec umbriel msg window-modify-secondary-extent -0.1"
+scroll_up = "exec umbriel msg window-modify-secondary-extent +0.1"
+
+["widget"."active_window2"."actions"]
+back = "exec umbriel msg window-modify-primary-extent -0.1"
+forward = "exec umbriel msg window-modify-primary-extent +0.1"
+left = "exec umbriel msg window-toggle-floating"
+right = "exec appid=$(umbriel focused-window --json | jq -r '.app_id // \"window\"'); [ \"$(printf \"Cancel\\nYes\\n\" | noctalia dmenu -p \"Do you want to close $appid?\")\" = \"Yes\" ] && umbriel msg window-close"
+scroll_down = "exec umbriel msg window-modify-secondary-extent -0.1"
+scroll_up = "exec umbriel msg window-modify-secondary-extent +0.1"
+
+["widget"."clock"."actions"]
+back = "exec noctalia msg panel-toggle noctalia/timer:panel"
+
+["widget"."media2"."actions"]
+back = "exec playerctl volume 0.02-"
+forward = "exec playerctl volume 0.02+"
+
+["widget"."current"]
+type = "thaer99ob/default-apps:current"
+
+["widget"."widget"]
+type = "h-jangra/keyviz:widget"

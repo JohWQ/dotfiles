@@ -2,7 +2,6 @@
 # Use one package name per line
 xorg-xhost
 github-cli
-firefox-tridactyl
 lazygit
 eza
 bat
@@ -13,6 +12,7 @@ tree-sitter-cli
 yay
 7zip
 yazi
+alacritty
 obsidian
 syncthing
 helium-browser-bin
@@ -22,9 +22,9 @@ kdeconnect
 gpu-screen-recorder
 mpv
 slurp
-satty
 grim
 zoxide
+playerctl
 wiremix
 hyprpicker
 songrec

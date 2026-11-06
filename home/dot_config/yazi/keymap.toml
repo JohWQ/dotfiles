@@ -531,9 +531,9 @@ run = [ "sort random --reverse=no", "plugin pref-by-location -- save" ]
 desc = "Sort randomly"
 
 # System-clipboard
-[[mgr.prepend_keymap]]
-on = "<C-y>"
-run = "plugin system-clipboard"
+#[[mgr.prepend_keymap]]
+#on = "<C-y>"
+#run = "plugin system-clipboard"
 
 # zoom
 [[mgr.prepend_keymap]]

@@ -1,0 +1,24 @@
+#!/bin/sh
+
+# Keep Wayscriber on demand, including when it was previously enabled at login.
+# Disabling autostart leaves an already-running daemon available for toggling.
+if systemctl --user is-enabled --quiet wayscriber.service; then
+    systemctl --user disable wayscriber.service || exit 1
+fi
+
+# Reuse a daemon started manually or by the user service.
+if ! pgrep -u "$(id -u)" -f '(^|/)wayscriber[[:space:]]+.*(--daemon|-d)([[:space:]]|$)' >/dev/null; then
+    systemctl --user import-environment WAYLAND_DISPLAY XDG_RUNTIME_DIR || exit 1
+    systemctl --user start wayscriber.service || exit 1
+fi
+
+# The service is Type=simple, so it can be active before its IPC is ready.
+attempt=0
+while [ "$attempt" -lt 50 ]; do
+    wayscriber --daemon-toggle 2>/dev/null && exit 0
+    attempt=$((attempt + 1))
+    sleep 0.1
+done
+
+# Report the error if startup did not finish within five seconds.
+exec wayscriber --daemon-toggle

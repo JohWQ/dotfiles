@@ -8,16 +8,16 @@
             "name": "Desktop",
             "prep-cmd": [
                 {
-                    "do": "python3 -c \"import os, subprocess, time; subprocess.run(['niri', 'msg', 'output', 'HDMI-A-1', 'on']); time.sleep(0.5); scale = 3840 / int(os.environ['SUNSHINE_CLIENT_WIDTH']); subprocess.run(['niri', 'msg', 'output', 'HDMI-A-1', 'scale', str(scale)])\"",
-                    "undo": "niri msg output DP-1 on"
+                    "do": "python3 -c \"import os, subprocess, time; subprocess.run(['umbriel', 'msg', 'output-enable', 'HDMI-A-1']); time.sleep(0.5); scale = 3840 / int(os.environ['SUNSHINE_CLIENT_WIDTH']); subprocess.run(['wlr-randr', '--output', 'HDMI-A-1', '--scale', str(scale)])\"",
+                    "undo": "umbriel msg output-enable DP-1"
                 },
                 {
-                    "do": "niri msg output DP-1 off",
-                    "undo": "niri msg output DP-3 on"
+                    "do": "umbriel msg output-disable DP-1",
+                    "undo": "umbriel msg output-enable DP-3"
                 },
                 {
-                    "do": "niri msg output DP-3 off",
-                    "undo": "niri msg output HDMI-A-1 off"
+                    "do": "umbriel msg output-disable DP-3",
+                    "undo": "umbriel msg output-disable HDMI-A-1"
                 }
             ],
             "wait-all": true
@@ -41,16 +41,16 @@
             "name": "Steam Big Picture",
             "prep-cmd": [
                 {
-                    "do": "python3 -c \"import os, subprocess, time; subprocess.run(['niri', 'msg', 'output', 'HDMI-A-1', 'on']); time.sleep(0.5); scale = 3840 / int(os.environ['SUNSHINE_CLIENT_WIDTH']); subprocess.run(['niri', 'msg', 'output', 'HDMI-A-1', 'scale', str(scale)])\"",
-                    "undo": "niri msg output DP-1 on"
+                    "do": "python3 -c \"import os, subprocess, time; subprocess.run(['umbriel', 'msg', 'output-enable', 'HDMI-A-1']); time.sleep(0.5); scale = 3840 / int(os.environ['SUNSHINE_CLIENT_WIDTH']); subprocess.run(['wlr-randr', '--output', 'HDMI-A-1', '--scale', str(scale)])\"",
+                    "undo": "umbriel msg output-enable DP-1"
                 },
                 {
-                    "do": "niri msg output DP-1 off",
-                    "undo": "niri msg output DP-3 on"
+                    "do": "umbriel msg output-disable DP-1",
+                    "undo": "umbriel msg output-enable DP-3"
                 },
                 {
-                    "do": "niri msg output DP-3 off",
-                    "undo": "niri msg output HDMI-A-1 off"
+                    "do": "umbriel msg output-disable DP-3",
+                    "undo": "umbriel msg output-disable HDMI-A-1"
                 },
                 {
                     "do": "",

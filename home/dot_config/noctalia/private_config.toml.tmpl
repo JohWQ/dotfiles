@@ -22,6 +22,9 @@ end = [
 margin_edge = 2
 margin_ends = 20
 radius = 20
+radius_bottom_left = 20
+radius_bottom_right = 20
+radius_top_left = 20
 start = [ "wallpaper", "workspaces", "focus-column-left", "focus-column-right", "active_window" ]
 thickness = 32
 
@@ -77,6 +80,7 @@ smart_auto_hide = true
 
 [hot_corners]
 enabled = true
+delay_ms = 400
 
     [hot_corners.top_left]
     action = "launcher"
@@ -150,6 +154,7 @@ gen_length = 16
 gen_special = true
 
 [plugin_settings."noctalia/screen_recorder"]
+video_source = "focused"
 copy_to_clipboard = true
 hide_inactive = true
 
@@ -192,6 +197,7 @@ clipboard_history_max_entries = 300
 clipboard_image_action_command = "satty -f -"
 polkit_agent = true
 settings_expand_all_groups = true
+show_location = false
 
     [shell.launcher]
     app_grid = true
@@ -322,6 +328,9 @@ type = "yuuto/calculator:bar"
 [widget.bar_3]
 type = "rylos/syncthing:bar"
 
+[widget.bluetooth]
+enabled = true
+
 [widget.clipboard]
 enabled = false
 
@@ -426,7 +435,7 @@ labels_only_when_occupied = true
 {{- /* Shared login-box defaults apply to every host's monitor-specific widgets. */ -}}
 {{- range $widget := (get $config.lockscreen_widgets "widget" | default dict) -}}
 {{- if eq $widget.type "login_box" -}}
-{{- $_ := set $widget "settings" (mergeOverwrite (dict "show_media" false) ($widget.settings | default dict)) -}}
+{{- $_ := set $widget "settings" (mergeOverwrite (dict "show_media" false "show_password_reveal" true) ($widget.settings | default dict)) -}}
 {{- end -}}
 {{- end -}}
 {{ $config | toToml }}

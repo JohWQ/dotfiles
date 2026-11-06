@@ -63,8 +63,8 @@ require("relative-motions"):setup({
 -- ~/.config/yazi/init.lua for Linux and macOS
 -- %AppData%\yazi\config\init.lua for Windows
 
--- Using the default configuration
-require("augment-command"):setup({
+-- The pinned version exposes setup through its config module as a function.
+require("augment-command.config").setup({
 	prompt = true,
 	smooth_scrolling = true,
 	wraparound_file_navigation = false,
@@ -99,7 +99,8 @@ local bookmarks = {
 	{ tag = "Config", path = "~/.config", key = "c" },
 	{ tag = "Yazi config", path = "~/.config/yazi", key = "y" },
 	{ tag = "Neovim config", path = "~/.config/nvim", key = "n" },
-	{ tag = "Niri config", path = "~/.config/niri", key = "N" },
+	{ tag = "Neovim config", path = "~/.config/noctalia", key = "N" },
+	{ tag = "Umbriel config", path = "~/.config/umbriel", key = "U" },
 	{ tag = "Scripts", path = "~/.config/scripts", key = "S" },
 	{ tag = ".local", path = "~/.local", key = "l" },
 	{ tag = "Chezmoi source", path = "~/.local/share/chezmoi", key = "C" },
