@@ -384,7 +384,7 @@ run = "plugin augment-command.shell -- '${EDITOR:-nvim} %s' --block --exit-if-di
 desc = "Open files with the default editor"
 [[mgr.prepend_keymap]]
 on = "r"
-run = "plugin augment-command.rename -- --cursor=before_ext"
+run = "plugin augment-command.augment --rename --cursor=before_ext"
 desc = "Rename a file or directory"
 [[mgr.prepend_keymap]]
 on = "d"
