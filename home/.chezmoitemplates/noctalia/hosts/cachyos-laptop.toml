@@ -1,8 +1,29 @@
 # Overrides for cachyos-laptop, captured from local Noctalia settings.
 # Private location settings are stored in cachyos-laptop.age.
-[bar]
-  [bar.default]
-    end = ["clock", "tray", "bar", "bar_2", "recorder", "bar_3", "weather", "notifications", "clipboard", "network", "volume", "battery", "session", "shelly"]
+[bar.default]
+  end = ["clock", "tray", "bar", "bar_2", "recorder", "weather", "launcher", "notifications", "volume", "shelly", "battery", "group:g1"]
+
+[widget.battery]
+  enabled = true
+
+[control_center]
+  hidden_tabs = []
+  shortcuts = [
+    { type = "nightlight" },
+    { type = "notification" },
+    { type = "caffeine" },
+    { type = "clipboard" },
+    { type = "noctalia/screen_recorder:toggle" }
+  ]
+
+[control_center.calendar]
+  show_week_numbers = true
+
+[idle.behavior.lock-and-suspend]
+  enabled = true
+
+[idle.behavior.screen-off]
+  enabled = true
 
 [lockscreen_widgets]
   widget_order = ["lockscreen-login-box@eDP-1"]

@@ -42,11 +42,15 @@ AppData
 Documents
 install-windows-yazi-packages.ps1
 
-# Umbriel and its shortcut scripts are captured from the desktop only.
-{{ if ne .chezmoi.hostname "cachyos-desktop" -}}
+# Share Umbriel and its shortcut scripts between the desktop and laptop.
+{{ if not (has .chezmoi.hostname (list "cachyos-desktop" "cachyos-laptop")) -}}
 .config/umbriel
 .local/bin/screen-ocr.sh
 .local/bin/wayscriber-toggle
+{{ end -}}
+
+# Sunshine launchers are desktop-only.
+{{ if ne .chezmoi.hostname "cachyos-desktop" -}}
 .local/share/applications/dev.lizardbyte.app.Sunshine*.desktop
 {{ end -}}
 

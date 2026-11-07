@@ -178,29 +178,6 @@ path = "~/Pictures/Wallpapers/wallhaven/wallhaven-4ywjjk.jpg"
 ["wallpaper"."monitors"."DP-3"]
 path = "~/Pictures/Wallpapers/wallhaven/wallhaven-6lyg5q.jpg"
 
-["widget"."focus-column-left"."actions"]
-back = "exec umbriel msg window-focus-left"
-forward = "exec umbriel msg window-focus-right"
-left = "exec umbriel msg window-focus-left"
-scroll_down = "none"
-scroll_up = "none"
-
-["widget"."focus-column-right"."actions"]
-back = "exec umbriel msg window-focus-left"
-forward = "exec umbriel msg window-focus-right"
-left = "exec umbriel msg window-focus-right"
-scroll_down = "none"
-scroll_up = "none"
-
-["widget"."workspaces"."actions"]
-right = "exec umbriel msg overview-toggle"
-
-["bar"."default"]
-capsule_thickness = 0.9999999813735485
-end = [ "clock", "tray", "bar", "bar_2", "recorder", "weather", "launcher", "notifications", "volume", "shelly", "group:g1" ]
-start = [ "workspaces", "focus-column-left", "focus-column-right", "active_window" ]
-capsule_group = [ { "accordion" = true, "accordion_delay_ms" = 500, "accordion_direction" = "start", "border_width" = 1.0, "enabled" = true, "fill" = "surface_container", "id" = "g1", "members" = [ "screenshot", "current", "widget", "wallpaper", "bar_3" ], "opacity" = 1.0, "padding" = 6.0 } ]
-
 ["bar"."default"."monitor"."HDMI-A-1"]
 margin_edge = 2
 margin_ends = 20
@@ -210,42 +187,5 @@ radius_top_right = 20
 radius_bottom_left = 20
 radius_bottom_right = 20
 
-["plugin_settings"."h-jangra/keyviz"]
-enabled_by_default = false
-
-["plugin_settings"."noctalia/timer"]
-alarm = true
-panel_open_near_click = false
-panel_position = "top_right"
-
 ["shell"."launcher"]
 layout = "simple"
-
-["widget"."active_window"."actions"]
-back = "exec umbriel msg window-modify-primary-extent -0.1"
-forward = "exec umbriel msg window-modify-primary-extent +0.1"
-left = "exec umbriel msg window-toggle-floating"
-right = "exec appid=$(umbriel focused-window --json | jq -r '.app_id // \"window\"'); [ \"$(printf \"Cancel\\nYes\\n\" | noctalia dmenu -p \"Do you want to close $appid?\")\" = \"Yes\" ] && umbriel msg window-close"
-scroll_down = "exec umbriel msg window-modify-secondary-extent -0.1"
-scroll_up = "exec umbriel msg window-modify-secondary-extent +0.1"
-
-["widget"."active_window2"."actions"]
-back = "exec umbriel msg window-modify-primary-extent -0.1"
-forward = "exec umbriel msg window-modify-primary-extent +0.1"
-left = "exec umbriel msg window-toggle-floating"
-right = "exec appid=$(umbriel focused-window --json | jq -r '.app_id // \"window\"'); [ \"$(printf \"Cancel\\nYes\\n\" | noctalia dmenu -p \"Do you want to close $appid?\")\" = \"Yes\" ] && umbriel msg window-close"
-scroll_down = "exec umbriel msg window-modify-secondary-extent -0.1"
-scroll_up = "exec umbriel msg window-modify-secondary-extent +0.1"
-
-["widget"."clock"."actions"]
-back = "exec noctalia msg panel-toggle noctalia/timer:panel"
-
-["widget"."media2"."actions"]
-back = "exec playerctl volume 0.02-"
-forward = "exec playerctl volume 0.02+"
-
-["widget"."current"]
-type = "thaer99ob/default-apps:current"
-
-["widget"."widget"]
-type = "h-jangra/keyviz:widget"

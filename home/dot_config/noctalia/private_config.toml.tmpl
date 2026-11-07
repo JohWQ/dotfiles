@@ -422,6 +422,11 @@ labels_only_when_occupied = true
     forward = "workspace-switch next"
     right = "exec niri msg action toggle-overview"
 ` | fromToml -}}
+{{- if has .chezmoi.hostname (list "cachyos-desktop" "cachyos-laptop") -}}
+{{- $umbriel := include ".chezmoitemplates/noctalia/umbriel.toml" | fromToml -}}
+{{- $shared = mergeOverwrite $shared $umbriel -}}
+{{- $_ := set $shared.plugins "enabled" (concat $shared.plugins.enabled (list "h-jangra/keyviz" "noctalia/timer") | uniq) -}}
+{{- end -}}
 {{- $hostPath := joinPath .chezmoi.sourceDir ".chezmoitemplates/noctalia/hosts" .chezmoi.hostname -}}
 {{- $machine := dict -}}
 {{- $secrets := dict -}}

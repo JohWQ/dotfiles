@@ -1,5 +1,9 @@
 {{- if eq .chezmoi.os "linux" -}}
 {{- $config := includeTemplate "dot_config/noctalia/private_config.toml.tmpl" . -}}
+{{- $widgetKeys := dict -}}
+{{- range $name, $widget := ($config | fromToml).widget -}}
+{{- $_ := set $widgetKeys $name (keys $widget | sortAlpha) -}}
+{{- end -}}
 #!/bin/bash
 set -euo pipefail
 
@@ -7,7 +11,7 @@ set -euo pipefail
 # noctalia-config-sha256: {{ $config | sha256sum }}
 
 # Noctalia loads settings.toml after config.toml. Clear overrides for the
-# managed plugins, bar layout, shared session/suspend settings, and lockscreen media.
+# managed plugins, bar layout/widgets, shared session/suspend settings, and lockscreen media.
 settings="${XDG_STATE_HOME:-$HOME/.local/state}/noctalia/settings.toml"
 if [[ -f "$settings" ]]; then
     cleaned=$(chezmoi execute-template --with-stdin '{{ `
@@ -17,7 +21,17 @@ if [[ -f "$settings" ]]; then
 {{- end -}}
 {{- $bar := get $settings "bar" | default dict -}}
 {{- if hasKey $bar "default" -}}
-{{- $_ := unset $bar.default "end" -}}
+{{- range $key := list "start" "center" "end" "capsule_group" "capsule_thickness" -}}
+{{- $_ := unset $bar.default $key -}}
+{{- end -}}
+{{- end -}}
+{{- $widgets := get $settings "widget" | default dict -}}
+{{- range $name, $managed := ` }}{{ $widgetKeys | toJson | b64enc | quote }}{{ ` | b64dec | fromJson -}}
+{{- if hasKey $widgets $name -}}
+{{- range $key := $managed -}}
+{{- $_ := unset (get $widgets $name) $key -}}
+{{- end -}}
+{{- end -}}
 {{- end -}}
 {{- $shell := get $settings "shell" | default dict -}}
 {{- if hasKey $shell "session" -}}

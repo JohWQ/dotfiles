@@ -32,7 +32,7 @@ autostart = ["noctalia", "syncthing serve --no-browser", "/usr/local/libexec/fil
 # Turn this off to run your own manager, such as xsettingsd.
 # xwayland_xsettings = false
 # Select the monitor X11 games use as primary, using a connector or monitor identity from `umbriel outputs`.
-# xwayland_primary_output = "DP-1"
+# xwayland_primary_output = "your-output"
 # NVIDIA outputs without explicit synchronization wait for GPU rendering by default.
 # Disable this workaround if it causes stuttering or frame drops.
 # nvidia_sync_workaround = false
@@ -65,26 +65,6 @@ autostart = ["noctalia", "syncthing serve --no-browser", "/usr/local/libexec/fil
 # Outputs are machine-specific. Run `umbriel outputs` to find names and modes.
 # https://docs.noctalia.dev/umbriel/outputs/
 #
-[output.DP-1]
-mode = "1920x1080@143.999"
-position = [0, 0]
-# scale = 1.25
-# vrr = "fullscreen"
-# hdr = "auto"
-# sdr_transfer = "gamma22" # Or "srgb" for piecewise SDR decoding in HDR.
-
-[output.DP-3]
-mode = "1920x1080@144.000"
-transform = "270"
-position = [1920, -374]
-# scale = 1.25
-# vrr = "fullscreen"
-# hdr = "auto"
-# sdr_transfer = "gamma22" # Or "srgb" for piecewise SDR decoding in HDR.
-
-[output.HDMI-A-1]
-enabled = false
-
 # ==============================================================================
 # Appearance
 # Blur uses a smaller radius than the built-in default.
@@ -294,7 +274,7 @@ follows_mouse = true
 # Move the whole workspace, retaining its name, layout, and windows.
 # "Mod+Ctrl+Page_Down" = "workspace-move-to-output-next"
 # "Mod+Ctrl+Page_Up" = "workspace-move-to-output-previous"
-# "Mod+Ctrl+W" = "workspace-move-to-output current WEB --output DP-1"
+# "Mod+Ctrl+W" = "workspace-move-to-output current WEB --output your-output"
 
 "Mod+X" = "output-focus-previous"
 "Mod+Shift+X" = "window-move-to-output-previous"
@@ -356,8 +336,6 @@ default_extent_fraction = 0.5
 # Center the window picked in the overview, as column-center would.
 # center_on_overview_select = true
 
-[output.DP-3.layout.scrolling]
-default_extent_fraction = 1.0
 
 # A tab group shows one window at a time below a bar of titles, and stacks and
 # resizes like any row of its column. Mod+W tabs the focused window with the
@@ -393,22 +371,18 @@ blur = true
 [[window_rule]]
 match.app_id = "^dev.noctalia.Noctalia$"
 default_floating = true
-default_floating_size_px = { width = 1020, height = 900 }
 
 [[window_rule]]
 match.app_id = "^dev.noctalia.UmbrielSharePicker$"
 default_floating = true
-default_floating_size_px = { width = 800, height = 600 }
 
 [[window_rule]]
 match.title = "^(Picture-in-Picture|Picture in picture)$"
 default_floating = true
 default_maximize = false
-default_position = { x = 20, y = 20, anchor = "bottom_right" }
 
 [[window_rule]]
 match.title = "^notificationtoasts_.+_desktop"
-default_position = { x = 0, y = 0, anchor = "bottom_right" }
 default_focused = false
 default_pinned = true
 
@@ -439,26 +413,19 @@ block_capture = true
 # match.is_dialog = true
 # attach_to_parent = false
 
-[[window_rule]]
-match.app_id = ["^com.github.th-ch.youtube-music$", "^vesktop$", "^steam$"]
-default_output = "DP-3"
 
 [[window_rule]]
 match.app_id = ["^wev$"]
-default_scrolling_extent_px = 200
 
 [[window_rule]]
 match.title = ["^File chooser$", "^File view$"]
 attach_to_parent = false
 default_floating = true
-default_floating_size_px = { width = 1060, height = 1000 }
-default_position = { x = 0, y = 20, anchor = "top" }
 
-# Match the default column window size on DP-1, including its normal gaps.
+# Match the default column window size on the current host, including its normal gaps.
 [[window_rule]]
 match.app_id = "^AlacrittyScratchpad$"
 default_scratchpad = "Alacritty Scratchpad"
-default_floating_size_px = { width = 944, height = 1026 }
 
 # Named scratchpads can launch an application when toggled while empty.
 [[scratchpad]]
@@ -554,3 +521,9 @@ action = "overview-open"
 # Shade over a window while a modal dialog is attached to it.
 # [animation.dialogs]
 # dim = 0.3
+
+# Host-specific outputs, pixel sizes, positions, and output routing.
+{{- $hostPath := joinPath .chezmoi.sourceDir ".chezmoitemplates/umbriel/hosts" (printf "%s.toml" .chezmoi.hostname) }}
+{{ if stat $hostPath -}}
+{{ include $hostPath }}
+{{ end -}}

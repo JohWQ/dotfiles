@@ -50,6 +50,32 @@ templates or overrides directly; never re-add generated Noctalia config
 containing decrypted secrets. Exclude credentials, downloaded plugins, and
 runtime state.
 
+## Application Configuration
+
+Umbriel shared behavior and shortcuts live in
+`home/dot_config/umbriel/config.toml.tmpl`. Host files in
+`home/.chezmoitemplates/umbriel/hosts/<hostname>.toml` contain outputs,
+pixel-based window sizes, positions, and output routing. Host rules are appended
+to override shared settings. Capture local edits in the appropriate source;
+`chezmoi add` would replace the template with one machine's generated config.
+Validate generated configs with `umbriel config validate`.
+
+Noctalia defaults live in `home/dot_config/noctalia/private_config.toml.tmpl`.
+Desktop and laptop share the bar layout and Umbriel widget actions through
+`home/.chezmoitemplates/noctalia/umbriel.toml`. Host TOML overrides provide
+displays, wallpapers, plugins and preferences; encrypted host overrides apply
+last. Unknown hosts use shared defaults. Validate with `noctalia config validate`.
+If settings do not apply, compare the generated config with
+`~/.local/state/noctalia/settings.toml`: runtime overrides take precedence.
+The restore script clears selected managed overrides and reloads Noctalia.
+
+Niri settings marked `// biri-git (niri fork) feature(s):` depend on the fork;
+remove or adapt them when targeting upstream Niri.
+
+Yazi plugins and flavors are pinned in `package.toml`; only the local
+`confirm-quit.yazi` plugin is stored in Git. After an intentional `ya pkg upgrade`,
+capture pins with `chezmoi re-add ~/.config/yazi/package.toml`.
+
 ## Commits and Pull Requests
 
 History uses short descriptive subjects such as `Restore Noctalia settings by

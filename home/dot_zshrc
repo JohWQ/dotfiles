@@ -237,6 +237,19 @@ alias topgradetest='topgrade --dry-run'
 # ---------------------------
 # Networking / Debug
 # ---------------------------
+# Keep nmtui readable with pastel terminal palettes.
+nmtui() {
+    NEWT_COLORS='root=white,black roottext=white,black
+window=white,black shadow=black,black border=white,black title=white,black
+label=white,black textbox=white,black acttextbox=white,black
+button=black,lightgray actbutton=black,cyan compactbutton=black,lightgray
+checkbox=white,black actcheckbox=black,cyan
+entry=black,lightgray disentry=white,black
+listbox=white,black actlistbox=black,cyan
+sellistbox=black,lightgray actsellistbox=black,cyan
+helpline=white,black emptyscale=black,lightgray fullscale=black,cyan' \
+        command nmtui "$@"
+}
 alias ipconfig='ifconfig && ip route'
 alias plist='pgrep -fl . | fzf'
 alias audiorestart='systemctl --user restart pipewire pipewire-pulse wireplumber'
