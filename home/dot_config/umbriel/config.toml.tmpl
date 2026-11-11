@@ -376,10 +376,12 @@ default_extent_fraction = 0.5
 [[window_rule]]
 blur = true
 
+# Fractions of the output's usable area, so the settings window also fits the
+# resizable Sunshine output; 1020x900 on a 1920x1080 output.
 [[window_rule]]
 match.app_id = "^dev.noctalia.Noctalia$"
 default_floating = true
-default_floating_size_px = { width = 1020, height = 900 }
+default_floating_size = { width = 0.5313, height = 0.8604 }
 
 [[window_rule]]
 match.app_id = "^dev.noctalia.UmbrielSharePicker$"
@@ -438,12 +440,15 @@ default_floating_size_px = { width = 1060, height = 1000 }
 default_position = { x = 0, y = 20, anchor = "top" }
 
 # Scratchpad terminals get an app_id ending in "Scratchpad", so one rule sizes
-# them all like a default column on a 1920x1080 output, including its normal
-# gaps. Kitty must not restore its own cached window size
+# them all like a default column, including its normal gaps. The size is a
+# fraction of the output's usable area so it follows outputs whose logical
+# size changes (the Sunshine dummy display); it is exactly 944x1026 on a
+# 1920x1080 output and a few pixels larger than a column on smaller ones,
+# because gaps do not scale. Kitty must not restore its own cached window size
 # (remember_window_size), or it resizes itself after opening.
 [[window_rule]]
 match.app_id = "Scratchpad$"
-default_floating_size_px = { width = 944, height = 1026 }
+default_floating_size = { width = 0.4917, height = 0.9809 }
 
 [[window_rule]]
 match.app_id = "^AlacrittyScratchpad$"

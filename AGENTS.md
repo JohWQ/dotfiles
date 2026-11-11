@@ -75,10 +75,15 @@ positions, which assume 1920x1080 outputs. Host files in
 output routing; they are appended, so a host rule with the same `match` can
 override a shared size. Scratchpad terminals are launched with an app_id
 ending in `Scratchpad` (`--class <Name>Scratchpad`); one shared rule matching
-`Scratchpad$` sizes them like a default column. Kitty scratchpads also pass
+`Scratchpad$` sizes them like a default column, as a fraction of the output's
+usable area so it also fits the resizable Sunshine output `HDMI-A-1`. Kitty scratchpads also pass
 `-o remember_window_size=no` so Kitty does not restore its own cached size. Capture local edits in the appropriate source;
 `chezmoi add` would replace the template with one machine's generated config.
 Validate generated configs with `umbriel config validate`.
+
+Sunshine streams to `HDMI-A-1`, whose logical size follows the client. Rules
+for windows that must fit there use `default_floating_size` fractions, not
+pixels.
 
 Noctalia defaults live in `home/dot_config/noctalia/private_config.toml.tmpl`.
 Desktop and laptop share the bar layout and Umbriel widget actions through
