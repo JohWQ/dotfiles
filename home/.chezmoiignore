@@ -55,6 +55,16 @@ Documents
 .local/share/applications/dev.lizardbyte.app.Sunshine*.desktop
 {{ end -}}
 
+# NVIDIA dithering service; its port order is specific to the desktop's GPU.
+{{ if not (has .chezmoi.hostname .hosts.nvibrant) -}}
+.config/systemd/user/nvibrant.service
+{{ end -}}
+
+# The Packet Tracer launcher is desktop-only.
+{{ if not (has .chezmoi.hostname .hosts.packettracerMesa) -}}
+.local/share/applications/packettracer-mesa.desktop
+{{ end -}}
+
 # Manage output settings only for hosts with a saved configuration.
 {{ if not (has .chezmoi.hostname .hosts.niriOutputs) -}}
 .config/niri/cfg/outputs.kdl

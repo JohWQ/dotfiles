@@ -3,4 +3,6 @@
 [hosts]
 umbriel = ["cachyos-desktop", "cachyos-laptop"]
 sunshine = ["cachyos-desktop"]
+nvibrant = ["cachyos-desktop"]
+packettracerMesa = ["cachyos-desktop"]
 niriOutputs = ["cachyos-desktop", "cachyos-laptop", "desktop-cachyos"]

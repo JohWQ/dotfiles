@@ -1,0 +1,64 @@
+# Applies NVIDIA dithering settings at login with nvibrant.
+# Fixes the fine shimmer on DP-1 (Lenovo G24-10) when night light is on.
+#
+# Each nvibrant call takes one value per GPU output slot. This card has seven
+# slots (each DisplayPort socket shows up twice), in this order:
+#
+#     slot:   0         1      2      3      4      5      6
+#     port:   HDMI-A-1  DP-1   -      DP-2   -      DP-3   -
+#
+# Always pass all seven values: a slot left out falls back to nvibrant's
+# default, which for "dithering" is 2 (disabled). Values for slots with no
+# monitor attached are ignored.
+#
+# ATTRIBUTE=dithering        dithering state
+#     0 = auto      (driver decides; the driver's own default)
+#     1 = enabled
+#     2 = disabled
+#
+# ATTRIBUTE=dithering-mode   pattern, only used where the state is enabled
+#     0 = auto/none
+#     1 = dynamic 2x2
+#     2 = static 2x2
+#     3 = temporal
+#
+# ATTRIBUTE=dithering-depth  target depth, only used where the state is enabled
+#     0 = auto
+#     1 = 6 bits
+#     2 = 8 bits
+#     3 = 10 bits
+#
+# ATTRIBUTE=vibrance         digital vibrance (colour saturation)
+#     -1024 = greyscale, 0 = normal, 1023 = maximum
+#
+# After editing:
+#     systemctl --user daemon-reload && systemctl --user restart nvibrant.service
+# See what it applied:
+#     journalctl --user -u nvibrant.service -b
+
+[Unit]
+Description=Apply NVIDIA dithering settings (nvibrant)
+After=graphical.target
+
+[Service]
+Type=oneshot
+# Keep the unit "active (exited)" after it has run, instead of "inactive (dead)".
+RemainAfterExit=yes
+# Give the compositor time to bring the displays up first.
+ExecStartPre=/bin/sleep 5
+
+# State: enabled on DP-1, auto everywhere else.
+ExecStart=/usr/bin/env ATTRIBUTE=dithering nvibrant 0 1 0 0 0 0 0
+# Mode: temporal on DP-1.
+ExecStart=/usr/bin/env ATTRIBUTE=dithering-mode nvibrant 0 3 0 0 0 0 0
+
+# Other examples (uncomment to use):
+# Turn dithering off entirely on DP-1 instead (replace the two lines above):
+# ExecStart=/usr/bin/env ATTRIBUTE=dithering nvibrant 0 2 0 0 0 0 0
+# Force 8-bit dithering depth on DP-1:
+# ExecStart=/usr/bin/env ATTRIBUTE=dithering-depth nvibrant 0 2 0 0 0 0 0
+# Boost colour saturation on DP-1:
+# ExecStart=/usr/bin/env ATTRIBUTE=vibrance nvibrant 0 512 0 0 0 0 0
+
+[Install]
+WantedBy=default.target

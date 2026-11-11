@@ -1,0 +1,6 @@
+#!/bin/sh
+# Packet Tracer draws blank/black windows with NVIDIA OpenGL under XWayland.
+# Use Mesa software OpenGL instead.
+export __GLX_VENDOR_LIBRARY_NAME=mesa
+export LIBGL_ALWAYS_SOFTWARE=1
+exec /usr/lib/packettracer/packettracer.AppImage "$@"

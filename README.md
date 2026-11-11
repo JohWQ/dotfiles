@@ -1,7 +1,6 @@
 # Dotfiles
 
 Personal configs managed with [chezmoi](https://www.chezmoi.io/).
-See [AGENTS.md](AGENTS.md) for repository editing and validation guidelines.
 
 ## Restore
 
@@ -14,13 +13,14 @@ chezmoi diff --exclude=scripts
 chezmoi apply
 ```
 
-Update with `chezmoi update`. Linux apply scripts install packages.
-Back up each host's age key separately, outside this repository.
+Update with `chezmoi update`. On Linux, apply also installs the packages in
+`package-lists/` and the pinned Yazi plugins. Back up each host's age key
+outside this repository.
 
 | Host | Configuration |
 | --- | --- |
-| `cachyos-desktop` | Umbriel, Noctalia and Linux apps; desktop overrides. |
-| `cachyos-laptop` | Umbriel, Noctalia and Linux apps; laptop overrides. |
+| `cachyos-desktop` | Umbriel, Noctalia and Linux apps; Sunshine and nvibrant. |
+| `cachyos-laptop` | Umbriel, Noctalia and Linux apps. |
 | `windows-desktop` | Neovim, Yazi and PowerShell 7; UniGetUI packages. |
 
 ### Windows
@@ -40,41 +40,36 @@ restore commands above, then `. $PROFILE`.
 
 ### Umbriel
 
-Desktop and laptop share behavior and window sizes, with host-specific displays.
-Validate `~/.config/umbriel/config.toml` with `umbriel config validate`.
-
-Install `umbriel-move-window` and `umbriel-maximize` separately. OCR needs grim,
-slurp, Tesseract (English and Norwegian), and wl-clipboard; drawing needs
-wayscriber and its user service.
-
-### Niri
-
-Requires [`biri-git`](https://github.com/barrulus/biri#fork-features) for sticky
-floating windows. Install scratchpad support with hidden workspaces:
-
-```sh
-cargo install --git https://github.com/argosnothing/niri-scratchpad-rs.git --branch=hidden-workspaces
-```
+The main session. Desktop and laptop share behavior and window sizes; outputs
+are per host. Validate with `umbriel config validate`.
 
 ### Noctalia
 
-Bar layout and widget actions are shared; host overrides supply display settings,
+Bar layout and widget actions are shared; host overrides supply displays,
 preferences and encrypted secrets. Refresh config and plugins with:
 
 ```sh
 chezmoi apply ~/.config/noctalia/config.toml ~/.chezmoiscripts/restore-noctalia-plugins.sh
 ```
 
-This clears selected runtime overrides and reloads Noctalia. Check plugins with
-`noctalia msg plugins list`.
+This clears selected runtime overrides and reloads Noctalia. List settings that
+drifted from the deployed config with `noctalia-diff`.
+
+### Niri
+
+The fallback session. Requires
+[`biri-git`](https://github.com/barrulus/biri#fork-features) for sticky floating
+windows, and niri-scratchpad-rs for scratchpads:
+
+```sh
+yay -S biri-git
+cargo install --git https://github.com/argosnothing/niri-scratchpad-rs.git --branch=hidden-workspaces
+```
 
 ### Yazi
 
-Run `ya pkg install` to restore pinned plugins and flavors.
-
-## Linux tools
-
-For Yazi's file-view integration:
+Plugins and flavors are pinned in `package.toml` and restored on apply; run
+`ya pkg install` to restore them manually. The file-view integration needs:
 
 ```sh
 yay -S xdg-desktop-portal-termfilechooser-hunkyburrito-git
@@ -85,4 +80,15 @@ meson setup build --reconfigure
 sudo ninja -C build install
 ```
 
-Inspired by [hankertrix/Dotfiles](https://github.com/hankertrix/Dotfiles).
+### nvibrant (`cachyos-desktop`)
+
+`nvibrant.service` sets temporal dithering on `DP-1`, which stops the shimmer
+that `noctalia msg nightlight-enable` causes.
+
+```sh
+yay -S nvibrant-bin
+systemctl --user enable --now nvibrant.service
+```
+
+
+Inspired by [hankertrix/Dotfiles](https://github.com/hankertrix/Dotfiles) & more.
