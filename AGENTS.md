@@ -97,7 +97,9 @@ Niri settings marked `// biri-git (niri fork) feature(s):` depend on the fork;
 remove or adapt them when targeting upstream Niri.
 
 Yazi plugins and flavors are pinned in `package.toml`; only the local
-`confirm-quit.yazi` plugin is stored in Git. After an intentional `ya pkg upgrade`,
+`confirm-quit.yazi` plugin is stored in Git. The install scripts ask, when run
+interactively, whether to pass `--discard` to `ya pkg install`; it overwrites
+locally edited packages. After an intentional `ya pkg upgrade`,
 capture pins with `chezmoi re-add ~/.config/yazi/package.toml`.
 
 ## Commits and Pull Requests

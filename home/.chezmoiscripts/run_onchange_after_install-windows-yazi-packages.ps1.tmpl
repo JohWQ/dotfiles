@@ -9,7 +9,19 @@ if (-not (Get-Command ya -ErrorAction SilentlyContinue)) {
 }
 
 $env:YAZI_CONFIG_HOME = Join-Path $env:APPDATA 'yazi/config'
-& ya pkg install
+
+# `ya pkg install` aborts when a package differs from its pinned hash.
+# --discard overwrites such packages; only offer it when someone can answer.
+$installArgs = @()
+if ([Environment]::UserInteractive -and -not [Console]::IsInputRedirected) {
+    Write-Host 'Yazi: --discard overwrites packages that were edited in the Yazi plugins or flavors directory.'
+    Write-Host 'Answer yes unless you have changed files there yourself.'
+    if ((Read-Host 'Run "ya pkg install --discard"? [y/N]') -match '^(y|yes)$') {
+        $installArgs += '--discard'
+    }
+}
+
+& ya pkg install @installArgs
 if ($LASTEXITCODE -ne 0) {
     throw "Yazi package installation failed with exit code $LASTEXITCODE."
 }

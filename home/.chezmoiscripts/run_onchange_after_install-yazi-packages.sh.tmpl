@@ -14,5 +14,18 @@ case " ${ID:-} ${ID_LIKE:-} " in
 esac
 
 command -v yazi >/dev/null || exit 0
-ya pkg install
+
+# `ya pkg install` aborts when a package differs from its pinned hash.
+# --discard overwrites such packages; only offer it when someone can answer.
+install_args=()
+if [[ -t 0 && -t 1 ]]; then
+    echo 'Yazi: --discard overwrites packages that were edited in ~/.config/yazi/plugins or flavors.'
+    echo 'Answer yes unless you have changed files there yourself.'
+    read -r -p 'Run "ya pkg install --discard"? [y/N] ' answer
+    case "$answer" in
+        [yY]|[yY][eE][sS]) install_args+=(--discard) ;;
+    esac
+fi
+
+ya pkg install "${install_args[@]}"
 {{ end -}}
