@@ -10,7 +10,6 @@ radius_top_left = 20
 radius_top_right = 20
 center = [ "media2" ]
 start = [
-    "wallpaper",
     "workspaces",
     "focus-column-left",
     "focus-column-right",
@@ -120,8 +119,8 @@ clipboard_image_action_command = "noctalia msg annotate {path}"
 
     [shell.screenshot]
     annotate = true
-    close_on_copy = false
-    copy_on_close = true
+    close_on_copy = true
+    copy_on_close = false
 
     [shell.window_switcher]
     show_count = true
@@ -164,16 +163,16 @@ show_unlock_hint = true
 show_weather = true
 
 ["plugins"]
-enabled = [ "rylos/syncthing", "joshuaslate/shelly", "yuuto/calculator", "thaer99ob/default-apps", "h-jangra/keyviz", "icefish/phone-connect", "thepunkoff/pomodoro", "noctalia/screen_recorder", "noctalia/timer", "noctalia/wallhaven", "noctalia/world_clock" ]
+enabled = [ "rylos/syncthing", "yuuto/calculator", "thaer99ob/default-apps", "h-jangra/keyviz", "icefish/phone-connect", "thepunkoff/pomodoro", "noctalia/screen_recorder", "noctalia/timer", "noctalia/wallhaven", "noctalia/world_clock", "joshuaslate/shelly", "noctalia/umbriel-companion" ]
 
 ["wallpaper"."default"]
 path = "~/Pictures/Wallpapers/wallhaven/wallhaven-4ywjjk.jpg"
 
 ["wallpaper"."last"]
-path = "~/Pictures/Wallpapers/wallhaven/wallhaven-6lyg5q.jpg"
+path = "~/Pictures/Wallpapers/noctalia-wallpaper.png"
 
 ["wallpaper"."monitors"."DP-1"]
-path = "~/Pictures/Wallpapers/wallhaven/wallhaven-4ywjjk.jpg"
+path = "~/Pictures/Wallpapers/noctalia-wallpaper.png"
 
 ["wallpaper"."monitors"."DP-3"]
 path = "~/Pictures/Wallpapers/wallhaven/wallhaven-6lyg5q.jpg"

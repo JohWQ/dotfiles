@@ -40,7 +40,7 @@ restore commands above, then `. $PROFILE`.
 
 ### Umbriel
 
-Desktop and laptop share behavior, with host-specific displays and window sizes.
+Desktop and laptop share behavior and window sizes, with host-specific displays.
 Validate `~/.config/umbriel/config.toml` with `umbriel config validate`.
 
 Install `umbriel-move-window` and `umbriel-maximize` separately. OCR needs grim,
@@ -62,7 +62,7 @@ Bar layout and widget actions are shared; host overrides supply display settings
 preferences and encrypted secrets. Refresh config and plugins with:
 
 ```sh
-chezmoi apply ~/.config/noctalia/config.toml ~/restore-noctalia-plugins.sh
+chezmoi apply ~/.config/noctalia/config.toml ~/.chezmoiscripts/restore-noctalia-plugins.sh
 ```
 
 This clears selected runtime overrides and reloads Noctalia. Check plugins with

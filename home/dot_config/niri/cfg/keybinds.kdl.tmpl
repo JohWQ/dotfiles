@@ -50,7 +50,7 @@ binds {
     Mod+bar                             hotkey-overlay-title="Session Menu: noctalia sessionMenu" { spawn-sh "noctalia msg panel-toggle session"; }
     Mod+V                               hotkey-overlay-title="Open Clipboard: Noctalia clipboard" { spawn-sh "noctalia msg panel-toggle clipboard"; }
     Mod+Shift+S                         hotkey-overlay-title="Screenshot region: noctalia screenshot-region" { spawn-sh "noctalia msg screenshot-region"; }
-    Mod+Ctrl+S                          hotkey-overlay-title="Screenshot the focused window" { spawn "~/.local/bin/niri-screenshot.sh" "window"; }
+    Mod+Ctrl+S                          hotkey-overlay-title="Screenshot window: noctalia screenshot-window" { spawn-sh "noctalia msg screenshot-window"; }
     Mod+Ctrl+Shift+S                    hotkey-overlay-title="Screenshot fullscreen: noctalia screenshot-fullscreen" { spawn-sh "noctalia msg screenshot-fullscreen"; }
     Print                               hotkey-overlay-title="Screenshot all screens: noctalia screenshot-fullscreen all" { spawn-sh "noctalia msg screenshot-fullscreen all"; }
 

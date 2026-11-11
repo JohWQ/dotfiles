@@ -17,7 +17,8 @@
 !Documents/PowerShell/**
 !Documents/WindowsPowerShell/
 !Documents/WindowsPowerShell/**
-!install-windows-yazi-packages.ps1
+!.chezmoiscripts/
+!.chezmoiscripts/install-windows-yazi-packages.ps1
 {{ end -}}
 {{ if eq .chezmoi.os "windows" -}}
 # Downloaded plugins are restored from package.toml; keep only our local plugin.
@@ -40,22 +41,22 @@ Documents/PowerShell/dot_zshrc
 # Windows application configs are independent of shared Linux configs.
 AppData
 Documents
-install-windows-yazi-packages.ps1
+.chezmoiscripts/install-windows-yazi-packages.ps1
 
 # Share Umbriel and its shortcut scripts between the desktop and laptop.
-{{ if not (has .chezmoi.hostname (list "cachyos-desktop" "cachyos-laptop")) -}}
+{{ if not (has .chezmoi.hostname .hosts.umbriel) -}}
 .config/umbriel
 .local/bin/screen-ocr.sh
 .local/bin/wayscriber-toggle
 {{ end -}}
 
 # Sunshine launchers are desktop-only.
-{{ if ne .chezmoi.hostname "cachyos-desktop" -}}
+{{ if not (has .chezmoi.hostname .hosts.sunshine) -}}
 .local/share/applications/dev.lizardbyte.app.Sunshine*.desktop
 {{ end -}}
 
 # Manage output settings only for hosts with a saved configuration.
-{{ if not (has .chezmoi.hostname (list "cachyos-laptop" "desktop-cachyos" "cachyos-desktop")) -}}
+{{ if not (has .chezmoi.hostname .hosts.niriOutputs) -}}
 .config/niri/cfg/outputs.kdl
 {{ end -}}
 

@@ -85,11 +85,6 @@ on   = [ "g", "e" ]
 run  = 'shell "explorer.exe ." --orphan'
 desc = "Open current directory in File Explorer"
 
-#[[mgr.prepend_keymap]]
-#on   = [ "g", "P" ]
-#run  = "shell -- wl-paste > pasted-image.png"
-#desc = "Paste image from clipboard"
-
 
 # PLUGIN KEYMAPS
 # Smart-filter

@@ -1,15 +1,15 @@
 # Shared Umbriel bar layout and widget actions for desktop and laptop.
 ["widget"."focus-column-left"."actions"]
-back = "exec umbriel msg window-focus-left"
-forward = "exec umbriel msg window-focus-right"
-left = "exec umbriel msg window-focus-left"
+back = "exec umbriel msg window-focus-left && umbriel msg column-center"
+forward = "exec umbriel msg window-focus-right && umbriel msg column-center"
+left = "exec umbriel msg window-focus-left && umbriel msg column-center"
 scroll_down = "none"
 scroll_up = "none"
 
 ["widget"."focus-column-right"."actions"]
-back = "exec umbriel msg window-focus-left"
-forward = "exec umbriel msg window-focus-right"
-left = "exec umbriel msg window-focus-right"
+back = "exec umbriel msg window-focus-left && umbriel msg column-center"
+forward = "exec umbriel msg window-focus-right && umbriel msg column-center"
+left = "exec umbriel msg window-focus-right && umbriel msg column-center"
 scroll_down = "none"
 scroll_up = "none"
 
@@ -19,7 +19,7 @@ right = "exec umbriel msg overview-toggle"
 ["bar"."default"]
 capsule_thickness = 0.9999999813735485
 end = [ "clock", "tray", "bar", "bar_2", "recorder", "weather", "launcher", "notifications", "volume", "shelly", "group:g1" ]
-start = [ "workspaces", "focus-column-left", "focus-column-right", "active_window" ]
+start = [ "bar_4", "workspaces", "focus-column-left", "focus-column-right", "active_window" ]
 capsule_group = [ { "accordion" = true, "accordion_delay_ms" = 500, "accordion_direction" = "start", "border_width" = 1.0, "enabled" = true, "fill" = "surface_container", "id" = "g1", "members" = [ "screenshot", "current", "widget", "wallpaper", "bar_3" ], "opacity" = 1.0, "padding" = 6.0 } ]
 
 ["plugin_settings"."h-jangra/keyviz"]
@@ -52,6 +52,9 @@ back = "exec noctalia msg panel-toggle noctalia/timer:panel"
 ["widget"."media2"."actions"]
 back = "exec playerctl volume 0.02-"
 forward = "exec playerctl volume 0.02+"
+
+["widget"."bar_4"]
+type = "noctalia/umbriel-companion:bar"
 
 ["widget"."current"]
 type = "thaer99ob/default-apps:current"

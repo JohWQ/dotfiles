@@ -1,0 +1,55 @@
+#!/bin/sh
+# chezmoi modify script: receives the current mimeapps.list on stdin and prints
+# the new one. It enforces only the defaults below and keeps every other entry,
+# so associations that applications add themselves do not cause drift.
+defaults='inode/directory=yazi.desktop
+text/plain=nvim.desktop
+application/xml=nvim.desktop
+image/png=swayimg.desktop
+image/jpeg=swayimg.desktop
+image/gif=swayimg.desktop
+video/mp4=mpv.desktop
+video/webm=mpv.desktop
+video/mpeg=mpv.desktop
+video/mp2t=mpv.desktop
+video/x-ms-wmv=mpv.desktop
+x-scheme-handler/discord=vesktop.desktop'
+
+awk -v defaults="$defaults" '
+BEGIN {
+	n = split(defaults, line, "\n")
+	for (i = 1; i <= n; i++) {
+		key[i] = line[i]; sub(/=.*/, "", key[i])
+		value[key[i]] = line[i]; sub(/^[^=]*=/, "", value[key[i]])
+	}
+}
+# Print defaults the section did not contain, then any blank lines held back.
+function finish(  i) {
+	if (managed) {
+		for (i = 1; i <= n; i++) if (!(key[i] in seen)) print key[i] "=" value[key[i]]
+	}
+	for (; blank > 0; blank--) print ""
+}
+/^\[/ {
+	finish()
+	managed = ($0 == "[Default Applications]")
+	if (managed) found = 1
+	print; next
+}
+/^[ \t]*$/ { blank++; next }
+{
+	for (; blank > 0; blank--) print ""
+	k = $0; sub(/[ \t]*=.*/, "", k)
+	if (managed && (k in value)) {
+		if (!(k in seen)) print k "=" value[k]
+		seen[k] = 1; next
+	}
+	print
+}
+END {
+	finish()
+	if (!found) {
+		print "[Default Applications]"
+		for (i = 1; i <= n; i++) print key[i] "=" value[key[i]]
+	}
+}'

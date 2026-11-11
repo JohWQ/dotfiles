@@ -1,4 +1,4 @@
-# Laptop outputs and pixel-based window geometry.
+# Laptop outputs and output routing. Later rules override the shared ones.
 [output.eDP-1]
 mode = "1920x1080@60.000"
 position = [0, 0]
@@ -6,32 +6,3 @@ position = [0, 0]
 # vrr = "fullscreen"
 # hdr = "auto"
 # sdr_transfer = "gamma22" # Or "srgb" for piecewise SDR decoding in HDR.
-
-[[window_rule]]
-match.app_id = "^dev.noctalia.Noctalia$"
-default_floating_size_px = { width = 1020, height = 900 }
-
-[[window_rule]]
-match.app_id = "^dev.noctalia.UmbrielSharePicker$"
-default_floating_size_px = { width = 800, height = 600 }
-
-[[window_rule]]
-match.title = "^(Picture-in-Picture|Picture in picture)$"
-default_position = { x = 20, y = 20, anchor = "bottom_right" }
-
-[[window_rule]]
-match.title = "^notificationtoasts_.+_desktop"
-default_position = { x = 0, y = 0, anchor = "bottom_right" }
-
-[[window_rule]]
-match.app_id = ["^wev$"]
-default_scrolling_extent_px = 200
-
-[[window_rule]]
-match.title = ["^File chooser$", "^File view$"]
-default_floating_size_px = { width = 1060, height = 1000 }
-default_position = { x = 0, y = 20, anchor = "top" }
-
-[[window_rule]]
-match.app_id = "^AlacrittyScratchpad$"
-default_floating_size_px = { width = 944, height = 1026 }

@@ -105,8 +105,8 @@ pre_action_fade_seconds = 0
     timeout = 660.0
 
 [keybinds]
-cancel = [ "Escape", "Ctrl+c" ]
-copy = [ "Ctrl+Shift+c" ]
+cancel = [ "Escape" ]
+copy = [ "Ctrl+c" ]
 down = [ "Down", "Ctrl+j" ]
 left = [ "Left", "Ctrl+h" ]
 right = [ "Right", "Ctrl+l" ]
@@ -194,7 +194,7 @@ enabled = true
 avatar_path = "~/Pictures/.avatar.jpg"
 clipboard_auto_paste = "off"
 clipboard_history_max_entries = 300
-clipboard_image_action_command = "satty -f -"
+clipboard_image_action_command = "noctalia msg annotate {path}"
 polkit_agent = true
 settings_expand_all_groups = true
 show_location = false
@@ -216,8 +216,8 @@ show_location = false
 
     [shell.screenshot]
     annotate = true
-    close_on_copy = false
-    copy_on_close = true
+    close_on_copy = true
+    copy_on_close = false
 
     [[shell.session.actions]]
     action = "lock"
@@ -336,7 +336,7 @@ enabled = false
 
 [widget.clock]
 format = "{:%H:%M| %d}"
-tooltip_format = "{:%I:%M %p}| {:%d.%m.%y}"
+tooltip_format = "{:%-I:%M %p}| {:%A} {:%d.%m.%y}"
 
     [widget.clock.actions]
     right = "panel-toggle thepunkoff/pomodoro:panel"
@@ -371,6 +371,7 @@ enabled = true
 [widget.media]
 hide_when_no_media = true
 max_length = 440
+show_progress = true
 title_scroll = "on_hover"
 
     [widget.media.actions]
@@ -380,6 +381,7 @@ title_scroll = "on_hover"
 [widget.media2]
 hide_when_no_media = true
 max_length = 200
+show_progress = true
 title_scroll = "on_hover"
 type = "media"
 
@@ -422,10 +424,10 @@ labels_only_when_occupied = true
     forward = "workspace-switch next"
     right = "exec niri msg action toggle-overview"
 ` | fromToml -}}
-{{- if has .chezmoi.hostname (list "cachyos-desktop" "cachyos-laptop") -}}
+{{- if has .chezmoi.hostname .hosts.umbriel -}}
 {{- $umbriel := include ".chezmoitemplates/noctalia/umbriel.toml" | fromToml -}}
 {{- $shared = mergeOverwrite $shared $umbriel -}}
-{{- $_ := set $shared.plugins "enabled" (concat $shared.plugins.enabled (list "h-jangra/keyviz" "noctalia/timer") | uniq) -}}
+{{- $_ := set $shared.plugins "enabled" (concat $shared.plugins.enabled (list "h-jangra/keyviz" "noctalia/timer" "noctalia/umbriel-companion") | uniq) -}}
 {{- end -}}
 {{- $hostPath := joinPath .chezmoi.sourceDir ".chezmoitemplates/noctalia/hosts" .chezmoi.hostname -}}
 {{- $machine := dict -}}

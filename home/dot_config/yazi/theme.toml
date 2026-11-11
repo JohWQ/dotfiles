@@ -1,0 +1,20 @@
+# Overrides of Yazi's default theme, using ANSI names so they follow the
+# terminal theme that Noctalia generates.
+#
+# The defaults draw the status-bar size and inactive tabs as blue on "gray"
+# (ANSI white), and mode labels as the default foreground on blue. Both are
+# unreadable with a light pastel blue, so use the dark ANSI black instead.
+
+[tabs]
+active   = { fg = "black", bg = "blue", bold = true }
+inactive = { fg = "blue", bg = "black" }
+
+[mode]
+normal_main = { fg = "black", bg = "blue", bold = true }
+normal_alt  = { fg = "blue", bg = "black" }
+
+select_main = { fg = "black", bg = "red", bold = true }
+select_alt  = { fg = "red", bg = "black" }
+
+unset_main = { fg = "black", bg = "red", bold = true }
+unset_alt  = { fg = "red", bg = "black" }

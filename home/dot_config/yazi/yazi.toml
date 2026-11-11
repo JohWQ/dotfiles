@@ -28,6 +28,10 @@ play = [
 extract = [
   { run = "ya pub augmented-extract --list %s", desc = "Extract here" },
 ]
+office = [
+  { run = 'libreoffice %s', orphan = true, desc = "LibreOffice", for = "linux" },
+  { run = 'onlyoffice-desktopeditors %s', orphan = true, desc = "OnlyOffice", for = "linux" },
+]
 
 # [open]
 # rules = [
@@ -36,10 +40,10 @@ extract = [
 # 
 # ]
 
-[[opener.satty]]
-run = 'file=%s1; satty -f "$file" -o "${file%.*}.png"'
+[[opener.noctalia-annotate]]
+run = 'file=%s1; name=${file##*/}; noctalia msg annotate --save-to-file --directory %d1 --filename-pattern "${name%%.*}" --format png "$file"'
 block = false
-desc = "Open in Satty"
+desc = "Open in Noctalia-annotate"
 
 [[opener.set-wallpaper]]
 run  = "noctalia msg wallpaper-set %s1"
@@ -61,7 +65,12 @@ orphan = true
 
 [[open.prepend_rules]]
 mime = "image/*"
-use  = [ "open", "satty", "set-wallpaper", "set-wallpaper1", "set-wallpaper2", "reveal" ]
+use  = [ "open", "noctalia-annotate", "set-wallpaper", "set-wallpaper1", "set-wallpaper2", "reveal" ]
+
+# Word, Excel, PowerPoint, OpenDocument and RTF files.
+[[open.prepend_rules]]
+mime = "{text/rtf,application/{msword,rtf,vnd.ms-*,vnd.openxmlformats-officedocument.*,vnd.oasis.opendocument.*,openxmlformats-officedocument.*,oasis.opendocument.*}}"
+use  = [ "office", "reveal" ]
 
 [[plugin.prepend_preloaders]]
 url = "/run/user/1000/gvfs/**/*"

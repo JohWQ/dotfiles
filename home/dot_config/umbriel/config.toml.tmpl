@@ -247,8 +247,7 @@ follows_mouse = true
 # Window state and layout
 "Mod+Space" = { action = "window-focus-switch-floating", repeat = false }
 "Mod+Shift+Space" = { action = "window-toggle-floating", repeat = false }
-"Mod+T" = { action = "window-toggle-floating", repeat = false }
-"Mod+P" = { action = "window-toggle-pinned", repeat = false }
+"Mod+T" = { action = "window-toggle-pinned", repeat = false }
 "Mod+M" = { action = "spawn ~/.local/bin/umbriel-maximize", repeat = false }
 "Mod+F" = { action = "window-toggle-fullscreen", repeat = false }
 "Mod+Ctrl+F" = { action = "window-toggle-maximize", repeat = false }
@@ -300,12 +299,21 @@ follows_mouse = true
 "Mod+Shift+7" = "window-move-to-workspace 7"
 "Mod+Shift+8" = "window-move-to-workspace 8"
 "Mod+Shift+9" = "window-move-to-workspace 9"
+# Next available workspace: the first empty one on the focused output, or a new
+# one after the last. Switching is skipped when already there, since
+# back_and_forth would otherwise jump to the previous workspace.
+"Mod+I" = { action = '''spawn ws=$(umbriel workspaces --json | jq -r '(map(select(.focused))[0]) as $c | map(select(.output == $c.output)) | ((map(select(.occupied | not))[0].index) // ((map(.index) | max) + 1)) | select(. != $c.index)') && [ -n "$ws" ] && umbriel msg workspace-switch "$ws"''', repeat = false }
+"Mod+Shift+I" = { action = '''spawn ws=$(umbriel workspaces --json | jq -r '(map(select(.focused))[0]) as $c | map(select(.output == $c.output)) | ((map(select(.occupied | not))[0].index) // ((map(.index) | max) + 1)) | select(. != $c.index)') && [ -n "$ws" ] && umbriel msg window-move-to-workspace "$ws"''', repeat = false }
+"Mod+Ctrl+I" = { action = '''spawn ws=$(umbriel workspaces --json | jq -r '(map(select(.focused))[0]) as $c | map(select(.output == $c.output)) | ((map(select(.occupied | not))[0].index) // ((map(.index) | max) + 1)) | select(. != $c.index)') && [ -n "$ws" ] && umbriel msg window-move-to-workspace "$ws" && umbriel msg workspace-focus-last''', repeat = false }
 
 # Scratchpad
 #"Mod+Shift+T" = { action = "window-move-to-scratchpad", repeat = false }
 #"Mod+T" = "scratchpad-toggle"
 #"Mod+Ctrl+T" = { action = "window-restore-from-scratchpad", repeat = false }
-#"Mod+Tab" = "scratchpad-window-show-next"
+# Focus the next visible scratchpad window without hiding it. The built-in
+# scratchpad-focus-next needs a scratchpad name once named scratchpads exist,
+# so pick the window from any of them.
+"Mod+Tab" = { action = '''spawn id=$(umbriel windows --json | jq -r '[.[] | select(.scratchpad != "" and .visible)] as $w | if ($w | length) == 0 then empty else $w[((($w | map(.active) | index(true)) // -1) + 1) % ($w | length)].id end') && [ -n "$id" ] && umbriel msg window-focus "$id"''', repeat = false }
 "Mod+Alt+1" = "scratchpad-toggle 'Yazi Scratchpad'"
 "Mod+Alt+2" = "scratchpad-toggle 'Neovim Scratchpad'"
 "Mod+Alt+3" = "scratchpad-toggle 'Alacritty Scratchpad'"
@@ -371,20 +379,24 @@ blur = true
 [[window_rule]]
 match.app_id = "^dev.noctalia.Noctalia$"
 default_floating = true
+default_floating_size_px = { width = 1020, height = 900 }
 
 [[window_rule]]
 match.app_id = "^dev.noctalia.UmbrielSharePicker$"
 default_floating = true
+default_floating_size_px = { width = 800, height = 600 }
 
 [[window_rule]]
 match.title = "^(Picture-in-Picture|Picture in picture)$"
 default_floating = true
 default_maximize = false
+default_position = { x = 20, y = 20, anchor = "bottom_right" }
 
 [[window_rule]]
 match.title = "^notificationtoasts_.+_desktop"
 default_focused = false
 default_pinned = true
+default_position = { x = 0, y = 0, anchor = "bottom_right" }
 
 # Keep game menus inside their window; a focus or workspace keybind releases the pointer.
 # [[window_rule]]
@@ -416,13 +428,23 @@ block_capture = true
 
 [[window_rule]]
 match.app_id = ["^wev$"]
+default_scrolling_extent_px = 200
 
 [[window_rule]]
 match.title = ["^File chooser$", "^File view$"]
 attach_to_parent = false
 default_floating = true
+default_floating_size_px = { width = 1060, height = 1000 }
+default_position = { x = 0, y = 20, anchor = "top" }
 
-# Match the default column window size on the current host, including its normal gaps.
+# Scratchpad terminals get an app_id ending in "Scratchpad", so one rule sizes
+# them all like a default column on a 1920x1080 output, including its normal
+# gaps. Kitty must not restore its own cached window size
+# (remember_window_size), or it resizes itself after opening.
+[[window_rule]]
+match.app_id = "Scratchpad$"
+default_floating_size_px = { width = 944, height = 1026 }
+
 [[window_rule]]
 match.app_id = "^AlacrittyScratchpad$"
 default_scratchpad = "Alacritty Scratchpad"
@@ -430,10 +452,10 @@ default_scratchpad = "Alacritty Scratchpad"
 # Named scratchpads can launch an application when toggled while empty.
 [[scratchpad]]
 name = "Yazi Scratchpad"
-spawn_when_empty = "kitty yazi"
+spawn_when_empty = "kitty --class YaziScratchpad -o remember_window_size=no yazi"
 [[scratchpad]]
 name = "Neovim Scratchpad"
-spawn_when_empty = "kitty nvim"
+spawn_when_empty = "kitty --class NeovimScratchpad -o remember_window_size=no nvim"
 [[scratchpad]]
 name = "Alacritty Scratchpad"
 spawn_when_empty = "alacritty --class AlacrittyScratchpad"
@@ -522,7 +544,7 @@ action = "overview-open"
 # [animation.dialogs]
 # dim = 0.3
 
-# Host-specific outputs, pixel sizes, positions, and output routing.
+# Host-specific outputs, output routing, and overrides of the rules above.
 {{- $hostPath := joinPath .chezmoi.sourceDir ".chezmoitemplates/umbriel/hosts" (printf "%s.toml" .chezmoi.hostname) }}
 {{ if stat $hostPath -}}
 {{ include $hostPath }}

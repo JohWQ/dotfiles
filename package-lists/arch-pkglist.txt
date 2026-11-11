@@ -35,3 +35,8 @@ rmpc
 age
 tesseract-data-nor
 tesseract-data-eng
+jq
+fzf
+fd
+ripgrep
+perl-image-exiftool

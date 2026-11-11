@@ -1,0 +1,82 @@
+#!/usr/bin/env python3
+"""Show where Noctalia's runtime settings differ from the managed config.
+
+Noctalia loads ~/.local/state/noctalia/settings.toml after
+~/.config/noctalia/config.toml, so every key listed here is a local change
+that is not in the config yet:
+
+  ~ key   set in both files with different values (settings.toml wins)
+  + key   set only in settings.toml
+
+Keys that exist only in config.toml are not overridden and are not listed.
+Exits 1 when there are differences.
+"""
+import argparse
+import json
+import os
+import sys
+import tomllib
+
+HOME = os.path.expanduser("~")
+STATE = os.path.join(os.environ.get("XDG_STATE_HOME", os.path.join(HOME, ".local/state")), "noctalia/settings.toml")
+CONFIG = os.path.join(os.environ.get("XDG_CONFIG_HOME", os.path.join(HOME, ".config")), "noctalia/config.toml")
+
+
+def flatten(table, prefix=""):
+    flat = {}
+    for key, value in table.items():
+        path = f"{prefix}.{key}" if prefix else key
+        if isinstance(value, dict):
+            flat.update(flatten(value, path))
+        else:
+            flat[path] = value
+    return flat
+
+
+def normalize(value):
+    """Ignore float noise and ~ versus $HOME so only real changes show."""
+    if isinstance(value, float):
+        return round(value, 6)
+    if isinstance(value, str):
+        return HOME + value[1:] if value == "~" or value.startswith("~/") else value
+    if isinstance(value, list):
+        return [normalize(item) for item in value]
+    if isinstance(value, dict):
+        return {key: normalize(item) for key, item in value.items()}
+    return value
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("prefix", nargs="*", help="only show keys starting with one of these, e.g. widget bar.default")
+    parser.add_argument("--settings", default=STATE, help="runtime settings (default: %(default)s)")
+    parser.add_argument("--config", default=CONFIG, help="managed config (default: %(default)s)")
+    args = parser.parse_args()
+
+    with open(args.config, "rb") as file:
+        config = flatten(tomllib.load(file))
+    with open(args.settings, "rb") as file:
+        settings = flatten(tomllib.load(file))
+
+    color = sys.stdout.isatty() and "NO_COLOR" not in os.environ
+    red, green, yellow, bold, reset = ("\033[31m", "\033[32m", "\033[33m", "\033[1m", "\033[0m") if color else ("",) * 5
+    show = lambda value: json.dumps(value, ensure_ascii=False)
+
+    count = 0
+    for key in sorted(settings):
+        if args.prefix and not any(key == prefix or key.startswith(prefix + ".") for prefix in args.prefix):
+            continue
+        if key not in config:
+            print(f"{green}+ {bold}{key}{reset}{green} = {show(settings[key])}{reset}")
+        elif normalize(config[key]) != normalize(settings[key]):
+            print(f"{yellow}~ {bold}{key}{reset}")
+            print(f"{red}    config:   {show(config[key])}{reset}")
+            print(f"{green}    settings: {show(settings[key])}{reset}")
+        else:
+            continue
+        count += 1
+    return 1 if count else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

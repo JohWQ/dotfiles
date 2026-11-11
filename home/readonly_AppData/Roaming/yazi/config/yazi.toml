@@ -18,13 +18,6 @@ edit = [
 	{ run = 'start "" nvim.exe %s', orphan = true, desc = "Open Neovim in new instance", for = "windows" },
   #{ run = '\"C:\\Program Files\\Neovim\\bin\\nvim.exe\" %s', block = true, desc = "Editor", for = "windows" },
 ]
-#play = [
-#  { run = 'mpv %s', orphan = true, desc = "mpv", for = "linux" },
-#  { run = 'losslesscut %s', orphan = true, desc = "losslesscut", for = "linux" },
-#]
-# open = [
-#   { run = "swayimg %s", orphan = true, desc = "Open", for = "linux" },
-# ]
 extract = [
   { run = "ya pub augmented-extract --list %s", desc = "Extract here" },
 ]
@@ -36,45 +29,9 @@ extract = [
 # 
 # ]
 
-#[[opener.satty]]
-#run = 'file=%s1; satty -f "$file" -o "${file%.*}.png"'
-#block = false
-#desc = "Open in Satty"
-
-#[[opener.set-wallpaper]]
-#run  = "noctalia msg wallpaper-set %s1"
-#for  = "linux"
-#desc = "Set as wallpaper"
-#orphan = true
-
-#[[opener.set-wallpaper1]]
-#run  = "noctalia msg wallpaper-set DP-1 %s1"
-#for  = "linux"
-#desc = "DP-1: Set as wallpaper"
-#orphan = true
-
-#[[opener.set-wallpaper2]]
-#run  = "noctalia msg wallpaper-set DP-3 %s1"
-#for  = "linux"
-#desc = "DP-3: Set as wallpaper"
-#orphan = true
-
-#[[open.prepend_rules]]
-#mime = "image/*"
-#use  = [ "open", "satty", "set-wallpaper", "set-wallpaper1", "set-wallpaper2", "reveal" ]
-
-#[[plugin.prepend_preloaders]]
-#url = "/run/user/1000/gvfs/**/*"
-#run = "noop"
-
 [[plugin.prepend_previewers]]
 mime = "audio/*"
 run = "exifaudio"
-
-# gvfs.yazi
-#[[plugin.prepend_previewers]]
-#url = "folder/*"
-#run = "folder"
 
 #[[plugin.prepend_fetchers]]
 #url   = "*"
