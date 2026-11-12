@@ -10,6 +10,7 @@ radius_top_left = 20
 radius_top_right = 20
 center = [ "media2" ]
 start = [
+    "bar_5",
     "workspaces",
     "focus-column-left",
     "focus-column-right",
@@ -163,19 +164,19 @@ show_unlock_hint = true
 show_weather = true
 
 ["plugins"]
-enabled = [ "rylos/syncthing", "yuuto/calculator", "thaer99ob/default-apps", "h-jangra/keyviz", "icefish/phone-connect", "thepunkoff/pomodoro", "noctalia/screen_recorder", "noctalia/timer", "noctalia/wallhaven", "noctalia/world_clock", "joshuaslate/shelly", "noctalia/umbriel-companion" ]
+enabled = [ "rylos/syncthing", "yuuto/calculator", "thaer99ob/default-apps", "h-jangra/keyviz", "icefish/phone-connect", "thepunkoff/pomodoro", "noctalia/screen_recorder", "noctalia/timer", "noctalia/wallhaven", "joshuaslate/shelly", "noctalia/umbriel-companion" ]
 
 ["wallpaper"."default"]
-path = "~/Pictures/Wallpapers/wallhaven/wallhaven-4ywjjk.jpg"
+path = "~/Pictures/Wallpapers/System/cachyos-wallpapers/Metal.png"
 
 ["wallpaper"."last"]
-path = "~/Pictures/Wallpapers/noctalia-wallpaper.png"
+path = "~/Pictures/Wallpapers/System/cachyos-wallpapers/Metal.png"
 
 ["wallpaper"."monitors"."DP-1"]
-path = "~/Pictures/Wallpapers/noctalia-wallpaper.png"
+path = "~/Pictures/Wallpapers/System/cachyos-wallpapers/Metal.png"
 
 ["wallpaper"."monitors"."DP-3"]
-path = "~/Pictures/Wallpapers/wallhaven/wallhaven-6lyg5q.jpg"
+path = "~/Pictures/Wallpapers/System/cachyos-wallpapers/Metal.png"
 
 ["bar"."default"."monitor"."HDMI-A-1"]
 margin_edge = 2
@@ -188,3 +189,7 @@ radius_bottom_right = 20
 
 ["shell"."launcher"]
 layout = "simple"
+
+# Umbriel Companion on the vertical monitor's bar.
+["widget"."bar_5"]
+type = "noctalia/umbriel-companion:bar"
