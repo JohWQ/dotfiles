@@ -43,13 +43,6 @@ AppData
 Documents
 .chezmoiscripts/install-windows-yazi-packages.ps1
 
-# Share Umbriel and its shortcut scripts between the desktop and laptop.
-{{ if not (has .chezmoi.hostname .hosts.umbriel) -}}
-.config/umbriel
-.local/bin/screen-ocr.sh
-.local/bin/wayscriber-toggle
-{{ end -}}
-
 # Sunshine launchers are desktop-only.
 {{ if not (has .chezmoi.hostname .hosts.sunshine) -}}
 .local/share/applications/dev.lizardbyte.app.Sunshine*.desktop

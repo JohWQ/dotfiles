@@ -1,4 +1,4 @@
-# Shared Umbriel bar layout and widget actions for desktop and laptop.
+# Umbriel bar layout and widget actions, merged over the shared defaults on every host.
 ["widget"."focus-column-left"."actions"]
 back = "exec umbriel msg window-focus-left && umbriel msg column-center"
 forward = "exec umbriel msg window-focus-right && umbriel msg column-center"

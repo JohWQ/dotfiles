@@ -1,4 +1,4 @@
-{{- /* Repository-backed settings selected by hostname. No runtime state dependency. */ -}}
+{{- /* Repository-backed settings; host overrides selected by hostname. No runtime state dependency. */ -}}
 {{- $shared := `config_version = 16
 
 [bar.default]
@@ -175,7 +175,10 @@ enabled = [
     "rylos/syncthing",
     "noctalia/bitwarden",
     "thaer99ob/default-apps",
-    "joshuaslate/shelly"
+    "joshuaslate/shelly",
+    "h-jangra/keyviz",
+    "noctalia/timer",
+    "noctalia/umbriel-companion"
 ]
 
 [[plugins.source]]
@@ -424,11 +427,9 @@ labels_only_when_occupied = true
     forward = "workspace-switch next"
     right = "exec niri msg action toggle-overview"
 ` | fromToml -}}
-{{- if has .chezmoi.hostname .hosts.umbriel -}}
+{{- /* Umbriel is the main session on every Linux host, including unknown ones. */ -}}
 {{- $umbriel := include ".chezmoitemplates/noctalia/umbriel.toml" | fromToml -}}
 {{- $shared = mergeOverwrite $shared $umbriel -}}
-{{- $_ := set $shared.plugins "enabled" (concat $shared.plugins.enabled (list "h-jangra/keyviz" "noctalia/timer" "noctalia/umbriel-companion") | uniq) -}}
-{{- end -}}
 {{- $hostPath := joinPath .chezmoi.sourceDir ".chezmoitemplates/noctalia/hosts" .chezmoi.hostname -}}
 {{- $machine := dict -}}
 {{- $secrets := dict -}}

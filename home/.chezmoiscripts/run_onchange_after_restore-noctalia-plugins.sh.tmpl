@@ -11,7 +11,7 @@ set -euo pipefail
 # noctalia-config-sha256: {{ $config | sha256sum }}
 
 # Noctalia loads settings.toml after config.toml. Clear overrides for the
-# managed plugins, bar layout/widgets, shared session/suspend settings, and lockscreen media.
+# managed plugins, bar layout/widgets/click actions, shared session/suspend settings, and lockscreen media.
 settings="${XDG_STATE_HOME:-$HOME/.local/state}/noctalia/settings.toml"
 if [[ -f "$settings" ]]; then
     cleaned=$(chezmoi execute-template --with-stdin '{{ `
@@ -21,7 +21,7 @@ if [[ -f "$settings" ]]; then
 {{- end -}}
 {{- $bar := get $settings "bar" | default dict -}}
 {{- if hasKey $bar "default" -}}
-{{- range $key := list "start" "center" "end" "capsule_group" "capsule_thickness" -}}
+{{- range $key := list "start" "center" "end" "capsule_group" "capsule_thickness" "dead_zone" -}}
 {{- $_ := unset $bar.default $key -}}
 {{- end -}}
 {{- end -}}

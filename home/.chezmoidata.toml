@@ -1,7 +1,6 @@
 # Host groups, tested by .chezmoiignore and templates with
 # `has .chezmoi.hostname .hosts.<group>`. Add a new machine here once.
 [hosts]
-umbriel = ["cachyos-desktop", "cachyos-laptop"]
 sunshine = ["cachyos-desktop"]
 nvibrant = ["cachyos-desktop"]
 packettracerMesa = ["cachyos-desktop"]

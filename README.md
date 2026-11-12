@@ -21,6 +21,7 @@ outside this repository.
 | --- | --- |
 | `cachyos-desktop` | Umbriel, Noctalia and Linux apps; Sunshine and nvibrant. |
 | `cachyos-laptop` | Umbriel, Noctalia and Linux apps. |
+| other Linux hosts | Umbriel, Noctalia and Linux apps with shared defaults; no outputs or secrets. |
 | `windows-desktop` | Neovim, Yazi and PowerShell 7; UniGetUI packages. |
 
 ### Windows
@@ -40,8 +41,8 @@ restore commands above, then `. $PROFILE`.
 
 ### Umbriel
 
-The main session. Desktop and laptop share behavior and window sizes; outputs
-are per host. Validate with `umbriel config validate`.
+The main session. All Linux hosts share behavior and window sizes; outputs
+are per known host. Validate with `umbriel config validate`.
 
 ### Noctalia
 
