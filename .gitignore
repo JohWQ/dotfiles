@@ -14,3 +14,7 @@ nvim.log
 # Noctalia downloads plugins and maintains runtime state outside the config.
 home/dot_local/share/noctalia/plugins/
 home/dot_local/state/noctalia/
+
+# Cargo build output of the Umbriel helper sources, and mpd runtime files.
+home/private_dot_local/src/*/target/
+home/private_dot_local/private_share/mpd/database

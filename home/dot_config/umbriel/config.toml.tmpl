@@ -148,7 +148,7 @@ numlock_toggle = true
 
 [input.mouse]
 accel_profile = "flat"
-#sensitivity = ""
+#sensitivity = -0.5
 
 # Focus can follow the pointer across tiled, floating, and pinned windows.
 #
@@ -183,7 +183,7 @@ follows_mouse = true
 "Mod+N" = "spawn noctalia msg settings-toggle"
 "Mod+B" = "spawn noctalia msg bar-toggle"
 "Mod+Shift+B" = "spawn noctalia msg dock-toggle && notify-send -t 1100 'Toggle' 'Noctalia Dock'"
-"Mod+E" = "spawn noctalia msg panel-open launcher /emo"
+"Mod+E" = "spawn noctalia msg panel-toggle launcher /emo"
 "Mod+bar" = "spawn noctalia msg panel-toggle session"
 "Mod+V" = "spawn noctalia msg panel-toggle clipboard"
 "Mod+Shift+S" = "spawn noctalia msg screenshot-region"
@@ -243,6 +243,10 @@ follows_mouse = true
 "Mod+Shift+J" = "spawn ~/.local/bin/umbriel-move-window down"
 "Mod+Shift+K" = "spawn ~/.local/bin/umbriel-move-window up"
 "Mod+Shift+L" = "spawn ~/.local/bin/umbriel-move-window right"
+"Mod+Ctrl+Shift+H" = "spawn ~/.local/bin/umbriel-move-window large-left"
+"Mod+Ctrl+Shift+J" = "spawn ~/.local/bin/umbriel-move-window large-down"
+"Mod+Ctrl+Shift+K" = "spawn ~/.local/bin/umbriel-move-window large-up"
+"Mod+Ctrl+Shift+L" = "spawn ~/.local/bin/umbriel-move-window large-right"
 
 # Window state and layout
 "Mod+Space" = { action = "window-focus-switch-floating", repeat = false }
@@ -395,7 +399,7 @@ default_floating_size = { width = 0.5313, height = 0.8604 }
 [[window_rule]]
 match.app_id = "^dev.noctalia.UmbrielSharePicker$"
 default_floating = true
-default_floating_size_px = { width = 800, height = 600 }
+default_floating_size = { width = 0.4167, height = 0.5736 } # 800x600 on 1920x1080
 
 [[window_rule]]
 match.title = "^(Picture-in-Picture|Picture in picture)$"
@@ -438,38 +442,40 @@ block_capture = true
 
 
 [[window_rule]]
-match.app_id = ["^wev$"]
-default_scrolling_extent_px = 200
+match.app_id = "^wev$"
+default_scrolling_extent = 0.137 # 250 px
+
+[[window_rule]]
+match.app_id = "^virt-manager$"
+match.title = "^Virtual Machine Manager$"
+default_scrolling_extent = 0.171 # 315 px
 
 [[window_rule]]
 match.title = ["^File chooser$", "^File view$"]
 attach_to_parent = false
 default_floating = true
-default_floating_size_px = { width = 1060, height = 1000 }
+default_floating_size = { width = 0.5521, height = 0.956 } # 1060x1000 on 1920x1080
 default_position = { x = 0, y = 20, anchor = "top" }
 
-# Scratchpad terminals get an app_id ending in "Scratchpad", so one rule sizes
-# them all like a default column, including its normal gaps. The size is a
-# fraction of the output's usable area so it follows outputs whose logical
-# size changes (the Sunshine dummy display); it is exactly 944x1026 on a
-# 1920x1080 output and a few pixels larger than a column on smaller ones,
-# because gaps do not scale. Kitty must not restore its own cached window size
-# (remember_window_size), or it resizes itself after opening.
+# Cisco Packet Tracer: float every window (device config windows)
+[[window_rule]]
+match.app_id = "^PacketTracer$"
+default_floating = true
+
+[[window_rule]]
+match.app_id = "^PacketTracer$"
+match.title = "^Cisco Packet Tracer"
+default_floating = false
+
 [[window_rule]]
 match.app_id = "Scratchpad$"
 default_floating_size = { width = 0.4917, height = 0.9809 }
-
-[[window_rule]]
-match.app_id = "^AlacrittyScratchpad$"
-default_scratchpad = "Alacritty Scratchpad"
-
-# Named scratchpads can launch an application when toggled while empty.
 [[scratchpad]]
 name = "Yazi Scratchpad"
-spawn_when_empty = "kitty --class YaziScratchpad -o remember_window_size=no yazi"
+spawn_when_empty = "kitty --class YaziScratchpad yazi"
 [[scratchpad]]
 name = "Neovim Scratchpad"
-spawn_when_empty = "kitty --class NeovimScratchpad -o remember_window_size=no nvim"
+spawn_when_empty = "kitty --class NeovimScratchpad nvim"
 [[scratchpad]]
 name = "Alacritty Scratchpad"
 spawn_when_empty = "alacritty --class AlacrittyScratchpad"

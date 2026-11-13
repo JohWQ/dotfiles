@@ -43,9 +43,10 @@ AppData
 Documents
 .chezmoiscripts/install-windows-yazi-packages.ps1
 
-# Sunshine launchers are desktop-only.
+# Sunshine launchers and configuration are desktop-only.
 {{ if not (has .chezmoi.hostname .hosts.sunshine) -}}
 .local/share/applications/dev.lizardbyte.app.Sunshine*.desktop
+.config/sunshine
 {{ end -}}
 
 # NVIDIA dithering service; its port order is specific to the desktop's GPU.
@@ -53,9 +54,10 @@ Documents
 .config/systemd/user/nvibrant.service
 {{ end -}}
 
-# The Packet Tracer launcher is desktop-only.
+# The Packet Tracer launcher and its wrapper script are desktop-only.
 {{ if not (has .chezmoi.hostname .hosts.packettracerMesa) -}}
 .local/share/applications/packettracer-mesa.desktop
+.local/bin/packettracer-mesa
 {{ end -}}
 
 # Manage output settings only for hosts with a saved configuration.
@@ -71,6 +73,14 @@ Documents
 !.config/yazi/plugins/confirm-quit.yazi/
 !.config/yazi/plugins/confirm-quit.yazi/**
 .config/yazi/flavors/**
+
+# The Umbriel helper binaries are built from ~/.local/src by
+# install-umbriel-tools.sh; Cargo's build output and mpd's runtime files stay
+# local.
+.local/src/*/target
+.local/share/mpd/database
+.local/share/mpd/state
+.local/share/mpd/sticker.sql
 
 # Noctalia restores enabled plugins from the shared config's git sources.
 .local/share/noctalia/plugins/**

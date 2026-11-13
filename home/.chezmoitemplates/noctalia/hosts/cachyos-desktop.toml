@@ -33,8 +33,7 @@ shortcuts = [ { "type" = "nightlight" }, { "type" = "notification" }, { "type" =
 widget_order = [
     "lockscreen-login-box@HDMI-A-1",
     "lockscreen-login-box@DP-3",
-    "lockscreen-login-box@DP-1",
-    "lockscreen-login-box@WL-1"
+    "lockscreen-login-box@DP-1"
 ]
 
     [lockscreen_widgets.widget."lockscreen-login-box@DP-1"]
@@ -134,34 +133,6 @@ radius_bottom_left = 20
 radius_bottom_right = 20
 radius_top_left = 20
 radius_top_right = 20
-
-["lockscreen_widgets"."widget"."lockscreen-login-box@WL-1"]
-box_height = 196.0
-box_width = 810.0
-cx = 472.0
-cy = 849.8377685546875
-output = "WL-1"
-placement_height = 1026.0
-placement_width = 944.0
-rotation = 0.0
-type = "login_box"
-
-["lockscreen_widgets"."widget"."lockscreen-login-box@WL-1"."settings"]
-background_color = "surface_container"
-background_opacity = 0.88
-background_radius = 12.0
-center_password_text = false
-input_opacity = 1.0
-input_radius = 6.0
-layout = "regular"
-show_caps_lock = true
-show_keyboard_layout = true
-show_login_button = true
-show_media = true
-show_password_reveal = true
-show_session_buttons = true
-show_unlock_hint = true
-show_weather = true
 
 ["plugins"]
 enabled = [ "rylos/syncthing", "yuuto/calculator", "thaer99ob/default-apps", "h-jangra/keyviz", "icefish/phone-connect", "thepunkoff/pomodoro", "noctalia/screen_recorder", "noctalia/timer", "noctalia/wallhaven", "joshuaslate/shelly", "noctalia/umbriel-companion" ]

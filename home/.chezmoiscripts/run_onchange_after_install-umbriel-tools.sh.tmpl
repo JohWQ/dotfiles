@@ -1,0 +1,21 @@
+{{- if eq .chezmoi.os "linux" -}}
+#!/bin/bash
+set -euo pipefail
+
+# Build the Umbriel keybind helpers from ~/.local/src and install them into
+# ~/.local/bin. Runs after install-rustup-packages, and again when a source
+# file changes.
+{{ range $tool := list "umbriel-maximize" "umbriel-move-window" -}}
+{{ range $file := list "Cargo.toml" "Cargo.lock" "src/main.rs" -}}
+# {{ $tool }}/{{ $file }}: {{ include (printf "private_dot_local/src/%s/%s" $tool $file) | sha256sum }}
+{{ end -}}
+{{ end }}
+export PATH="${CARGO_HOME:-$HOME/.cargo}/bin:$PATH"
+command -v cargo >/dev/null || { echo 'Building the Umbriel helpers requires cargo.' >&2; exit 1; }
+
+for tool in umbriel-maximize umbriel-move-window; do
+    source_dir="$HOME/.local/src/$tool"
+    cargo build --release --locked --manifest-path "$source_dir/Cargo.toml"
+    install -Dm755 "$source_dir/target/release/$tool" "$HOME/.local/bin/$tool"
+done
+{{ end -}}

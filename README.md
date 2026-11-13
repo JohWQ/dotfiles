@@ -41,8 +41,11 @@ restore commands above, then `. $PROFILE`.
 
 ### Umbriel
 
-The main session. All Linux hosts share behavior and window sizes; outputs
-are per known host. Validate with `umbriel config validate`.
+The main session. All Linux hosts share behavior and fractional window sizes;
+outputs are per known host, and `cachyos-desktop` overrides the widths with
+fixed pixels for its portrait monitor. Validate with `umbriel config validate`.
+Apply builds the `umbriel-maximize` and `umbriel-move-window` keybind helpers
+from `~/.local/src` with Cargo.
 
 ### Noctalia
 

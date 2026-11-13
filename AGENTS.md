@@ -71,15 +71,24 @@ runtime state.
 Umbriel shared behavior and shortcuts live in
 `home/dot_config/umbriel/config.toml.tmpl`, including window sizes and
 positions, which assume 1920x1080 outputs. Host files in
-`home/.chezmoitemplates/umbriel/hosts/<hostname>.toml` contain only outputs and
-output routing; they are appended, so a host rule with the same `match` can
-override a shared size. Scratchpad terminals are launched with an app_id
+`home/.chezmoitemplates/umbriel/hosts/<hostname>.toml` contain outputs, output
+routing and host-specific size overrides; they are appended, so a host rule
+with the same `match` can override a shared size. Scratchpad terminals are launched with an app_id
 ending in `Scratchpad` (`--class <Name>Scratchpad`); one shared rule matching
 `Scratchpad$` sizes them like a default column, as a fraction of the output's
-usable area so it also fits the resizable Sunshine output `HDMI-A-1`. Kitty scratchpads also pass
-`-o remember_window_size=no` so Kitty does not restore its own cached size. Capture local edits in the appropriate source;
+usable area so it also fits the resizable Sunshine output `HDMI-A-1`.
+Shared window rules size windows by fraction. `cachyos-desktop` overrides each
+of those widths with fixed pixels in its host file, because the fractions are
+too narrow on the portrait `DP-3` and rules cannot match an output; a new
+fractional rule in the template needs a matching override there. Kitty's
+`kitty.conf` sets `remember_window_size no` so Kitty does not restore its own cached size. Capture local edits in the appropriate source;
 `chezmoi add` would replace the template with one machine's generated config.
 Validate generated configs with `umbriel config validate`.
+
+The keybind helpers `umbriel-maximize` and `umbriel-move-window` are Rust
+sources in `home/private_dot_local/src/`. `install-umbriel-tools.sh` builds
+them with Cargo and installs them into `~/.local/bin` when a source file
+changes; do not commit the binaries or `target/`.
 
 Sunshine streams to `HDMI-A-1`, whose logical size follows the client. Rules
 for windows that must fit there use `default_floating_size` fractions, not
