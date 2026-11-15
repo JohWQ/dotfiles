@@ -95,8 +95,8 @@ for windows that must fit there use `default_floating_size` fractions, not
 pixels.
 
 Noctalia defaults live in `home/dot_config/noctalia/private_config.toml.tmpl`.
-Every Linux host gets the Umbriel config, the bar layout and the Umbriel widget
-actions from `home/.chezmoitemplates/noctalia/umbriel.toml`. Host TOML overrides provide
+They target the Umbriel session: the bar layout and the widget actions that
+call `umbriel msg` are part of the shared defaults. Host TOML overrides provide
 displays, wallpapers, plugins and preferences; encrypted host overrides apply
 last. Unknown hosts use the shared defaults, including Umbriel, without outputs. Validate with `noctalia config validate`.
 If settings do not apply, compare the generated config with

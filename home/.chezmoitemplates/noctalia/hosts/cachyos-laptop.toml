@@ -1,7 +1,7 @@
 # Overrides for cachyos-laptop, captured from local Noctalia settings.
 # Private location settings are stored in cachyos-laptop.age.
 [bar.default]
-  end = ["clock", "tray", "bar", "bar_2", "recorder", "weather", "launcher", "notifications", "volume", "shelly", "battery", "group:g1"]
+  end = ["clock", "tray", "phone-connect", "calculator", "recorder", "weather", "launcher", "notifications", "volume", "shelly", "battery", "group:g1"]
 
 [widget.battery]
   enabled = true

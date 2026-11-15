@@ -1,23 +1,23 @@
-{{- /* Repository-backed settings; host overrides selected by hostname. No runtime state dependency. */ -}}
-{{- $shared := `config_version = 16
+{{- /* Repository-backed settings for the Umbriel session; host overrides selected by hostname. No runtime state dependency. */ -}}
+{{- $shared := `config_version = 20
 
 [bar.default]
-    background_opacity = 0.7999999821186066
-    capsule_thickness = 0.7999999858438969
+background_opacity = 0.79999998211860657
+capsule_thickness = 1.0
 center = [ "media" ]
 concave_edge_corners = false
 end = [
     "clock",
     "tray",
-    "bar",
-    "bar_2",
+    "phone-connect",
+    "calculator",
     "recorder",
-    "bar_3",
     "weather",
     "launcher",
     "notifications",
     "volume",
-    "shelly"
+    "shelly",
+    "group:g1"
 ]
 margin_edge = 2
 margin_ends = 20
@@ -26,13 +26,25 @@ radius_bottom_left = 20
 radius_bottom_right = 20
 radius_top_left = 20
 radius_top_right = 20
-start = [ "wallpaper", "workspaces", "focus-column-left", "focus-column-right", "active_window" ]
+start = [ "umbriel-companion", "workspaces", "focus-column-left", "focus-column-right", "active_window" ]
 thickness = 32
 
     [bar.default.dead_zone.actions]
     left = "panel-toggle control-center home"
     middle = "exec noctalia msg settings-open"
     right = "panel-toggle session"
+
+    [[bar.default.capsule_group]]
+    accordion = true
+    accordion_delay_ms = 500
+    accordion_direction = "start"
+    border_width = 1.0
+    enabled = true
+    fill = "surface_container"
+    id = "g1"
+    members = [ "screenshot", "default-apps", "keyviz", "syncthing", "wallpaper" ]
+    opacity = 1.0
+    padding = 6.0
 
 [calendar]
 enabled = true
@@ -44,7 +56,7 @@ enabled = true
     type = "notification"
 
     [[control_center.shortcuts]]
-    type = "audio"
+    type = "caffeine"
 
     [[control_center.shortcuts]]
     type = "clipboard"
@@ -54,13 +66,6 @@ enabled = true
 
 [desktop_widgets]
 enabled = false
-schema_version = 2
-widget_order = []
-
-    [desktop_widgets.grid]
-    cell_size = 16
-    major_interval = 4
-    visible = true
 
 [dock]
 active_opacity = 0.84999998100101948
@@ -80,8 +85,8 @@ show_instance_count = false
 smart_auto_hide = true
 
 [hot_corners]
-enabled = true
 delay_ms = 400
+enabled = true
 
     [hot_corners.top_left]
     action = "launcher"
@@ -115,26 +120,20 @@ up = [ "Up", "Ctrl+k" ]
 validate = [ "Return", "KP_Enter", "space", "Alt+e" ]
 
 [lockscreen]
-lock_before_suspend = true
 blur_intensity = 0.59999998658895493
-fingerprint = false
+lock_before_suspend = true
 tint_intensity = 0.69999998435378075
 transition_duration = 1300
 
 [lockscreen_widgets]
 enabled = false
-schema_version = 2
 
-    [lockscreen_widgets.grid]
-    cell_size = 16
-    major_interval = 4
-    visible = true
 [nightlight]
 enabled = true
 
 [notification]
-scale = 0.95000000670552254
 filter_order = [ "filter" ]
+scale = 0.95000000670552254
 
     [notification.filter.filter]
     allow_permanent = true
@@ -147,17 +146,21 @@ filter_order = [ "filter" ]
     save_history = false
     show_toast = false
 
+[plugin_settings."h-jangra/keyviz"]
+enabled_by_default = false
+
 [plugin_settings."icefish/phone-connect"]
 battery_display = "percent"
 
-[plugin_settings."noctalia/bitwarden"]
-gen_length = 16
-gen_special = true
-
 [plugin_settings."noctalia/screen_recorder"]
-video_source = "focused"
 copy_to_clipboard = true
 hide_inactive = true
+video_source = "focused"
+
+[plugin_settings."noctalia/timer"]
+alarm = true
+panel_open_near_click = false
+panel_position = "top_right"
 
 [plugin_settings."noctalia/wallhaven"]
 download_dir = "~/Pictures/Wallpapers/wallhaven"
@@ -166,33 +169,19 @@ download_dir = "~/Pictures/Wallpapers/wallhaven"
 notify_events = false
 
 [plugins]
-auto_update = "all"
 enabled = [
-    "noctalia/screen_recorder",
-    "noctalia/wallhaven",
+    "rylos/syncthing",
+    "joshuaslate/shelly",
     "yuuto/calculator",
+    "h-jangra/keyviz",
     "icefish/phone-connect",
     "thepunkoff/pomodoro",
-    "rylos/syncthing",
-    "noctalia/bitwarden",
-    "thaer99ob/default-apps",
-    "joshuaslate/shelly",
-    "h-jangra/keyviz",
+    "noctalia/screen_recorder",
     "noctalia/timer",
-    "noctalia/umbriel-companion"
+    "noctalia/wallhaven",
+    "noctalia/umbriel-companion",
+    "thaer99ob/default-apps"
 ]
-
-[[plugins.source]]
-name = "official"
-kind = "git"
-location = "https://github.com/noctalia-dev/official-plugins"
-enabled = true
-
-[[plugins.source]]
-name = "community"
-kind = "git"
-location = "https://github.com/noctalia-dev/community-plugins"
-enabled = true
 
 [shell]
 avatar_path = "~/Pictures/.avatar.jpg"
@@ -207,6 +196,7 @@ show_location = false
     app_grid = true
     auto_paste = "auto"
     category_icons_only = true
+    layout = "simple"
     show_app_actions = false
     show_navigation_labels = false
     show_session_button = false
@@ -303,46 +293,38 @@ directory = "~/Pictures/Wallpapers"
 max_length = 310
 
     [widget.active_window.actions]
-    back = "exec niri msg action set-window-height -10%"
-    forward = "exec niri msg action set-window-height +10%"
-    left = "exec niri msg action toggle-window-floating"
-    right = "exec appid=$(niri msg -j focused-window | jq -r '.app_id // \"window\"'); [ \"$(printf \"Cancel\\nYes\\n\" | noctalia dmenu -p \"Do you want to close $appid?\")\" = \"Yes\" ] && niri msg action close-window"
-    scroll_down = "exec niri msg action set-column-width -10%"
-    scroll_up = "exec niri msg action set-column-width +10%"
+    back = "exec umbriel msg window-modify-primary-extent -0.1"
+    forward = "exec umbriel msg window-modify-primary-extent +0.1"
+    left = "exec umbriel msg window-toggle-floating"
+    right = "exec appid=$(umbriel focused-window --json | jq -r '.app_id // \"window\"'); [ \"$(printf \"Cancel\\nYes\\n\" | noctalia dmenu -p \"Do you want to close $appid?\")\" = \"Yes\" ] && umbriel msg window-close"
+    scroll_down = "exec umbriel msg window-modify-secondary-extent -0.1"
+    scroll_up = "exec umbriel msg window-modify-secondary-extent +0.1"
 
 [widget.active_window2]
 max_length = 160
 type = "active_window"
 
     [widget.active_window2.actions]
-    back = "exec niri msg action set-window-height -10%"
-    forward = "exec niri msg action set-window-height +10%"
-    left = "exec niri msg action toggle-window-floating"
-    right = "exec appid=$(niri msg -j focused-window | jq -r '.app_id // \"window\"'); [ \"$(printf \"Cancel\\nYes\\n\" | noctalia dmenu -p \"Do you want to close $appid?\")\" = \"Yes\" ] && niri msg action close-window"
-    scroll_down = "exec niri msg action set-column-width -10%"
-    scroll_up = "exec niri msg action set-column-width +10%"
+    back = "exec umbriel msg window-modify-primary-extent -0.1"
+    forward = "exec umbriel msg window-modify-primary-extent +0.1"
+    left = "exec umbriel msg window-toggle-floating"
+    right = "exec appid=$(umbriel focused-window --json | jq -r '.app_id // \"window\"'); [ \"$(printf \"Cancel\\nYes\\n\" | noctalia dmenu -p \"Do you want to close $appid?\")\" = \"Yes\" ] && umbriel msg window-close"
+    scroll_down = "exec umbriel msg window-modify-secondary-extent -0.1"
+    scroll_up = "exec umbriel msg window-modify-secondary-extent +0.1"
 
-[widget.bar]
-type = "icefish/phone-connect:bar"
-
-[widget.bar_2]
-max_bar_length = 11
+[widget.calculator]
 type = "yuuto/calculator:bar"
-
-[widget.bar_3]
-type = "rylos/syncthing:bar"
-
-[widget.bluetooth]
-enabled = true
 
 [widget.clipboard]
 enabled = false
 
 [widget.clock]
-format = "{:%H:%M| %d}"
-tooltip_format = "{:%-I:%M %p}| {:%A} {:%d.%m.%y}"
+format = "{:%H:%M | %d}"
+tooltip_format = "{:%-I:%M %p} | {:%A} {:%d.%m.%y}"
 
     [widget.clock.actions]
+    back = "exec noctalia msg panel-toggle noctalia/timer:panel"
+    forward = "exec noctalia msg panel-toggle noctalia/timer:panel"
     right = "panel-toggle thepunkoff/pomodoro:panel"
 
 [widget.control-center]
@@ -351,14 +333,18 @@ enabled = false
     [widget.control-center.actions]
     right = "settings-open"
 
+[widget.default-apps]
+type = "thaer99ob/default-apps:current"
+
 [widget.focus-column-left]
 glyph = "arrow-big-left"
 tooltip = "Focus Column to the Left"
 type = "custom_button"
 
     [widget.focus-column-left.actions]
-    back = "exec niri msg action focus-column-left"
-    left = "exec niri msg action focus-column-left"
+    back = "exec umbriel msg window-focus-left && umbriel msg column-center"
+    forward = "exec umbriel msg window-focus-right && umbriel msg column-center"
+    left = "exec umbriel msg window-focus-left && umbriel msg column-center"
 
 [widget.focus-column-right]
 glyph = "arrow-big-right"
@@ -366,11 +352,12 @@ tooltip = "Focus Column to the Right"
 type = "custom_button"
 
     [widget.focus-column-right.actions]
-    forward = "exec niri msg action focus-column-right"
-    left = "exec niri msg action focus-column-right"
+    back = "exec umbriel msg window-focus-left && umbriel msg column-center"
+    forward = "exec umbriel msg window-focus-right && umbriel msg column-center"
+    left = "exec umbriel msg window-focus-right && umbriel msg column-center"
 
-[widget.launcher]
-enabled = true
+[widget.keyviz]
+type = "h-jangra/keyviz:widget"
 
 [widget.media]
 hide_when_no_media = true
@@ -397,6 +384,9 @@ type = "media"
 enabled = false
 show_label = false
 
+[widget.phone-connect]
+type = "icefish/phone-connect:bar"
+
 [widget.recorder]
 type = "noctalia/screen_recorder:recorder"
 
@@ -409,8 +399,18 @@ click_action = "open_updater"
 hide_when_up_to_date = true
 type = "joshuaslate/shelly:shelly"
 
+[widget.syncthing]
+type = "rylos/syncthing:bar"
+
 [widget.tray]
+drawer = false
+
+[widget.tray2]
 drawer = true
+type = "tray"
+
+[widget.umbriel-companion]
+type = "noctalia/umbriel-companion:bar"
 
 [widget.wallpaper.actions]
 right = "panel-toggle noctalia/wallhaven:browser"
@@ -426,11 +426,8 @@ labels_only_when_occupied = true
     [widget.workspaces.actions]
     back = "workspace-switch prev"
     forward = "workspace-switch next"
-    right = "exec niri msg action toggle-overview"
+    right = "exec umbriel msg overview-toggle"
 ` | fromToml -}}
-{{- /* Umbriel is the main session on every Linux host, including unknown ones. */ -}}
-{{- $umbriel := include ".chezmoitemplates/noctalia/umbriel.toml" | fromToml -}}
-{{- $shared = mergeOverwrite $shared $umbriel -}}
 {{- $hostPath := joinPath .chezmoi.sourceDir ".chezmoitemplates/noctalia/hosts" .chezmoi.hostname -}}
 {{- $machine := dict -}}
 {{- $secrets := dict -}}
