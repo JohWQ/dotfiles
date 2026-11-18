@@ -174,6 +174,7 @@ follows_mouse = "sloppy"
 "Mod+Shift+Plus" = "cheatsheet-toggle"
 "Mod+Shift+Escape" = { action = "spawn umbriel msg shortcuts-inhibit-toggle && notify-send -t 3000 \"Toggle\" \"Inhibit focused surface\"", allow_when_inhibited = true, repeat = false }
 "Mod+Shift+Q" = { action = "window-close", repeat = false }
+"Mod+Shift+MouseMiddle" = { action = "spawn appid=$(umbriel focused-window --json | jq -r '.app_id // \"window\"'); [ \"$(printf \"Cancel\nYes\n\" | noctalia dmenu -p \"Do you want to close $appid?\")\" = \"Yes\" ] && umbriel msg window-close", repeat = false }
 
 "Mod+D" = "spawn noctalia msg panel-toggle launcher"
 "Mod+Shift+W" = "spawn noctalia msg panel-toggle wallpaper"
@@ -304,6 +305,8 @@ follows_mouse = "sloppy"
 "Mod+Shift+7" = "window-move-to-workspace 7"
 "Mod+Shift+8" = "window-move-to-workspace 8"
 "Mod+Shift+9" = "window-move-to-workspace 9"
+"Mod+Shift+WheelUp" = "window-move-to-workspace-previous"
+"Mod+Shift+WheelDown" = "window-move-to-workspace-next"
 "Mod+Ctrl+1" = "spawn umbriel msg window-move-to-workspace 1 && umbriel msg workspace-focus-last"
 "Mod+Ctrl+2" = "spawn umbriel msg window-move-to-workspace 2 && umbriel msg workspace-focus-last"
 "Mod+Ctrl+3" = "spawn umbriel msg window-move-to-workspace 3 && umbriel msg workspace-focus-last"
@@ -313,6 +316,8 @@ follows_mouse = "sloppy"
 "Mod+Ctrl+7" = "spawn umbriel msg window-move-to-workspace 7 && umbriel msg workspace-focus-last"
 "Mod+Ctrl+8" = "spawn umbriel msg window-move-to-workspace 8 && umbriel msg workspace-focus-last"
 "Mod+Ctrl+9" = "spawn umbriel msg window-move-to-workspace 9 && umbriel msg workspace-focus-last"
+"Mod+Ctrl+WheelUp" = "spawn umbriel msg window-move-to-workspace-previous && umbriel msg workspace-focus-last"
+"Mod+Ctrl+WheelDown" = "spawn umbriel msg window-move-to-workspace-next && umbriel msg workspace-focus-last"
 # Next available workspace: the first empty one on the focused output, or a new
 # one after the last. Switching is skipped when already there, since
 # back_and_forth would otherwise jump to the previous workspace.
@@ -390,8 +395,6 @@ default_extent_fraction = 0.5
 [[window_rule]]
 blur = true
 
-# Fractions of the output's usable area, so the settings window also fits the
-# resizable Sunshine output; 1020x900 on a 1920x1080 output.
 [[window_rule]]
 match.app_id = "^dev.noctalia.Noctalia$"
 default_floating = true
