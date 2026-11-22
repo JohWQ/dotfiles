@@ -444,7 +444,6 @@ block_capture = true
 # match.is_dialog = true
 # attach_to_parent = false
 
-
 [[window_rule]]
 match.app_id = "^wev$"
 default_scrolling_extent = 0.137 # 250 px
@@ -453,6 +452,11 @@ default_scrolling_extent = 0.137 # 250 px
 match.app_id = "^virt-manager$"
 match.title = "^Virtual Machine Manager$"
 default_scrolling_extent = 0.171 # 315 px
+
+[[window_rule]]
+match.app_id = "^virt-manager$"
+match.title = "on QEMU/KVM$"
+default_scrolling_extent = 0.803
 
 [[window_rule]]
 match.title = ["^File chooser$", "^File view$"]

@@ -31,6 +31,7 @@ default_fullscreen = true
 
 # Desktop outputs and output routing. Later rules override the shared ones.
 [output.DP-1]
+# enabled = false
 mode = "1920x1080@143.999"
 position = [0, 0]
 # scale = 1.25
