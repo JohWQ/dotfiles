@@ -174,7 +174,7 @@ follows_mouse = "sloppy"
 "Mod+Shift+Plus" = "cheatsheet-toggle"
 "Mod+Shift+Escape" = { action = "spawn umbriel msg shortcuts-inhibit-toggle && notify-send -t 3000 \"Toggle\" \"Inhibit focused surface\"", allow_when_inhibited = true, repeat = false }
 "Mod+Shift+Q" = { action = "window-close", repeat = false }
-"Mod+Shift+MouseMiddle" = { action = "spawn appid=$(umbriel focused-window --json | jq -r '.app_id // \"window\"'); [ \"$(printf \"Cancel\nYes\n\" | noctalia dmenu -p \"Do you want to close $appid?\")\" = \"Yes\" ] && umbriel msg window-close", repeat = false }
+"Mod+Shift+MouseMiddle" = { action = "spawn window=$(umbriel focused-window --json) && window_id=$(printf '%s' \"$window\" | jq -r '.id // empty') && appid=$(printf '%s' \"$window\" | jq -r '.app_id // \"window\"') && [ -n \"$window_id\" ] && [ \"$(printf 'Cancel\\nYes\\n' | noctalia dmenu -p \"Do you want to close $appid?\")\" = \"Yes\" ] && umbriel msg window-close \"$window_id\"", repeat = false }
 
 "Mod+D" = "spawn noctalia msg panel-toggle launcher"
 "Mod+Shift+W" = "spawn noctalia msg panel-toggle wallpaper"
@@ -203,7 +203,7 @@ follows_mouse = "sloppy"
 "Mod+Alt+O" = { action = "spawn obsidian", repeat = false }
 "Mod+Ctrl+Alt+Y" = { action = "spawn pear-desktop", repeat = false }
 
-"Mod+Shift+C" = { action = "spawn COLOR=$(hyprpicker) && [ -n \"$COLOR\" ] && echo -n \"$COLOR\" | wl-copy && notify-send \"Color Picker\" \"Copied $COLOR to clipboard\"", repeat = false }
+"Mod+Shift+C" = { action = "spawn COLOR=$(hyprpicker) && [ -n \"$COLOR\" ] && echo -n \"$COLOR\" | wl-copy && notify-send \"Color Picker\" \"Color $COLOR copied.\"", repeat = false }
 "Mod+Shift+T" = { action = "spawn ~/.local/bin/screen-ocr.sh", repeat = false }
 "Mod+Shift+A" = { action = "spawn ~/.local/bin/wayscriber-toggle", repeat = false }
 

@@ -304,7 +304,7 @@ max_length = 310
 back = "exec umbriel msg window-modify-primary-extent -0.1"
 forward = "exec umbriel msg window-modify-primary-extent +0.1"
 left = "exec umbriel msg window-toggle-floating"
-right = "exec appid=$(umbriel focused-window --json | jq -r '.app_id // \"window\"'); [ \"$(printf \"Cancel\\nYes\\n\" | noctalia dmenu -p \"Do you want to close $appid?\")\" = \"Yes\" ] && umbriel msg window-close"
+right = "exec window=$(umbriel focused-window --json) && window_id=$(printf '%s' \"$window\" | jq -r '.id // empty') && appid=$(printf '%s' \"$window\" | jq -r '.app_id // \"window\"') && [ -n \"$window_id\" ] && [ \"$(printf 'Cancel\\nYes\\n' | noctalia dmenu -p \"Do you want to close $appid?\")\" = \"Yes\" ] && umbriel msg window-close \"$window_id\""
 scroll_down = "exec umbriel msg window-modify-secondary-extent -0.1"
 scroll_up = "exec umbriel msg window-modify-secondary-extent +0.1"
 
@@ -316,7 +316,7 @@ type = "active_window"
 back = "exec umbriel msg window-modify-primary-extent -0.1"
 forward = "exec umbriel msg window-modify-primary-extent +0.1"
 left = "exec umbriel msg window-toggle-floating"
-right = "exec appid=$(umbriel focused-window --json | jq -r '.app_id // \"window\"'); [ \"$(printf \"Cancel\\nYes\\n\" | noctalia dmenu -p \"Do you want to close $appid?\")\" = \"Yes\" ] && umbriel msg window-close"
+right = "exec window=$(umbriel focused-window --json) && window_id=$(printf '%s' \"$window\" | jq -r '.id // empty') && appid=$(printf '%s' \"$window\" | jq -r '.app_id // \"window\"') && [ -n \"$window_id\" ] && [ \"$(printf 'Cancel\\nYes\\n' | noctalia dmenu -p \"Do you want to close $appid?\")\" = \"Yes\" ] && umbriel msg window-close \"$window_id\""
 scroll_down = "exec umbriel msg window-modify-secondary-extent -0.1"
 scroll_up = "exec umbriel msg window-modify-secondary-extent +0.1"
 
