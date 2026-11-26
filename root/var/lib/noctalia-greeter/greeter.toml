@@ -6,7 +6,7 @@
 # [appearance] scheme, password_style, hide_logo, power_buttons_position, scheme_selector_position, theme_mode, corner_radius_scale, font_family
 # [appearance.palette] full color role table, [appearance.wallpaper] path/fill_mode/fill_color
 # [appearance.wallpapers.<connector>] per-output wallpaper overrides
-# [output] name/layout/scale/scales/width/height/transforms, [idle] timeout, [cursor] theme/size/path
+# [output] name/layout/scale/scales/width/height/refresh_rate/transforms, [idle] timeout, [cursor] theme/size/path
 # [keyboard] layout/variant/options/numlock
 # [auth] allow_empty_password (bool), request_timeout (0-3600 seconds; default 60, 0 disables)
 
@@ -14,4 +14,4 @@
 name = "DP-1"
 
 [session]
-default = "niri"
+default = "umbriel"
