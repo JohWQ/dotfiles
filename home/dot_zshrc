@@ -263,7 +263,7 @@ alias windows='umbriel windows --json'
 # Runtime Noctalia settings that differ from the managed config.
 alias noctdiff='~/.local/bin/noctalia-diff'
 alias pickcolor='pastel --color-picker hyprpicker pick'
-
+alias output-toggle='~/.local/bin/umbriel-toggle-output'
 
 # ----- custom autocorrect ----- #
 # opts to enable

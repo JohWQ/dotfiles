@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Keep Wayscriber on demand, including when it was previously enabled at login.
 # Disabling autostart leaves an already-running daemon available for toggling.

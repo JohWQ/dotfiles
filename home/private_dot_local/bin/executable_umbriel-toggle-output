@@ -1,0 +1,94 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+for command_name in umbriel fzf jq; do
+  if ! command -v "$command_name" >/dev/null 2>&1; then
+    printf 'Required command not found: %s\n' "$command_name" >&2
+    exit 1
+  fi
+done
+
+outputs_json=$(umbriel outputs --json) || {
+  printf 'Could not get outputs from Umbriel.\n' >&2
+  exit 1
+}
+
+if ! jq -e 'type == "array"' >/dev/null 2>&1 <<<"$outputs_json"; then
+  printf 'Unexpected output from `umbriel outputs --json`.\n' >&2
+  exit 1
+fi
+
+mapfile -t output_rows < <(
+  jq -r '.[] | select(.name != null) | "\(.name)\t[\(if .enabled then "enabled" else "disabled" end)]"' <<<"$outputs_json"
+)
+
+if ((${#output_rows[@]} == 0)); then
+  printf 'No monitors found.\n' >&2
+  exit 1
+fi
+
+mode_file=$(mktemp "${TMPDIR:-/tmp}/umbriel-toggle-output.XXXXXX")
+trap 'rm -f -- "$mode_file"' EXIT
+printf 'disable\n' >"$mode_file"
+
+# Keep the selected operation in a private file so Ctrl-T can both update the
+# prompt and change the command applied after the menu closes.
+printf -v quoted_mode_file '%q' "$mode_file"
+toggle_binding="ctrl-t:transform-prompt(if [[ \$(< $quoted_mode_file) == disable ]]; then printf enable > $quoted_mode_file; printf 'Enable> '; else printf disable > $quoted_mode_file; printf 'Disable> '; fi)"
+
+if selection=$(printf '%s\n' "${output_rows[@]}" |
+  fzf --multi \
+    --delimiter=$'\t' \
+    --with-nth='1..' \
+    --prompt='Disable> ' \
+    --header='Ctrl-T: Switch between disabling/enabling' \
+    --bind="$toggle_binding"); then
+  :
+else
+  fzf_status=$?
+  if ((fzf_status == 1 || fzf_status == 130)); then
+    exit 0
+  fi
+  exit "$fzf_status"
+fi
+
+[[ -n "$selection" ]] || exit 0
+
+# Refresh status after the menu closes in case an output changed while it was
+# open (for example, due to a hotplug or another output control).
+latest_outputs=$(umbriel outputs --json) || {
+  printf 'Could not refresh outputs from Umbriel.\n' >&2
+  exit 1
+}
+declare -A latest_enabled=()
+while IFS=$'\t' read -r monitor enabled; do
+  [[ -n "$monitor" ]] && latest_enabled["$monitor"]=$enabled
+done < <(jq -r '.[] | select(.name != null) | "\(.name)\t\(.enabled)"' <<<"$latest_outputs")
+
+mode=$(<"$mode_file")
+failed=0
+while IFS= read -r row; do
+  monitor=${row%%$'\t'*}
+  if [[ ! ${latest_enabled[$monitor]+present} ]]; then
+    printf 'Monitor is no longer available: %s\n' "$monitor" >&2
+    failed=1
+    continue
+  fi
+
+  current_state=disable
+  [[ ${latest_enabled[$monitor]} == true ]] && current_state=enable
+  if [[ "$current_state" == "$mode" ]]; then
+    printf '%s is already %sd.\n' "$monitor" "$mode"
+    continue
+  fi
+
+  if umbriel msg "output-$mode" "$monitor"; then
+    printf '%s: %sd\n' "$monitor" "$mode"
+  else
+    printf 'Failed to %s %s.\n' "$mode" "$monitor" >&2
+    failed=1
+  fi
+done <<<"$selection"
+
+exit "$failed"
